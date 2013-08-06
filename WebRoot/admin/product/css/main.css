@@ -1,0 +1,40 @@
+.lab{
+	font-weight: bold;
+	font-size:12px;
+	text-align: right;
+	background-color: #F3F7F9;
+}
+.lab1{
+	font-weight: bold;
+	font-size:12px;
+	text-align: left;
+	padding-left: 20px;
+	background-color: #F3F7F9;
+}
+.addspeaker_form{
+	padding: 20px;
+}
+.addspeaker_form table {
+	background-color: #E9EDF1;
+}
+.addspeaker_form td {
+	background-color: #ffffff;
+}
+.addspeaker_form input {
+	border: 1px #AFAFAF solid; width: 300px; line-height: 25px; height: 26px;
+}
+.datebox input{
+		border:none;
+	}
+.addspeaker_form select {
+	border: 1px #AFAFAF solid;
+}
+.addspeaker_form textarea {
+	border: 1px #AFAFAF solid; width: 300px; height: 150px;
+}
+.hr{
+	border-top: 1px #AFAFAF dashed; margin-top: 10px; padding-bottom: 10px;
+}
+.combo-arrow{
+	height: 28px;
+}

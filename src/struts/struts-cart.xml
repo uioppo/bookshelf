@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="cart" namespace="/" extends="json-default">
+		<action name="findCartProducts" class="webCartAction" method="findCartProducts">
+			<result name="success" type="json">
+				<!--<param name="root">cartProductList</param>
+				<param name="excludeNullProperties">true</param>
+			--></result>
+		</action>
+		<action name="findFloatCartProducts" class="webCartAction" method="findFloatCartProducts">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>    

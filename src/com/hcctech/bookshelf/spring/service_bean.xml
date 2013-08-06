@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean name="adminUserService"
+		class="com.hcctech.bookshelf.services.impl.AdminUserServiceImpl"
+		scope="singleton">
+		<property name="bsAdminUserDao" ref="bsAdminUserDao"></property>
+	</bean>
+	<bean name="userLoginService"
+		class="com.hcctech.bookshelf.services.impl.UserLoginServiceImpl"
+		scope="singleton">
+		<property name="bsWebUserDao" ref="bsWebUserDao"></property>
+	</bean>
+	<bean name="registerService"
+		class="com.hcctech.bookshelf.services.impl.RegisterServiceImpl" scope="singleton">
+		<property name="bsWebUserDao" ref="bsWebUserDao"></property>
+		<property name="thirdVelocityEmailUtil" ref="thirdVelocityEmailUtil"></property>
+	</bean>
+	<bean name="bsProductsService"
+		class="com.hcctech.bookshelf.services.impl.BsProductsServiceImpl"
+		scope="singleton">
+		<property name="bsProductsDao" ref="bsProductsDao"></property>
+		<property name="bsSellSettingDao" ref="bsSellSettingDao"></property>
+		<property name="thirdVelocityEmailUtil" ref="thirdVelocityEmailUtil"></property>
+		<property name="bsAdminUserDao" ref="bsAdminUserDao"></property>
+	</bean>
+	
+	<bean name="bsReaderService"
+		class="com.hcctech.bookshelf.services.impl.BsReaderServiceImpl"
+		scope="singleton">
+		<property name="bsReaderDao" ref="bsReaderDao"></property>
+	</bean>
+	
+	<bean name="roleService" class="com.hcctech.bookshelf.services.impl.RoleServiceImpl"
+		scope="singleton">
+		<property name="bsRoleDao" ref="bsRoleDao"></property>
+		<property name="bsAdminUserDao" ref="bsAdminUserDao"></property>
+	</bean>
+	<bean name="functionService"
+		class="com.hcctech.bookshelf.services.impl.FunctionServiceImpl" scope="singleton">
+		<property name="bsFunctionDao" ref="bsFunctionDao"></property>
+	</bean>
+	<bean name="licenseManagerService"
+		class="com.hcctech.bookshelf.services.impl.LicenseManagerServiceImpl"
+		scope="singleton">
+		<property name="bsLicenseBatchDao" ref="bsLicenseBatchDao"></property>
+		<property name="bsLicenseKeyDao" ref="bsLicenseKeyDao"></property>
+		<property name="bsProductsDao" ref="bsProductsDao"></property>
+		<property name="bsAreaDao" ref="bsAreaDao"></property>
+		<property name="bsSchoolDao" ref="bsSchoolDao"></property>
+		<property name="bsDictionaryDao" ref="bsDictionaryDao"></property>
+		<property name="bsEbookDao" ref="bsEbookDao"></property>
+	</bean>
+	<bean name="eBookService" class="com.hcctech.bookshelf.services.impl.EBookServiceImpl"
+		scope="singleton">
+		<property name="bsEbookDao" ref="bsEbookDao"></property>
+		<property name="bsFlowDao" ref="bsFlowDao"></property>
+		<property name="thirdVelocityEmailUtil" ref="thirdVelocityEmailUtil"></property>
+		<property name="bsAdminUserDao" ref="bsAdminUserDao"></property>
+	</bean>
+	<bean name="logService" class="com.hcctech.bookshelf.services.impl.LogServiceImpl"
+		scope="singleton">
+		<property name="bsLogDao" ref="bsLogDao"></property>
+	</bean>
+	<bean name="userMessageService"
+		class="com.hcctech.bookshelf.services.impl.UserMessageServiceImpl"
+		scope="singleton">
+		<property name="bsWebUserDaoImpl" ref="bsWebUserDao"></property>
+		<property name="bsAreaDaoImpl" ref="bsAreaDao"></property>
+		<property name="bsSchoolDao" ref="bsSchoolDao"></property>
+	</bean>
+	<bean name="sellSettingService"
+		class="com.hcctech.bookshelf.services.impl.SellSettingServiceImpl"
+		scope="singleton">
+		<property name="sellSettingDaoImpl" ref="bsSellSettingDao"></property>
+	</bean>
+	<bean name="myBookService" class="com.hcctech.bookshelf.services.impl.MyBookServiceImpl"
+		scope="singleton">
+		<property name="bsMyBookDao" ref="bsMyBookDao"></property>
+		<property name="bsLicenseKeyDao" ref="bsLicenseKeyDao"></property>
+	</bean>
+	<bean name="webUserService"
+		class="com.hcctech.bookshelf.services.impl.WebUserServiceImpl" scope="singleton">
+		<property name="bsWebUserDao" ref="bsWebUserDao"></property>
+		<property name="bsUserInfoDao" ref="bsUserInfoDao"></property>
+	</bean>
+	<bean name="bsFlowService" class="com.hcctech.bookshelf.services.impl.BsFlowServiceImpl"
+		scope="singleton">
+		<property name="bsFlowDao" ref="bsFlowDao"></property>
+	</bean>
+	<bean name="orderService" class="com.hcctech.bookshelf.services.impl.OrderServiceImpl"
+		scope="singleton">
+		<property name="bsOrderDao" ref="bsOrderDao"></property>
+	</bean>
+	<bean id="dictionaryService"
+		class="com.hcctech.bookshelf.services.impl.DictionaryServiceImpl"
+		scope="singleton">
+		<property name="bsDictionaryDao" ref="bsDictionaryDao"></property>
+	</bean>
+	<bean id="schoolManagerService"
+		class="com.hcctech.bookshelf.services.impl.SchoolManagerServiceImpl"
+		scope="singleton">
+		<property name="bsSchoolDao" ref="bsSchoolDao"></property>
+	</bean>
+	<bean id="bsAreaService" class="com.hcctech.bookshelf.services.impl.BsAreaServiceImpl"
+		scope="singleton">
+		<property name="bsAreaDao" ref="bsAreaDao"></property>
+	</bean>
+	<bean id="myBookDownLoadFlexService" class="com.hcctech.bookshelf.services.impl.MyBookDownLoadFlexServiceImpl"
+		scope="singleton">
+		<property name="bsMyBookDao" ref="bsMyBookDao"></property>
+		<property name="bsUserDrmDao" ref="bsUserDrmDao"></property>
+		<property name="bsEbookDao" ref="bsEbookDao"></property>
+	</bean>
+
+	<bean name="productsSearchService"
+		class="com.hcctech.bookshelf.services.impl.ProductsSearchServiceImpl">
+		<property name="bsProductsDaoImpl" ref="bsProductsDao"></property>
+	</bean>
+
+	<bean id="productOrderService"
+		class="com.hcctech.bookshelf.services.impl.ProductOrderServiceImpl"
+		scope="singleton">
+		<property name="bsOrderProductDao" ref="bsOrderProductDao"></property>
+		<property name="bsOrderDao" ref="bsOrderDao"></property>
+		<property name="bsMyBookDao" ref="bsMyBookDao"></property>
+		<property name="bsProductsDao" ref="bsProductsDao"></property>
+		<property name="bsSellSettingDao" ref="bsSellSettingDao"></property>
+	</bean>
+	<bean id="recommendSetService" class="com.hcctech.bookshelf.services.impl.RecommendSetServiceImpl"
+		scope="singleton">
+		<property name="bsProductsDao" ref="bsProductsDao"></property>
+	</bean>
+	
+	<bean id="productService" class="com.hcctech.bookshelf.services.impl.ProductServiceImpl" >
+		<property name="bsProductsDao" ref="bsProductsDao"></property>
+	</bean>
+	<bean id="downloadReaderService" class="com.hcctech.bookshelf.services.impl.DownloadReaderServiceImpl" >
+		<property name="bsReaderDao" ref="bsReaderDao"></property>
+	</bean>
+	
+	
+	
+	<!-- 定时删除未激活用户  start -->
+	 <bean id="deleteNoneActiveUserJob" class="com.hcctech.bookshelf.util.DeleteNoneActiveUser" scope="singleton">
+	 	<property name="webUserService" ref="webUserService"></property>
+	 	<property name="orderService" ref="orderService"></property>
+	 	<property name="bsProductsService" ref="bsProductsService"></property>
+	 </bean>
+	 <!-- <bean id="deleteNoneActiveUserJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">  
+        <property name="jobClass" value="com.hcctech.bookshelf.util.DeleteNoneActiveUser"/>  
+    </bean>   -->
+  
+  	<bean id="deleteNoneActiveUserJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> 
+            <property name="targetObject">
+            	<ref bean="deleteNoneActiveUserJob"/>
+            </property> 
+            <property name="targetMethod">
+            	<value>deleteNoneActiveUser</value>
+            </property> 
+     </bean> 
+ 	<!-- 
+ 		cronExpression 含义 * * * * * * ?不设置
+ 		第1个的意思是秒，可以写0-59，也可以写*表示任意 
+		第2个是分钟，和秒的配置一样 
+		第3个是小时，可以写0-23，也可以用*表示任意 
+		第4个是天，可以写1-31，可以用*表示任意，当与第6个参数互斥时，也可以写?表示不设置 
+		第5个是月，可以是1-12，也可以写* 
+		第6个是星期几，可以是1-7，也可以写*，当与第4个参数互斥时，也可以写?表示不设置 
+	-->
+  	<bean id="deleteNoneActiveUserTrigger" lazy-init="false" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+        <property name="jobDetail" ref="deleteNoneActiveUserJobDetail" />  
+        <property name="cronExpression" value="0 13 2 * * ?" />  
+    </bean>
+    <!-- 定时删除未激活用户  end -->
+    <!-- 定时更改未付款的订单状态   start -->
+    <bean id="updateOrderState" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> 
+            <property name="targetObject">
+            	<ref bean="deleteNoneActiveUserJob"/>
+            </property> 
+            <property name="targetMethod">
+            	<value>updateOrderState</value>
+            </property> 
+     </bean> 
+     <bean id="updateOrderStateTrigger" lazy-init="false" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+        <property name="jobDetail" ref="updateOrderState" />  
+        <property name="cronExpression" value="0 12 * * * ?" />  
+    </bean>
+	<!-- 定时更改未付款的订单状态   end -->
+	
+	 <!-- 启用/取消商品优惠设置   start -->
+    <bean id="cancelDiscount" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> 
+            <property name="targetObject">
+            	<ref bean="deleteNoneActiveUserJob"/>
+            </property> 
+            <property name="targetMethod">
+            	<value>cancelDiscount</value>
+            </property> 
+     </bean> 
+     <bean id="cancelDiscountTrigger" lazy-init="false" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+        <property name="jobDetail" ref="cancelDiscount" />  
+        <property name="cronExpression" value="1 0 0 * * ?" />  
+    </bean>
+    <!-- 启用/取消商品优惠设置 end -->
+	
+    <!-- 总管理调度，可以添加多个触发器 -->
+    <bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+        <property name="triggers">  
+            <list>  
+                <ref bean="deleteNoneActiveUserTrigger" />  
+                <ref bean="updateOrderStateTrigger" /> 
+                <ref bean="cancelDiscountTrigger"/> 
+            </list>  
+        </property>  
+    </bean>
+</beans>

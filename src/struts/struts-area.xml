@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="area" namespace="/admin/area" extends="json-default">
+		<action name="findAllArea" class="bsAreaAction" method="findAllArea">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="saveArea" class="bsAreaAction" method="saveArea">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="findAreaById" class="bsAreaAction" method="findAreaById">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="updateArea" class="bsAreaAction" method="updateArea">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="deleteArea" class="bsAreaAction" method="deleteArea">
+			
+		</action>
+		<action name="importExcel" class="bsAreaAction" method="importExcel">
+			<result name="success" type="redirect">/admin/dictionaryManager/cityDictionary/cityDic.jsp?importExcelSuccess=1</result>
+		</action>
+		<action name="exportExcel" class="bsAreaAction" method="exportExcel">
+			<result name="fail" type="redirect">/admin/dictionaryManager/cityDictionary/cityDic.jsp?exportExcelFail=1</result>
+			<result name="excel" type="stream">  
+                <param name="contentType">application/vnd.ms-excel</param>  
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>  
+                <param name="bufferSize">1024</param>
+                <param name="inputName">excelFile</param>  
+            </result>
+		</action>
+	</package>
+</struts>

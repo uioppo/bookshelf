@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="product" namespace="/admin/product" extends="json-default" >
+		<!-- 商品列表 -->
+		<action name="loadProductsList" class="bsProductsAction" method="loadProductsList">
+			<result name="success" type="json">
+				<param name="excludeProperties">bsLicenseKeies,bsMybooks,bsOrderProducts</param>
+			</result>
+		</action>
+		<!-- 商品促销设置列表 -->
+		<action name="loadDiscountList" class="bsProductsAction" method="loadDiscountList">
+			<result name="success" type="json">
+				<param name="excludeProperties">bsLicenseKeies,bsMybooks,bsOrderProducts</param>
+			</result>
+		</action>
+		<!-- 商品上下架 -->
+		<action name="updateProductStatus" class="bsProductsAction" method="updateProductStatus">
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<!-- 特价设置 -->
+		<action name="updatePrice" class="bsProductsAction" method="updatePrice">
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<!-- 批量特价设置 -->
+		<action name="updatePriceBatch" class="bsProductsAction" method="updatePriceBatch">
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+	</package>
+	<package name="product_struts"  namespace="/admin/product" extends="struts-default">
+		<!-- 添加商品 -->
+		<action name="addProduct" class="bsProductsAction" method="addProduct">
+			<result name="addProduct">addsuc.jsp</result>
+			<result name="input">addsuc.jsp</result>
+		</action>
+		<!-- 修改商品 -->
+		<action name="updateProduct" class="bsProductsAction" method="updateProduct">
+			<result name="updateProduct">addsuc.jsp</result>
+			<result name="input">addsuc.jsp</result>
+		</action>
+		<!-- 加载上架商品 -->
+		<action name="loadProduct" class="bsProductsAction" method="loadProduct">
+			<result name="loadProduct">editProduct.jsp</result>
+			<result name="input">addsuc.jsp</result>
+		</action>
+		<!-- 查看商品 -->
+		<action name="loadDownProduct" class="bsProductsAction" method="loadDownProduct">
+			<result name="loadDownProduct">showProduct.jsp</result>
+			<result name="input">addsuc.jsp</result>
+		</action>
+	</package>
+	<!-- 商品详情 -->
+	<package name="singleProducts" namespace="/web" extends="struts-default">
+		<action name="findProductsById" class="webProductsAction" method="findProductsById">
+			<result name="success">productsDetail/productsDetail.jsp</result>
+			<result name="notFound" type="redirect">/index.html</result>
+		</action>
+	</package>
+	<package name="singleProducts_json" namespace="/web" extends="json-default">
+		<action name="validateLogin" class="webProductsAction" method="validateLogin">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+	<!-- 商品搜索 和 列表 -->
+	<package name="Search" namespace="/" extends="struts-default">
+		<action name="ebookSearch" class="productsSearchAction" method="ebookSearch">
+			<result name="list">/book_list.jsp</result>
+		</action>
+		<action name="ebooks" class="productsListAction" method="ebooks">
+			<result name="success">/WEB-INF/web/list.jsp</result>
+		</action>
+		<action name="search" class="productsListAction" method="search">
+			<result name="success">/WEB-INF/web/search.jsp</result>
+		</action>
+	</package>
+	<package name="index" extends="json-default">
+		<action name="newBook" class="productsListAction" method="newBook">
+			<result name="success" type="json">
+			</result>
+		</action>
+	</package>
+</struts>    

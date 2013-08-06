@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jnlp href="launch.jnlp" spec="1.0+">
+    <information>
+        <title>FileFtpApplet</title>
+        <vendor>randyjie</vendor>
+        <homepage href=""/>
+        <description>FileFtpApplet</description>
+        <description kind="short">FileFtpApplet</description>
+        
+        
+    </information>
+    <update check="always"/>
+    <security>
+<all-permissions/>
+</security>
+    <resources>
+        <j2se java-vm-args="-Djava.security.policy=applet.policy" version="1.6+"/>
+        <jar href="FileFtpApplet.jar" main="true"/>
+        
+        
+    </resources>
+    <applet-desc height="88" main-class="com.hcctech.bookshelf.applet.FileFtpApplet" name="FileFtpApplet" width="408">
+        
+    <param name="targetDir" value=""/>
+<param name="callback" value="cllback"/>
+<param name="filetype" value=""/>
+</applet-desc>
+</jnlp>

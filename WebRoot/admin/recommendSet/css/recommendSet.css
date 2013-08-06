@@ -1,0 +1,34 @@
+#recommend_book{width:984px;height:auto;float:left;padding-top:30px;}
+.recommdeng_tit{width:984px;height:31px;float:left;background:#DBDBDB;border-bottom:1px solid #333;}
+.recommdeng_tit span{width:auto;height:24px;background:#333;color:#fff;float:left;padding-left:10px;padding-right:10px;padding-top:7px;}
+.recommdeng_tit span #new {margin-left:5px;margin-top:-8px;}
+.recommend_con{width:980px;height:auto;float:left;border:1px solid #ddd;border-top:none;padding-left:2px;padding-top:15px;padding-bottom:10px;}
+.recommend_con ul{width:151px;height:auto;float:left;overflow:hidden;padding-left:21px;padding-right:24px;}
+.recommend_con ul li{width:151px;text-align:center;float:left;}
+.recommend_con ul .re_pic{width:151;height:192px;text-align:center;background:url(../images/re_book_bg.gif) no-repeat;padding-top:3px;}
+.recommend_con ul .re_pic img{width:143px;height:189px;}
+.recommend_con ul .re_name{color:#505050;padding-top:8px;padding-bottom:8px;}
+.recommend_con ul .re_price{color:#E20000;font-family:Arial;font-size:16px;font-weight:bold;}
+
+*{margin:0;padding:0;list-style-type:none;}
+a,ul,li,p,span{border:none;}
+img{border:none;vertical-align:middle;}
+input,select{vertical-align:middle;}
+#div{border:none;}
+body{width:100%;font-family:"ËÎÌå";font-size:12px;color:#000;float:left;}
+
+.shoping_cart{padding-top:5px;}
+.shoping_cart input{width:121px;height:30px;line-height:30px;text-align:center;color:#000;background:url(../images/input_bg01.gif) no-repeat;border-style:none;font-family:"Î¢ÈíÑÅºÚ";font-size:14px;cursor:pointer;}
+* {margin: 0;padding: 0;list-style-type: none;}
+
+a, ul, li, p, span {border: none;border-image: initial;}
+
+element.style {
+position: relative;
+}
+
+.recommend_con a {
+color: #333;
+text-decoration: none;
+font-size: 12px;
+}

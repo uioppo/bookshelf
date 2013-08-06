@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>支付帮助 - 人教云汉商城</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link href="../css/main.css" rel="stylesheet" type="text/css" />
+	<link href="../css/in.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="../js/slides.min.jquery.js"></script>
+	<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../js/user/topShopCart.js"></script>
+	<script type="text/javascript" src="../js/checkLogin.js"></script>
+	<script type="text/javascript" src="../js/tool.js"></script>
+	<script type="text/javascript" src="../js/search_bar.js"></script>
+	<script type="text/javascript" src="../js/checkLogin.js"></script>
+	<script type="text/javascript">
+		var path="..";
+	</script>
+  </head>
+ <body>
+<div id="container">
+  <div style="position:relative; z-index:0;" id="top_box">
+    <div id="top_left"></div>
+    <div id="top_right"></div>
+    <div id="top" style="position:relative;z-index:1000;">
+    <div style="position: relative; width: 230px; height: 70px; float: left; cursor: pointer;" onclick="window.location.href='../index.html'"></div>
+      <div class="top_tip"><span class="_top_tip"><span class="top_style01">您好，欢迎来人教云汉商城！</span><a href="3">登录</a>|<a href="#">注册</a></span><span class="top_style02">购物车（0）件</span> </div>
+      <div id="nav">
+      	<a href="../index.html">首页</a>|
+		<a href="../user/findUserName.action">我的账户</a>|
+		<a href="../user/orderList.jsp">我的订单</a>|
+		<a href="../myBook/myBookList.jsp">我的电子书</a>|
+		<a href="helpCenter.jsp">帮助中心</a>
+      </div>
+    </div>
+  </div>
+  <div id="banner">
+  <iframe src="../hot/banner.html" height="147px" width="1490px" marginheight="0px" marginwidth="0px" scrolling="no" style="border: none;">
+    </iframe>
+  </div>
+   <div id="search_box">
+  <div id="search">
+  <p class="search_left"></p>
+  <p class="search_center"><input class="search_center_input" value="请输入搜索内容" name="search_input" id="search_input" type="text" /></p>
+  <p class="search_right"><input name="serarch_button" class="serarch_button" onclick="search_word()" type="button" value="搜索" /></p>
+     </div>
+   </div>
+  <div id="main_box">
+    <div id="main">
+      <div id="main_con"><!--
+        <div id="main_banner"><img src="../images/main_banner.jpg" /></div>
+        --><div id="in_current">当前位置：<a href="../index.html">首页</a>|<span>帮助中心</span></div>
+        <div id="in_tit"><a id="help"></a>帮助中心</div>
+        <div id="in_con">
+		<div id="help">
+		<div style="mso-element:para-border-div;border:none;border-bottom:solid #EBEBEB 1.0pt;
+mso-border-bottom-alt:solid #EBEBEB .75pt;padding:0cm 0cm 0cm 0cm">
+
+<p class="MsoNormal" align="left" style="margin-top:7.5pt;margin-right:0cm;
+margin-bottom:7.5pt;margin-left:0cm;text-align:left;line-height:18.0pt;
+mso-pagination:widow-orphan;mso-outline-level:1;border:none;mso-border-bottom-alt:
+solid #EBEBEB .75pt;padding:0cm;mso-padding-alt:0cm 0cm 0cm 0cm"><b><span style="font-size:12.0pt;font-family:宋体;mso-ascii-font-family:Arial;mso-hansi-font-family:
+Arial;mso-bidi-font-family:Arial;color:#1E50A2;mso-font-kerning:18.0pt">付款遇到的问题</span></b><b><span lang="EN-US" style="font-size:12.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;mso-fareast-font-family:
+宋体;color:#1E50A2;mso-font-kerning:18.0pt"><o:p></o:p></span></b></p>
+
+</div>
+
+<p class="MsoNormal" align="left" style="text-align:left;line-height:18.0pt;
+mso-pagination:widow-orphan"><span style="font-family: 宋体; ">（</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">1</span><span style="font-family: 宋体; ">）当您点击确认支付后，请不要关闭新打开的页面，否则支付将无法完成。</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="text-align:left;line-height:18.0pt;
+mso-pagination:widow-orphan"><span style="font-family: 宋体; ">（</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">2</span><span style="font-family: 宋体; ">）由于您的支付信息银行没有及时传输给我们，导致银行卡已经扣款成功，但您的商品没有购买成功，我们感到非常抱歉。不过请放心，我们会在三到五个工作日和银行对账，确认您的扣款成功后，相应款项会直接返回您的网银。</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="text-align:left;line-height:18.0pt;
+mso-pagination:widow-orphan"><span style="font-family: 宋体; ">（</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">3</span><span style="font-family: 宋体; ">）打开支付页面，提示</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">“</span><span style="font-family: 宋体; ">该页无法显示</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">”</span><span style="font-family: 宋体; ">或空白页，可能是什么原因？</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin-left:48.75pt;text-align:left;
+text-indent:-18.0pt;line-height:18.0pt;mso-pagination:widow-orphan;mso-list:
+l0 level1 lfo1;tab-stops:list 36.0pt"><!--[if !supportLists]--><span lang="EN-US" style="font-size: 10pt; font-family: Symbol; ">·<span style="font-family: 'Times New Roman'; font-size: 7pt; line-height: normal; ">
+</span></span><!--[endif]--><span lang="EN-US" style="font-family: Arial, sans-serif; ">A. </span><span style="font-family: 宋体; ">没有升级</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">IE</span><span style="font-family: 宋体; ">浏览器，导致加密级别过低，无法进入银行系统。</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin-left:48.75pt;text-align:left;
+text-indent:-18.0pt;line-height:18.0pt;mso-pagination:widow-orphan;mso-list:
+l0 level1 lfo1;tab-stops:list 36.0pt"><!--[if !supportLists]--><span lang="EN-US" style="font-size: 10pt; font-family: Symbol; ">·<span style="font-family: 'Times New Roman'; font-size: 7pt; line-height: normal; ">
+</span></span><!--[endif]--><span lang="EN-US" style="font-family: Arial, sans-serif; ">B</span><span style="font-family: 宋体; ">．上网环境或上网方式受限，可能是网络服务商限制，建议更换一种上网方式。</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin-left:48.75pt;text-align:left;
+text-indent:-18.0pt;line-height:18.0pt;mso-pagination:widow-orphan;mso-list:
+l0 level1 lfo1;tab-stops:list 36.0pt"><!--[if !supportLists]--><span lang="EN-US" style="font-size: 10pt; font-family: Symbol; ">·<span style="font-family: 'Times New Roman'; font-size: 7pt; line-height: normal; ">
+</span></span><!--[endif]--><span lang="EN-US" style="font-family: Arial, sans-serif; ">C</span><span style="font-family: 宋体; ">．尝试刷新页面；如果刷新不能解决问题，可能由于浏览器缓存设置的原因，请在</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">IE</span><span style="font-family: 宋体; ">菜单</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;</span><span style="font-family: 宋体; ">工具</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;Internet</span><span style="font-family: 宋体; ">选项</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;</span><span style="font-family: 宋体; ">点击</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">“</span><span style="font-family: 宋体; ">删除</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">cookies”</span><span style="font-family: 宋体; ">和</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">“</span><span style="font-family: 宋体; ">删除文件</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">”</span><span style="font-family: 宋体; ">，用以清除临时文件。</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="text-align:left;line-height:18.0pt;
+mso-pagination:widow-orphan"><span style="font-family: 宋体; ">（</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">4</span><span style="font-family: 宋体; ">）银行页面打不开的解决方法？</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin-left:48.75pt;text-align:left;
+text-indent:-18.0pt;line-height:18.0pt;mso-pagination:widow-orphan;mso-list:
+l1 level1 lfo2;tab-stops:list 36.0pt"><!--[if !supportLists]--><span lang="EN-US" style="font-size: 10pt; font-family: Symbol; ">·<span style="font-family: 'Times New Roman'; font-size: 7pt; line-height: normal; ">
+</span></span><!--[endif]--><span lang="EN-US" style="font-family: Arial, sans-serif; ">A. </span><span style="font-family: 宋体; ">没有升级</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">IE</span><span style="font-family: 宋体; ">浏览器，导致加密级别过低，无法进入银行系统。</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin-left:48.75pt;text-align:left;
+text-indent:-18.0pt;line-height:18.0pt;mso-pagination:widow-orphan;mso-list:
+l1 level1 lfo2;tab-stops:list 36.0pt"><!--[if !supportLists]--><span lang="EN-US" style="font-size: 10pt; font-family: Symbol; ">·<span style="font-family: 'Times New Roman'; font-size: 7pt; line-height: normal; ">
+</span></span><!--[endif]--><span lang="EN-US" style="font-family: Arial, sans-serif; ">B. </span><span style="font-family: 宋体; ">如果是个人电脑，请关闭您的防火墙再试。</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin-left:48.75pt;text-align:left;
+text-indent:-18.0pt;line-height:18.0pt;mso-pagination:widow-orphan;mso-list:
+l1 level1 lfo2;tab-stops:list 36.0pt"><!--[if !supportLists]--><span lang="EN-US" style="font-size: 10pt; font-family: Symbol; ">·<span style="font-family: 'Times New Roman'; font-size: 7pt; line-height: normal; ">
+</span></span><!--[endif]--><span lang="EN-US" style="font-family: Arial, sans-serif; ">C. </span><span style="font-family: 宋体; ">在</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">IE</span><span style="font-family: 宋体; ">浏览器</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">“</span><span style="font-family: 宋体; ">工具</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">”</span><span style="font-family: 宋体; ">菜单</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;Internet</span><span style="font-family: 宋体; ">选项</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;</span><span style="font-family: 宋体; ">高级</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;</span><span style="font-family: 宋体; ">安全，在</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">SSL2.0</span><span style="font-family: 宋体; ">和</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">SSL3.0</span><span style="font-family: 宋体; ">的选项前打勾。</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin-left:48.75pt;text-align:left;
+text-indent:-18.0pt;line-height:18.0pt;mso-pagination:widow-orphan;mso-list:
+l1 level1 lfo2;tab-stops:list 36.0pt"><!--[if !supportLists]--><span lang="EN-US" style="font-size: 10pt; font-family: Symbol; ">·<span style="font-family: 'Times New Roman'; font-size: 7pt; line-height: normal; ">
+</span></span><!--[endif]--><span lang="EN-US" style="font-family: Arial, sans-serif; ">D. </span><span style="font-family: 宋体; ">查看密钥长度是否支持</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">128</span><span style="font-family: 宋体; ">位</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">(IE-&gt;</span><span style="font-family: 宋体; ">帮助</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;</span><span style="font-family: 宋体; ">关于</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">Internet Explorer)</span><span style="font-family: 宋体; ">，，如果低于</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">128</span><span style="font-family: 宋体; ">，请升级密钥包。</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin-left:48.75pt;text-align:left;
+text-indent:-18.0pt;line-height:18.0pt;mso-pagination:widow-orphan;mso-list:
+l1 level1 lfo2;tab-stops:list 36.0pt"><!--[if !supportLists]--><span lang="EN-US" style="font-size: 10pt; font-family: Symbol; ">·<span style="font-family: 'Times New Roman'; font-size: 7pt; line-height: normal; ">
+</span></span><!--[endif]--><span lang="EN-US" style="font-family: Arial, sans-serif; ">E. </span><span style="font-family: 宋体; ">请您把银行网址在受信任的站点中添加进去，添加方法为：打开</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">IE</span><span style="font-family: 宋体; ">浏览器</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;</span><span style="font-family: 宋体; ">工具</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;Internet</span><span style="font-family: 宋体; ">选项</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;</span><span style="font-family: 宋体; ">安全</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;</span><span style="font-family: 宋体; ">受信任的站点</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;</span><span style="font-family: 宋体; ">站点</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">-&gt;</span><span style="font-family: 宋体; ">添加支付宝和银行的网站，重启</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">IE</span><span style="font-family: 宋体; ">浏览器登录支付宝进行相关操作。</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="text-align:left;line-height:18.0pt;
+mso-pagination:widow-orphan"><span style="font-family: 宋体; ">（</span><span lang="EN-US" style="font-family: Arial, sans-serif; ">5</span><span style="font-family: 宋体; ">）为什么交易付款不成功？</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin-left:48.75pt;text-align:left;
+text-indent:-18.0pt;line-height:18.0pt;mso-pagination:widow-orphan;mso-list:
+l2 level1 lfo3;tab-stops:list 36.0pt"><!--[if !supportLists]--><span lang="EN-US" style="font-size: 10pt; font-family: Symbol; ">·<span style="font-family: 'Times New Roman'; font-size: 7pt; line-height: normal; ">
+</span></span><!--[endif]--><span lang="EN-US" style="font-family: Arial, sans-serif; ">A. </span><span style="font-family: 宋体; ">由于银行返回的通知信息比较晚，超过了此次交易的超时时间，交易已关闭，不过请放心，我们会在收到银行的通知后，将您此次付款的金额<a name="OLE_LINK2"></a><a name="OLE_LINK1">退回给到您的付款网银。</a></span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+
+<p class="MsoNormal" align="left" style="margin-left:48.75pt;text-align:left;
+text-indent:-18.0pt;line-height:18.0pt;mso-pagination:widow-orphan;mso-list:
+l2 level1 lfo3;tab-stops:list 36.0pt"><!--[if !supportLists]--><span lang="EN-US" style="font-size: 10pt; font-family: Symbol; ">·<span style="font-family: 'Times New Roman'; font-size: 7pt; line-height: normal; ">
+</span></span><!--[endif]--><span lang="EN-US" style="font-family: Arial, sans-serif; ">B. </span><span style="font-family: 宋体; ">重复付款导致（交易状态已经是已付款状态），可能对同一笔交易重复付款，不过请放心，重复付款的金额会退回给到您的付款网银中。</span><span lang="EN-US" style="font-family: Arial, sans-serif; "><o:p></o:p></span></p>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="foot">
+  <p><a href="http://www.pep.com.cn/" target="_blank">人教网首页</a>|<a href="#">本站首页</a>|<a href="#">版权声明</a>|<a href="#">服务热线</a>|<a href="#">关于我们</a></p>
+  <p>京ICP备05019902号|新出网证(京)字016|京公网安备110402440009号&nbsp;&nbsp;版权所有：人民教育出版社有限公司</p>
+</div>
+</body>
+</html>

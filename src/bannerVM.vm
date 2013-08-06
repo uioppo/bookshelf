@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>banner</title>
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+	</head>
+	<body>
+		#if(${bannerType}=='swf')
+		<script type="text/javascript" src="${swfjsUrl}"></script>
+		<div id="bannerswf">This movie requires Flash Player 10</div>
+		<script type="text/javascript">
+			swfobject.embedSWF("${bannerUrl}", "bannerswf", "1490px", "147px", "10");
+		 </script>
+		#else
+		<img src="${bannerUrl}" >
+		#end
+	</body>

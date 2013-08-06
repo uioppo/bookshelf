@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="test" namespace="/admin" extends="struts-default">
+		<action name="adminlogin" class="adminLoginAction" method="login">
+			<result type="redirect">/admin/index.jsp</result>
+			<result name="input" >/admin/login.jsp</result>
+		</action>
+		<action name="adminLogout" class="adminLoginAction" method="logout">
+			<result type="redirect" >/admin/login.jsp</result>
+		</action>
+	</package>
+	<package name="admin_user" namespace="/admin/user" extends="json-default">
+		<action name="editUser" class="adminUserAction" method="editUser">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="validatePassword" class="adminUserAction" method="validatePassword">
+			<result type="json" name="success">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="findAllUser" class="adminUserAction" method="findAllUser">
+			<result type="json" name="success"></result>
+		</action>
+		<action name="findUserById" class="adminUserAction" method="findUserById">
+			<result type="json" name="success"></result>
+		</action>
+		<action name="saveUser" class="adminUserAction" method="saveUser">
+			<result type="json" name="success"></result>
+		</action>
+		<action name="deleteUser" class="adminUserAction" method="deleteUser"></action>
+		<action name="updateUser" class="adminUserAction" method="updateUser"></action>
+		<action name="updateStatusById" class="adminUserAction" method="updateStatusById"></action>
+		
+		<action name="findAllRole" class="roleAction" method="findAllRole">
+			<result type="json" name="success"></result>
+		</action>
+		<action name="saveRole" class="roleAction" method="saveRole">
+			<result type="json" name="success"></result>
+		</action>
+		<action name="deleteRole" class="roleAction" method="deleteRole">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="findRoleById" class="roleAction" method="findRoleById">
+			<result type="json" name="success"></result>
+		</action>
+		<action name="updateRole" class="roleAction" method="updateRole"></action>
+		<action name="findRoleFunctionIds" class="roleAction" method="findRoleFunctionIds">
+			<result name="success" type="json"><param name="root" >idlist</param></result>
+		</action>
+		
+		<action name="findAllFunction" class="functionAction" method="findAllFunction">
+			<result name="success" type="json">
+				<param name="root" >trees</param>
+			</result>
+		</action>
+		<action name="updateRoleFunction" class="roleAction" method="updateRoleFunction"></action>
+		<action name="findFunctionByRoleId" class="functionAction" method="findFunctionByRoleId">
+			<result type="json" name="success"></result>
+		</action>
+	</package>
+	<package name="adminIndex" namespace="/admin/index" extends="struts-default">
+		<action name="uploadBanner" class="com.hcctech.bookshelf.actions.BannerAction" method="uploadBanner">
+			<result name="success">banner.jsp</result>
+			<result name="input">banner.jsp</result>
+		</action>
+	</package>
+	<!--<package name="admin_user_" namespace="/admin/user" extends="struts-default">
+		<action name="editUser" class="adminUserAction" method="editUser">
+			<result type="freemarker">/admin/login.jsp</result>
+			<result type="redirectAction">
+				<param name="actionName">adminLogout</param>
+				<param name="namespace">/admin</param>
+			</result>
+		</action>
+	</package>
+--></struts>    

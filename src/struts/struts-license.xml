@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="license_json" namespace="/license" extends="json-default">
+		<action name="loadBatchList" class="licenseManagerAction" method="loadBatchList">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="loadProductAll" class="licenseManagerAction" method="loadProductAll">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="loadSheng" class="licenseManagerAction" method="loadSheng">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="loadSchool" class="licenseManagerAction" method="loadSchool">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="loadByAuthCode" class="licenseManagerAction" method="loadByAuthCode">
+			<result name="success" type="json">
+				<param name="root">bsLicenseKey</param>
+			</result>
+		</action>
+	</package>
+	<package name="license" namespace="/license" extends="struts-default">
+		<action name="loadKeyByBatch" class="licenseManagerAction" method="loadKeyByBatch">
+			<result name="success">/admin/licenseManager/licenseKeyDetail.jsp</result>
+		</action>
+		<action name="addLicenseKeyBatch" class="licenseManagerAction" method="addLicenseKeyBatch">
+			<result name="success" type="redirect">/admin/licenseManager/addLicenseKeyBatch.jsp</result>
+		</action>
+		<action name="exportExcel" class="licenseManagerAction" method="exportExcel">
+			<result name="success" type="redirect">/admin/licenseManager/batchList.jsp</result>
+		</action>
+	</package>
+</struts>    

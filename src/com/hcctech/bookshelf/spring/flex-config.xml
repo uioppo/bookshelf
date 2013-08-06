@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:flex="http://www.springframework.org/schema/flex"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+       http://www.springframework.org/schema/flex http://www.springframework.org/schema/flex/spring-flex-1.5.xsd">
+<flex:message-broker/>
+<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <property name="mappings">
+        <value>
+            /*=_messageBroker
+        </value>
+    </property>
+</bean>
+<bean class="org.springframework.flex.servlet.MessageBrokerHandlerAdapter"/>
+
+<bean name="userLoginFlex" class="com.hcctech.bookshelf.flex.UserLoginFlex" scope="prototype">
+	<property name="userLoginService" ref="userLoginService"></property>
+</bean>
+<bean name="userRegisterFlex" class="com.hcctech.bookshelf.flex.UserRegisterFlex" scope="prototype">
+	<property name="registerService" ref="registerService"></property>
+</bean>
+<bean name="myBookDownLoadFlex" class="com.hcctech.bookshelf.flex.MyBookDownLoadFlex"  scope="prototype">
+	<property name="myBookDownLoadFlexService" ref="myBookDownLoadFlexService"></property>
+</bean>
+
+<bean name="myBookFlex" class="com.hcctech.bookshelf.flex.MyBookFlex"  scope="prototype">
+	<property name="bsMyBookDao" ref="bsMyBookDao"></property>
+</bean>
+
+
+<!--flex remoting destination-->
+<flex:remoting-destination destination-id="userLoginFlex" ref="userLoginFlex"/>
+<flex:remoting-destination destination-id="userRegisterFlex" ref="userRegisterFlex"/>
+<flex:remoting-destination destination-id="myBookFlex" ref="myBookFlex"/>
+<flex:remoting-destination destination-id="myBookDownLoadFlex" ref="myBookDownLoadFlex"/>
+</beans>

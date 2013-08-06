@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software 
+
+Foundation//DTD Struts Configuration 2.1//EN" 
+
+"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="dictionary" namespace="/admin/dictionary" extends="json-default">
+		<action name="loadGrade" class="dictionaryAction" method="loadGrade">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="loadSubject" class="dictionaryAction" method="loadSubject">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="findDictionaryBySubject" class="dictionaryAction" method="findDictionaryBySubject">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="addDictionary" class="dictionaryAction" method="addDictionary">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="findDictionaryById" class="dictionaryAction" method="findDictionaryById">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="updateDictionary" class="dictionaryAction" method="updateDictionary">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="deleteDictionary" class="dictionaryAction" method="deleteDictionary">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="findDictionaryByGrade" class="dictionaryAction" method="findDictionaryByGrade">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="findByType" class="dictionaryAction" method="findByType">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>

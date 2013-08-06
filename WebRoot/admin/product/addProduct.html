@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>添加商品</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!-- easyui -->
+    <link rel="stylesheet" type="text/css" href="../js/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js"></script>
+	<!-- kindeditor -->
+	<script type="text/javascript" src="../../js/kindeditor-min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="../../js/lang/zh_CN.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/addProduct.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			function rand() {
+				$.ajax({
+					type:"post",
+					url: '../reandom.action?dd='+Math.random(),
+					cache : false,
+					success:function(msg) {
+					}
+				});
+			}
+			setInterval(rand,180*1000);
+			$("#t1").hide();
+			$("#show").bind("click",function () {
+				if($("#t1").is(":hidden")){
+					this.className = "l-btn-text icon-sub lab";
+			     	$("#t1").show();
+			     	$("#show").html("<span class='l-btn-left'><span class='l-btn-text' style='padding-left: 20px; '>收起电子书属性</span></span>");
+				}else {
+					this.className = "l-btn-text icon-plus lab";
+			     	$("#t1").hide();
+			     	$("#show").html("<span class='l-btn-left'><span class='l-btn-text' style='padding-left: 20px; '>查看电子书属性</span></span>");
+				}
+			 });
+		});
+	</script>
+	<style type="text/css">
+	.menu_iframe{position:absolute; visibility:inherit;top:100px;left:20px; display:none; width:750px; z-index:1; filter: Alpha(Opacity=0);} 	
+	.ke-edit-iframe{z-index: -1;}
+	</style>
+  </head>
+  
+  <body style="background-color: #fff">
+  	<div>
+    <div style="padding:10px;">
+	    <form id="ff" method="post" class="addspeaker_form" action="addProduct.action">
+	      <table border="0" cellpadding="4" cellspacing="1">
+  			<thead>
+  				<tr>
+					<td colspan="5">
+						<a id="add" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="choice()">选择电子书</a>
+						<input type="hidden" id="bookCode" name="bsProducts.bookCode">
+						<input type="hidden" id="schoolStage" name="bsProducts.schoolStage">
+						<input type="hidden" id="productType" name="bsProducts.productType">
+						<input type="hidden" id="bookSize" name="bsProducts.bookSize">
+						<input type="hidden" id="gradeCode" name="bsProducts.gradeCode">
+						<label id="bookName"></label>
+					</td>					
+				</tr>
+				<tr>
+					<th class="lab">商品名称</th>
+					<td><input id="productName" name="bsProducts.productName" class="easyui-validatebox" required="true" validType="length[1,50]"/></td>
+					<th class="lab">价格</th>
+					<td><input id="price" name="bsProducts.price" class="easyui-numberbox" data-options="min:0,precision:2,required:true"/></td>
+				</tr>
+				<tr>
+					<th class="lab">发布时间</th>
+					<td>
+						<input id="publishTime" style="width: 180px;" class="easyui-datebox" editable=false name="bsProducts.publishTime" required="true"/>
+					</td>
+					<th class="lab">使用期限</th>
+					<td >
+						<select id="usePeriod" name="bsProducts.usePeriod" style="width: 140px;background-color: #ffffff;" class="easyui-combobox" panelHeight="auto" editable=false>
+							<option value="1">一个月</option>
+							<option value="3">三个月</option>
+							<option value="6">六个月</option>
+							<option value="12">十二个月</option>
+							<option value="1200" selected="selected">永久</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th class="lab">下载次数</th>
+					<td>
+						<input id="downNumber"  name="bsProducts.downNumber" class="easyui-numberbox" data-options="min:0,precision:0,required:true"/>
+					</td>
+					<th class="lab">&nbsp;</th>
+					<td >
+						
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4"  id="show" class="l-btn-text icon-plus lab" style="text-align: left;cursor: pointer;background-color: #999">
+						<span class='l-btn-left'><span class='l-btn-text' style='padding-left: 20px;'>查看电子书属性</span></span>
+					</td>
+				</tr>
+				</thead>
+				
+				
+				<tr border="0" cellpadding="3" cellspacing="1" width="100%" align="center" style="background-color: #b9d8f3;">
+				<td colspan="4" >
+				<table id="t1" >
+				<tr>
+					<th class="lab">学段</th>
+					<td>
+						<input type="text" id="period" readonly="readonly">
+					</td>
+					<th class="lab">学科</th>
+					<td>
+						<input type="text" name="bsProducts.subject" id="subject" readonly="readonly">
+					</td>
+					
+				</tr>
+				<tr>
+					<th class="lab">年级</th>
+					<td>
+						<input type="text" name="bsProducts.grade" id="grade" readonly="readonly">
+					</td>
+					<th class="lab">册</th>
+					<td>
+						<input type="text" name="bsProducts.volume" id="volume" readonly="readonly">
+					</td>
+				</tr>
+				<tr>
+					<th class="lab">适用对象</th>
+					<td >
+						<input type="text" name="bsProducts.applyObject" id="applyObject" readonly="readonly">
+					</td>
+					<th class="lab">商品类型</th>
+					<td>
+						<input type="text" id="proType" readonly="readonly">
+					</td>
+				</tr>
+				<tr>					
+				</tr>
+				<tr>
+					<th class="lab">语种</th>
+					<td>
+						<input id="language" name="bsProducts.language" type="text" readonly="readonly"/>
+					</td>
+					<th class="lab">页数</th>
+					<td>
+						<input id="pageNumber" name="bsProducts.pageNumber" type="text" readonly="readonly"/>
+					</td>
+				</tr>
+				<tr>
+					<th class="lab">开发者</th>
+					<td>
+						<input id="author" name="bsProducts.author" type="text" readonly="readonly"/>
+					</td>
+					<th class="lab">出版社</th>
+					<td>
+						<input id="publishing" name="bsProducts.publishing" type="text" readonly="readonly"/>
+					</td>
+				</tr>
+				<tr>
+					<th class="lab">版本</th>
+					<td> 
+						<input id="edition" name="bsProducts.edition" type="text" readonly="readonly"/>
+					</td>
+					<th class="lab">对应教材版本</th>
+					<td> 
+						<input id="teachVersion" name="bsProducts.teachVersion" type="text" readonly="readonly"/>
+					</td>
+				</tr>
+				</table></td></tr>
+				
+				
+				<tfoot>
+				<tr>
+					<th class="lab">缩略图</th>
+					<td colspan="4" >
+						<input type="hidden" name="bsProducts.thumbnail" id="thumbnail">
+						<div style="background-color: #eeeeee; padding: 2px; z-index: -1;" id="imgUpload">
+							<applet width="375" height="88"  code="com.hcctech.bookshelf.applet.FileFtpApplet" archive="../ftp/FileFtpApplet.jar">
+            					<param name="jnlp_href" value="../ftp/launch.jnlp"/>
+            					<param name="targetDir" value="/images/"/>
+            					<param name="callback" value="onImgUploadFinish"/>
+            					<param name="filetype" value="image">
+        					</applet>
+        					<font style="font-size:12px;">尺寸：110*152,图片类型：png、jpg、jpeg、gif</font>
+        				</div>
+        				
+        			</td>
+					
+				</tr>
+				<!--  tr>
+					<th class="lab">试读片段</th>
+					<td colspan="4" >
+						<input type="hidden" name="bsProducts.tryUrl" id="tryUrl">
+						<div style="background-color: #eeeeee; padding: 2px;" id="fileUpload">
+							<applet width="408" height="88" code="com.hcctech.bookshelf.applet.FileFtpApplet" archive="../ftp/FileFtpApplet.jar">
+            					<param name="jnlp_href" value="../ftp/launch.jnlp"/>
+            					<param name="targetDir" value="/res/smaple/"/>
+            					<param name="callback" value="onZipUploadFinish"/>
+            					<param name="filetype" value="zip">
+        					</applet>
+        				</div>
+        			</td>
+				</tr-->
+				<tr>
+					<th class="lab1" colspan="5">内容简介</th>
+				</tr>
+				<tr>
+					<td colspan="5">
+						<div >
+							<textarea id="description" name="bsProducts.description" style="width: 100%;visibility:hidden;display: block;" ></textarea>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="lab1" colspan="5">目录</th>
+				</tr>
+				<tr>
+					<td colspan="5"><div ><textarea id="catalog" name="bsProducts.catalog" style="width: 100%;"></textarea></div></td>
+				</tr>	
+			</tfood>
+  		</table>
+ 		<div class="hr" width="100%"></div>
+ 		<a class="easyui-linkbutton" iconCls="icon-save" href="javascript:void(0)" onclick="saveProduct()" id="save">保&nbsp;&nbsp;存</a>
+	  </form>
+	</div>
+	<!-- 弹出框 -->
+	<div id="choiceBook">
+		<div id="yEbooklist_bar">
+	 		<input id="ss" class="easyui-searchbox" searcher="searcher" prompt="请输入搜索内容..." menu="#mm" style="width:300px"></input>&nbsp;&nbsp;
+			<div id="mm" style="width:120px">
+				<div name="bookName_">电子书名称</div>
+			</div>
+			
+	 	</div>
+	    <table id="yEBookList"></table>
+	</div>
+	<iframe class="menu_iframe" height="520" width="750" frameborder="0"></iframe>
+  	</div>
+  </body>
+</html>

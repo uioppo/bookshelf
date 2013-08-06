@@ -1,0 +1,574 @@
+
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<title>人教云汉商城</title>
+
+		<link href="css/main.css" rel="stylesheet" type="text/css" />
+
+		<link href="css/in.css" rel="stylesheet" type="text/css" />
+
+		<link rel="stylesheet" href="css/slides.css" type="text/css" />
+
+		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+
+		<script type="text/javascript" src="js/slides.min.jquery.js"></script>
+
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
+		<script type="text/javascript" src="js/user/topShopCart.js"></script>
+
+		<script type="text/javascript" src="js/checkLogin.js"></script>
+
+		<script type="text/javascript" src="js/tool.js"></script>
+
+		<script type="text/javascript" src="js/search_bar.js"></script>
+
+		<script type="text/javascript" src="js/select.js"></script>
+
+		<script type="text/javascript" src="js/checkLogin.js"></script>
+
+		<script type="text/javascript" src="js/main_menu.js"></script>
+
+		<script type="text/javascript" src="js/user/floatShopCart.js"></script>
+
+		<script type="text/javascript">
+
+	$(function() {
+
+		$('#slides').slides({
+
+			preload : true,
+
+			preloadImage : 'images/loading.gif',
+
+			play : 5000,
+
+			pause : 2500,
+
+			hoverPause : true,
+
+			generatePagination : false
+
+		});
+
+		$('.prev').hide();
+
+		$('.next').hide();
+
+		$('#slides').mouseover(function() {
+
+			$('.prev').show();
+
+			$('.next').show();
+
+		});
+
+		$('#slides').mouseout(function() {
+
+			$('.prev').hide();
+
+			$('.next').hide();
+
+		});
+
+		newBook(1);
+
+	});
+
+	function newBook(s){
+
+		$(".rec02").attr("class","rec01");
+
+		$("#id_"+s).attr("class","rec02");
+
+		$(".new_rec_content").hide();
+
+		$("#newRecContent_"+s).show();
+
+	}
+
+</script>
+
+	</head>
+
+	<body>
+
+		<div id="container">
+
+			<div style="position: relative; z-index: 0;" id="top_box">
+
+				<div id="top_left"></div>
+
+				<div id="top_right"></div>
+
+				<div id="top" style="position: relative; z-index: 1000;">
+					<div style="position: relative; width: 230px; height: 70px; float: left; cursor: pointer;" onclick="window.location.href='index.html'"></div>
+					<div class="top_tip">
+
+						<span class="_top_tip"> </span><span class="top_style02"></span>
+
+					</div>
+
+					<div id="nav">
+
+						<a id="nav_current" href="#">首页</a>|
+
+						<a href="user/findUserName.action">我的账户</a>|
+
+						<a href="user/orderList.jsp">我的订单</a>|
+
+						<a href="myBook/myBookList.jsp">我的电子书</a>|
+
+						<a href="help/helpCenter.jsp">帮助中心</a>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div id="banner">
+
+				<iframe src="hot/banner.html" height="147px" width="1490px" marginheight="0px" marginwidth="0px" scrolling="no" style="border: none;">
+
+    			</iframe>
+
+			</div>
+
+			<div id="search_box">
+
+				<div id="search">
+
+					<p class="search_left"></p>
+
+					<p class="search_center">
+
+						<input class="search_center_input" value="请输入搜索内容"
+
+							name="search_input" id="search_input" type="text" />
+
+					</p>
+
+					<p class="search_right">
+
+						<input name="serarch_button" class="serarch_button"
+
+							onclick="search_word()" type="button" value="搜索" />
+
+					</p>
+
+				</div>
+
+			</div>
+
+			<div id="main_box">
+
+				<div id="main">
+
+					<div id="main_con">
+
+
+
+						<!-- 目录s -->
+
+						<div id="main_menu">
+
+							<div id="menu_tit">
+
+								<img src="images/menu_list01.gif" />
+
+								<img src="images/menu_tit.gif" />
+
+							</div>
+
+							<div id="menu_con">
+
+								<ul id="menu_list">
+
+									<li>
+
+										<a id="menu_current" href="javascript:void(0);"
+
+											onclick="DoMenu('ChildMenu01')">数字教材</a>
+
+										<ul id="ChildMenu01" class="collapsed">
+
+											<li>
+
+												<div class="s_menu">
+
+													<ul>
+
+														<li class="grade">
+
+															【小学】
+
+														</li>
+
+														<li id="s1">
+
+															<a
+
+																href="ebooks.action?xd=1&xk=%E8%AF%AD%E6%96%87&page=0&order=&sort=&type=1&gao=ren">语文</a>
+
+														</li>
+
+														<li id="s2">
+
+															<a
+
+																href="ebooks.action?xd=1&xk=%E6%95%B0%E5%AD%A6&page=0&order=&sort=&type=1&gao=ren">数学</a>
+
+														</li>
+
+														<li id="s3">
+
+															<a
+
+																href="ebooks.action?xd=1&xk=%E8%8B%B1%E8%AF%AD&page=0&order=&sort=&type=1&gao=ren">英语</a>
+
+														</li>
+
+													</ul>
+
+													<ul>
+
+														<li class="grade">
+
+															【初中】
+
+														</li>
+
+														<li id="c1">
+
+															<a
+
+																href="ebooks.action?xd=2&xk=%E8%AF%AD%E6%96%87&page=0&order=&sort=&type=1&gao=ren">语文</a>
+
+														</li>
+
+														<li id="c2">
+
+															<a
+
+																href="ebooks.action?xd=2&xk=%E6%95%B0%E5%AD%A6&page=0&order=&sort=&type=1&gao=ren">数学</a>
+
+														</li>
+
+														<li id="c3">
+
+															<a
+
+																href="ebooks.action?xd=2&xk=%E8%8B%B1%E8%AF%AD&page=0&order=&sort=&type=1&gao=ren">英语</a>
+
+														</li>
+
+														<li id="c4">
+
+															<a
+
+																href="ebooks.action?xd=2&xk=%E7%89%A9%E7%90%86&page=0&order=&sort=&type=1&gao=ren">物理</a>
+
+														</li>
+
+														<li id="c5">
+
+															<a
+
+																href="ebooks.action?xd=2&xk=%E5%8C%96%E5%AD%A6&page=0&order=&sort=&type=1&gao=ren">化学</a>
+
+														</li>
+
+														<li id="c6">
+
+															<a
+
+																href="ebooks.action?xd=2&xk=%E7%94%9F%E7%89%A9&page=0&order=&sort=&type=1&gao=ren">生物</a>
+
+														</li>
+
+													</ul>
+
+												</div>
+
+											</li>
+
+										</ul>
+
+									</li>
+
+
+
+									<li>
+
+										<a href="javascript:;" onclick="DoMenu('ChildMenu02')">数字教辅</a>
+
+										<ul id="ChildMenu02" class="collapsed">
+
+											<li>
+
+												<div class="s_menu">
+
+													<ul>
+
+														<li class="grade">
+
+															【小学】
+
+														</li>
+
+														<li>
+
+															<a href="ebooks.action?xd=1&xk=%E8%AF%AD%E6%96%87&page=0&order=&sort=&type=0&gao=ren">语文指导书</a>
+
+														</li>
+
+														<li>
+
+															<a href="ebooks.action?xd=1&xk=%E6%95%B0%E5%AD%A6&page=0&order=&sort=&type=0&gao=ren">数学指导书</a>
+
+														</li>
+
+													</ul>
+
+													<ul>
+
+														<li class="grade">
+
+															【初中】
+
+														</li>
+
+														<li>
+
+															<a href="ebooks.action?xd=2&xk=%E8%AF%AD%E6%96%87&page=0&order=&sort=&type=0&gao=ren">语文指导书</a>
+
+														</li>
+
+														<li>
+
+															<a href="ebooks.action?xd=2&xk=%E6%95%B0%E5%AD%A6&page=0&order=&sort=&type=0&gao=ren">数学指导书</a>
+
+														</li>
+
+													</ul>
+
+												</div>
+
+											</li>
+
+										</ul>
+
+									</li>
+
+								</ul>
+
+							</div>
+
+						</div>
+
+						<!-- 目录e -->
+
+
+
+						<div class="index_con01">
+
+							<div id="index_experiment">
+
+								<div id="slides">
+
+									<div class="slides_container">
+
+																					<div class="slide"><a title="测试数据1" href="http://118.145.4.50/index.html" target="_blank"><img alt="测试数据1" src="images/gallery/201212/09175645639488.jpg" height="270" width="570"> </a></div>
+<div class="slide"><a title="测试数据2" href="http://118.145.4.50/index.html" target="_blank"><img alt="测试数据2" src="images/gallery/201212/09175645650263.jpg" height="270" width="570"> </a></div>
+<div class="slide"><a title="测试数据3" href="http://118.145.4.50/index.html" target="_blank"><img alt="测试数据3" src="images/gallery/201212/09175645651739.jpg" height="270" width="570"> </a></div>
+
+																			</div>
+
+									<a href="javascript:void(0);" class="prev" title="上一个"><img
+
+											src="images/left_go.png" width="23" height="46" alt="上一个" />
+
+									</a>
+
+									<a href="javascript:void();" class="next" title="下一个"><img
+
+											src="images/ri_go.png" width="23" height="46" alt="下一个" />
+
+									</a>
+
+								</div>
+
+							</div>
+
+							<div id="download_code">
+
+								<ul>
+
+									<li class="index_download">
+
+										<p class="download_title01">
+
+											<a href="downloadReader.action" target='_blank'>下载人教云书架</a>
+
+										</p>
+
+										<p class="download_title02">
+
+											<a href="help/helpDownloadReader.html" target='_blank'>为什么要下载人教云书架？</a>
+
+										</p>
+
+									</li>
+
+									<li class="index_code">
+
+										<p class="code_title01">
+
+											<a href="myBook/myBookList.jsp?openBox=1&ubk=index#mid" target='_blank'><img src="images/have_code.gif" />
+
+											</a>
+
+										</p>
+
+										<p class="code_title02">
+
+											<a href="help/helpLicenseKey.html" target='_blank'>什么是授权码？</a>
+
+										</p>
+
+									</li>
+
+								</ul>
+
+							</div>
+
+							<div id="index_new_rec">
+
+								<div id="new_rec_tit">
+
+									<p class="rec_title">
+
+										<img src="images/rec_title.gif" />
+
+									</p>
+
+									<p id="id_1" class="rec02" onclick="newBook(1)">
+
+										数字教材
+
+									</p>
+
+									<p id="id_0" class="rec01" onclick="newBook(0)">
+
+										数字教辅
+
+									</p>
+
+								</div>
+
+								<div class="book_link" id="new_rec_con_">
+
+									<div class="new_rec_content" id="newRecContent_1">
+
+											
+
+									</div>
+
+									<div class="new_rec_content" id="newRecContent_0">
+
+											
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="index_con01 index_con02">
+
+							<div class="materials_tit">
+
+								<span class="materials_title"><img
+
+										src="images/materials_title01.gif" />
+
+								</span><a
+
+									href="ebooks.action?xd=&xk=&page=0&order=&sort=&type=1&gao=ren">更多&gt;&gt;</a>
+
+							</div>
+
+							<div class="materials_con book_link" id="teach">
+
+								数据加载中，请稍候...
+
+							</div>
+
+						</div>
+
+						<div class="index_con01 index_con02">
+
+							<div class="materials_tit">
+
+								<span class="materials_title"><img
+
+										src="images/materials_title02.gif" />
+
+								</span><a
+
+									href="ebooks.action?xd=&xk=&page=0&order=&sort=&type=0&gao=ren">更多&gt;&gt;</a>
+
+							</div>
+
+							<div class="materials_con book_link" id="assisant">
+
+								数据加载中，请稍候...
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div id="foot">
+
+			<p>
+
+				<a href="http://www.pep.com.cn/" target="_blank">人教网首页</a>|
+
+				<a href="#">本站首页</a>|
+
+				<a href="#">版权声明</a>|
+
+				<a href="#">服务热线</a>|
+
+				<a href="#">关于我们</a>
+
+			</p>
+
+			<p>
+
+				京ICP备05019902号|新出网证(京)字016|京公网安备110402440009号&nbsp;&nbsp;版权所有：人民教育出版社有限公司
+
+			</p>
+
+		</div>
+
+	</body>
+
+</html>

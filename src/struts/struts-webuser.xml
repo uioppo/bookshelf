@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="webuser_json" namespace="/webuser" extends="json-default">
+		<action name="loadWebUserList" class="webUserAction" method="loadWebUserList">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="updateWebUserStatus" class="webUserAction" method="updateWebUserStatus">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="importExcel" class="webUserAction" method="importExcel">
+			<result name="success" type="redirect">/admin/webuser_manager/webUserList.jsp?importExcelSuccess=1</result>
+			<result name="fail" type="redirect">/admin/webuser_manager/webUserList.jsp?importExcelSuccess=0</result>
+		</action>
+		<action name="exportExcel" class="webUserAction" method="exportExcel">
+			<result name="fail" type="redirect">/admin/webuser_manager/webUserList.jsp?exportExcelFail=1</result>
+			<result name="excel" type="stream">  
+                <param name="contentType">application/vnd.ms-excel</param>  
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>  
+                <param name="bufferSize">1024</param>
+                <param name="inputName">excelFile</param>  
+            </result>
+		</action>
+	</package>
+	<package name="webuser" namespace="/webuser" extends="struts-default">
+		<action name="loadWebUserById" class="webUserAction" method="loadWebUserById">
+			<result name="success">/admin/webuser_manager/editWebUser.jsp</result>
+		</action>
+		<action name="updateWebUser" class="webUserAction" method="updateWebUser">
+			<result name="success" type="redirect">/admin/webuser_manager/webUserList.jsp</result>
+		</action>
+	</package>
+	<package name="recommendSet" namespace="/recommendSet" extends="json-default">
+		<action name="loadProductAll" class="recommendSetAction" method="loadProductAll">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="recommendSave" class="recommendSetAction" method="recommendSave">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="loadSelectBook" class="recommendSetAction" method="loadSelectBook">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>    

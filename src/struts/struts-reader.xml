@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="reader_json" namespace="/admin/reader" extends="json-default" >
+		<!-- 阅读器列表 -->
+		<action name="loadReaderList" class="bsReaderAction" method="loadReaderList">
+			<result name="success" type="json">
+				<param name="excludeProperties">msg</param>
+			</result>
+		</action>
+	</package>
+	<package name="reader_struts"  namespace="/admin/reader" extends="struts-default">
+		<!-- 添加阅读器 -->
+		<action name="addReader" class="bsReaderAction" method="addReader">
+			<result name="addReader">addsuc.jsp</result>
+			<result name="input">addsuc.jsp</result>
+			<result name="error">addsuc.jsp</result>
+		</action>
+		<action name="downloadThisReader" class="bsReaderAction" method="downloadThisReader">
+			<result name="success" type="redirect">${readerPath}</result>
+			<result name="input" type="redirect">readerList.jsp</result>
+		</action>
+	</package>
+</struts>    

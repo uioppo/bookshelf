@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	
+	<package name="userMessage" namespace="/user" extends="struts-default">
+	<!--查找用户-->
+		<action name="findUserName" class="userMessageAction" method="findUserName">
+			<result name="message">/user/user_message.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		<!--更新用户-->
+		<action name="updateUser" class="userMessageAction" method="updateUser">
+			<result name="list" type="redirectAction">
+				<param name="actionName" >findUserName</param>
+				<param name="namespace" >/user</param>
+			</result>
+		</action>
+	</package>
+	<package name="userMessage_json" namespace="/user" extends="json-default">
+		<!--省份列表-->
+		<action name="showArea" class="userMessageAction" method="showArea">
+			<result name="success" type="json"></result>
+		</action>
+		<!--城镇列表-->
+		<action name="showAreaPlus" class="userMessageAction" method="showAreaPlus">
+			<result name="success" type="json"></result>
+		</action>
+		<!-- 学校列表 -->
+		<action name="showSchool" class="userMessageAction" method="showSchool">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>    

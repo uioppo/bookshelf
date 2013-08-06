@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="sellsetting" namespace="/admin/sellSetting"
+		extends="json-default">
+		<!--促销列表-->
+		<action name="list" class="sellSettingAction" method="list">
+			<result name="success" type="json"></result>
+		</action>
+			<!--促销添加-->
+		<action name="save" class="sellSettingAction" method="save">
+			<result name="success" type="json"></result>
+		</action>
+			<!--促销查找-->
+		<action name="findById" class="sellSettingAction" method="findById">
+			<result name="success" type="json"></result>
+		</action>
+			<!--促销更新-->
+		<action name="update" class="sellSettingAction" method="update">
+			<result name="success" type="json"></result>
+		</action>
+			<!--促销删除-->
+		<action name="delete" class="sellSettingAction" method="delete"></action>
+	</package>
+</struts>    

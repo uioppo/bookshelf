@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!--浏览器是否缓存静态内容,开发阶段为：false,生产环境为：true -->
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<!--配置修改后是否重新加载,开发阶段为：true,生产环境为：false -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!--打印出更详细的错误信息 ,开发阶段为：true,生产环境为：false -->
+	<constant name="struts.devMode" value="ture" />
+	<constant name="struts.multipart.maxSize" value="11701096" />
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.custom.i18n.resources" value="applicationResource"></constant>
+	<constant name="struts.action.excludePattern" value="/jsp.*"/>
+	
+	<include file="struts/struts-product.xml"></include>
+	<include file="struts/struts-reader.xml"></include>
+	<include file="struts/struts-dictionary.xml"></include>
+	<include file="struts/struts-admin.xml"></include>
+	<include file="struts/struts-license.xml"></include>
+	<include file="struts/struts-ebook.xml"></include>
+	<include file="struts/struts-log.xml"></include>
+	<include file="struts/struts-user.xml"></include>
+	<include file="struts/struts-sellsetting.xml"></include>
+	<include file="struts/struts-order.xml"></include>
+	<include file="struts/struts-mybook.xml"></include>
+	<include file="struts/struts-webuser.xml"></include>
+	<include file="struts/struts-area.xml"></include>
+	<include file="struts/struts-school.xml"></include>
+	<include file="struts/struts-downloadReader.xml"></include>
+	<!-- this is shop cart struts xml -->
+	<include file="struts/struts-cart.xml"></include>
+	<!-- <package name="json_test" namespace="/" extends="json-default" > -->
+	<!-- <action name="json_test" class="com.hcctech.test.actions.JsonTestAction" 
+		method="json"> -->
+	<!-- <result name="success" type="json"> -->
+	<!-- 只输出某个属性 -->
+	<!-- <param name="root">username</param> -->
+	<!-- 忽略空属性 -->
+	<!-- <param name="excludeNullProperties">true</param> -->
+	<!-- 忽略父类属性 -->
+	<!-- <param name="ignoreHierarchy">false</param> -->
+	<!-- 定义输出（表达式） -->
+	<!-- <param name="includeProperties">user.*</param> -->
+	<!-- 定义输出要排除的属性 -->
+	<!-- <param name="excludeProperties">userName</param> -->
+	<!-- </result> -->
+	<!-- </action> -->
+	<!--</package> -->
+	<package name="login" extends="struts-default">
+		<action name="userLogin" class="loginAction" method="userLogin">
+			<result name="success" type="redirect">${forward}</result>
+			<result name="input">/login.jsp</result>
+		</action>
+	</package>
+	<package name="checkLogin" extends="json-default">
+		<action name="checkLogin" class="loginAction" method="checkLogin">
+			<result name="success" type="json">
+				<param name="root">email</param>
+			</result>
+		</action>
+		<action name="userEncode" class="loginAction" method="userEncode">
+			<result name="success" type="json">
+				<param name="root">name</param>
+			</result>
+		</action>
+		<action name="loginOut" class="loginAction" method="loginOut">
+			<result name="success" type="json">
+			</result>
+		</action>
+		
+		<action name="reandom" class="com.hcctech.bookshelf.actions.TimerAction" method="reandom">
+			<result name="success" type="json">
+				<param name="root">random</param>
+			</result>
+		</action>
+		
+	</package>
+
+	
+		<!-- register  start -->
+	<package name="registerAction_json" namespace="/register" extends="json-default" >
+		<action name="registerAction_validateUserName" class="registerAction" method="validateUserName">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="registerAction_validCodeIsRight" class="registerAction" method="validCodeIsRight">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+	<package name="registerAction" namespace="/register" extends="struts-default">
+		<action name="registerWebUser" class="registerAction" method="registerWebUser">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="token"></interceptor-ref>
+			<result name="errorPage" type="redirect">/register/errorPage.jsp</result>
+			<result name="registerSuccess" type="redirect">/register/registerSuccess.jsp?email=${email}</result>
+			<result name="invalid.token" type="redirect" >/register/errorPage.jsp</result>
+		</action>
+		<action name="registerAction_updatePassword" class="registerAction" method="updatePassword">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="token"></interceptor-ref>
+			<result name="errorPage" type="redirect">/register/errorPage.jsp</result>
+			<result name="updatePassword">/register/updatePassword.jsp</result>
+			<result name="invalid.token" type="redirect">/register/errorPage.jsp</result>
+		</action>
+		<action name="registerAction_*" class="registerAction" method="{1}">
+			<result name="findPassword">/register/findPassword.jsp</result>
+			<result name="activateSuccess" type="redirect">/register/activateSuccess.jsp</result>
+			<result name="lostPassword" type="redirect">/register/lostPasswordPrompt.jsp?email=${email}</result>
+			<result name="errorPage" type="redirect">/register/errorPage.jsp</result>
+		</action>
+	</package>
+	<!-- register  end -->
+	<package name="gallerySetAction" namespace="/" extends="struts-default">
+		<action name="gallerySet" class="gallerySetAction" method="gallerySet">
+			<result name="success">/admin/gallerySet/gallerySet.jsp</result>
+		</action>
+	</package>
+	<package name="gallerySetAction1" namespace="/newBookSet" extends="json-default">
+		<action name="newBookSave" class="gallerySetAction" method="newBookSave">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>    

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean name="bsAdminUserDao" class="com.hcctech.bookshelf.dao.impl.BsAdminUserDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsAreaDao" class="com.hcctech.bookshelf.dao.impl.BsAreaDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsDictionaryDao" class="com.hcctech.bookshelf.dao.impl.BsDictionaryDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsEbookDao" class="com.hcctech.bookshelf.dao.impl.BsEbookDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsFlowDao" class="com.hcctech.bookshelf.dao.impl.BsFlowDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsFunctionDao" class="com.hcctech.bookshelf.dao.impl.BsFunctionDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsLicenseBatchDao" class="com.hcctech.bookshelf.dao.impl.BsLicenseBatchDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsLicenseKeyDao" class="com.hcctech.bookshelf.dao.impl.BsLicenseKeyDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsLogDao" class="com.hcctech.bookshelf.dao.impl.BsLogDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsMyBookDao" class="com.hcctech.bookshelf.dao.impl.BsMyBookDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsOrderDao" class="com.hcctech.bookshelf.dao.impl.BsOrderDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsOrderProductDao" class="com.hcctech.bookshelf.dao.impl.BsOrderProductDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsProductsDao" class="com.hcctech.bookshelf.dao.impl.BsProductsDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsReaderDao" class="com.hcctech.bookshelf.dao.impl.BsReaderDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsRoleDao" class="com.hcctech.bookshelf.dao.impl.BsRoleDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsSchoolDao" class="com.hcctech.bookshelf.dao.impl.BsSchoolDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsSellSettingDao" class="com.hcctech.bookshelf.dao.impl.BsSellSettingDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsUserDrmDao" class="com.hcctech.bookshelf.dao.impl.BsUserDrmDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsUserInfoDao" class="com.hcctech.bookshelf.dao.impl.BsUserInfoDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="bsWebUserDao" class="com.hcctech.bookshelf.dao.impl.BsWebUserDaoImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>

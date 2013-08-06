@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="order" namespace="/admin/order" extends="json-default">
+		<action name="findAllOrder" class="orderAction" method="findAllOrder">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="findOrderById" class="orderAction" method="findOrderById">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+	
+	<package name="order_struts"  namespace="/user" extends="struts-default">
+		<action name="loadDetailOrder" class="bsOrderAction" method="loadDetailOrderById">
+			<result name="loadDetailOrderById">orderDetail.jsp</result>
+			<result name="input"  type="redirect">${url}</result>
+			<result name="noOrderId"  type="redirect">/index.html</result>
+		</action>
+	</package>
+	
+	<package name="order_json" namespace="/user" extends="json-default">
+		<action name="loadOrderById" class="bsOrderAction" method="loadOrderById">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="orderList" class="bsOrderAction" method="orderList">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="cancelOrder" class="bsOrderAction" method="cancelOrder">
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+	</package>
+	
+</struts>    

@@ -1,0 +1,19 @@
+<div id="newRecContent_1">
+		${newBook1}
+</div>
+<div id="newRecContent_0">
+		${newBook2}
+</div>
+<div id="galleryStr">
+	#if(!$galleryList)
+		${galleryStr}
+	#else
+		#foreach($galleryObj in ${galleryList})    
+			<div class="slide">
+				<a href="${galleryObj.galleryHref}" title="${galleryObj.galleryTitle}" target="_blank">
+					<img src="${galleryObj.gallerySrc}" width="570" height="270" alt="${galleryObj.galleryTitle}">
+				</a>
+			</div>
+		#end
+	#end
+</div>

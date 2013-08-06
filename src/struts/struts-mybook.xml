@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="mybook_json" namespace="/mybook" extends="json-default">
+		<action name="activeBookByKey" class="myBookAction" method="activeBookByKey">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="myBookList" class="myBookAction" method="myBookList">
+			<result name="success" type="json">
+			</result>
+		</action>
+		<action name="addMyBookByKey" class="myBookAction" method="addMyBookByKey">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+	<package name="mybook" namespace="/mybook" extends="struts-default">
+		<action name="myBookDetail" class="myBookAction" method="myBookDetail">
+			<result name="success">/myBook/myBookDetail.jsp</result>
+		</action>
+		<action name="myBookDetailForCount" class="myBookAction" method="myBookDetailForCount">
+			<result name="success">/myBook/myBookDetailForCount.jsp</result>
+		</action>
+	</package>
+	<package name="productOrder" namespace="/user" extends="struts-default">
+		<action name="createOrder" class="productOrderAction" method="createOrder">
+			<result name="login" type="redirect">${url}</result>
+			<result name="input" type="redirect">/pay/orderError.html</result>
+			<result name="success">/user/c_order.jsp</result>
+		</action>
+		<action name="createOrderForCount" class="productOrderAction" method="createOrderForCount">
+			<result name="login" type="redirect">${url}</result>
+			<result name="success">/index.jsp</result>
+		</action>
+		<action name="paySuccessForCount" class="productOrderAction" method="paySuccessForCount">
+			<result name="login" type="redirect">${url}</result>
+			<result name="success">/index.jsp</result>
+		</action>
+	</package>
+	<package name="productOrder_" namespace="/pay" extends="struts-default">
+		<action name="paySuccess" class="productOrderAction" method="paySuccess">
+			<result name="success" type="redirect">/pay/paySuccess.html</result>
+			<result name="error" type="redirect">/WEB-INF/pageError.jsp</result>
+		</action>
+	</package>
+</struts>    

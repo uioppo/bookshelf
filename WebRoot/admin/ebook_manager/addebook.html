@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>添加电子书</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="../js/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../product/css/main.css">
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+			function rand() {
+				$.ajax({
+					type:"post",
+					url: '../reandom.action?dd='+Math.random(),
+					cache : false,
+					success:function(msg) {
+					}
+				});
+			}
+			setInterval(rand,180*1000);
+		});
+		
+		/*function mid(){
+			var schoolStage = $("#schoolStage").combobox('getValue') ;
+			loadGradeSub(schoolStage);
+		}*/
+		
+		/*function loadGradeSub(schoolStage) {
+			$.ajax({
+				type:"post",
+				url: '../dictionary/loadSubject.action',
+				data:"schoolStage=" + schoolStage + "&type=1",
+				success:function(json) {
+					$("#subject").combobox({
+							data:json.subjectList,
+							valueField:'name',
+							textField:'name'
+					});
+					if(json.subjectList != null && json.subjectList.length > 0){
+						$('#subject').combobox('setValue',json.subjectList[0].name);
+					}
+				}
+			});
+		}*/
+	
+		function onUploadFinish(o,s,isSecret){
+			$("#bookPath").val(o);
+			$("#bookSize").val(s);
+			$("#isSecret").val(isSecret);
+			$.messager.alert('提示','上传成功!','info');
+		}
+		
+		function saveEbook(){
+			/*var subject = $("#subject").combobox('getValue') ;
+			if(subject == null || subject == ""){
+				$.messager.alert('提示','请选择学科!','info');
+				return;
+			}*/
+			var bookPath = $("#bookPath").val();
+			var isuploaded = false;
+			if(bookPath==""){
+				$.messager.alert('提示','请选择电子书上传并等待文件上传完成!','info');
+			}else
+				isuploaded = true;
+			var isbookName = $("#bookName").validatebox("isValid");
+			var isbookVersion = $("#bookVersion").validatebox("isValid");
+			if(isuploaded&&isbookName&&isbookVersion){
+				$("#ff").submit();
+			}
+		}
+		function checkName(){
+			var bookName = $("#bookName").val();
+			if(bookName!=null&&bookName!=""&&bookName.trim()!=""){
+				$.ajax({
+					type:"post",
+					url: '../ebook/checkName.action',
+					data:{bookName:bookName},
+					cache:false,
+					success:function(data) {
+						if(data){
+							var str="<th style='background-color:#ffffff;'>&nbsp;</th><td colspan='3'><span style='font-family: tahoma, arial, 宋体;font-size: 12px;color: #FF8500'>提示：该电子书名称与现有电子书名称重复.</span></td>";
+							$("#msg").html(str);
+						}else{
+							$("#bookName").validatebox("isValid");
+							$("#msg").html("");
+						} 
+					}
+				});
+			}else{
+				$("#bookName").validatebox("isValid");
+				$("#msg").html("");
+			}
+		}
+	</script>
+  </head>
+  <body style="background-color: #fff;">
+  	<div style="padding:10px;">
+	    <form id="ff" method="post" action="../ebook/uploadEbook.action" class="addspeaker_form">
+	      <table border="0" cellpadding="4" cellspacing="1">
+  			<tbody>
+				<tr>
+					<th class="lab">选择电子书</th>
+					<td colspan="3">
+					<div style="background-color: #eeeeee; padding: 2px;">
+						<applet width="408" height="88" code="com.hcctech.bookshelf.applet.FileFtpApplet" archive="../ftp/FileFtpApplet.jar" mayscript="mayscript">
+           					<param name="jnlp_href" value="../ftp/launch.jnlp"/>
+           					<param name="targetDir" value="/res/ybook/ebook/"/>
+           					<param name="callback" value="onUploadFinish"/>
+           					<param name="filetype" value="zip">
+           					<param name="showCheckBox" value="1">
+       					</applet>
+        			</div>
+					</td>
+				</tr>
+				<tr>
+					<th class="lab">电子书名称</th>
+					<td colspan="3"><input id="bookName" name="ebook.bookName" class="easyui-validatebox" data-options="required:true,validType:'length[1,50]'" style="width: 408px;" onblur="checkName()"/>
+					</td>
+				</tr>
+				<tr>
+					<th class="lab">电子书类型</th>
+					<td colspan="3">
+					<select id="bookType" name="ebook.bookType" style="background-color: #ffffff;" class="easyui-combobox" panelHeight="auto" editable=false>
+							<option value="01" >文科</option>
+							<option value="02" selected="selected" >理科</option>
+						</select>
+					</td>
+				</tr>
+				<tr id="msg"></tr>
+				<tr>
+					<th class="lab">版本号</th>
+					<td colspan="3">
+						<input id="bookVersion" name="bookVersion" class="easyui-numberbox" data-options="min:1.00,precision:2,required:true" style="width: 408px;"/></td>
+				</tr>
+				<!--<tr>
+					<th class="lab">学段</th>
+					<td>
+						<select id="schoolStage"  panelHeight="auto" style="width:140px;" editable=false>
+							<option value="1">小学</option>
+							<option value="2" selected="selected">初中</option>
+							<option value="3">高中</option>
+						</select>
+					</td>
+					<th class="lab">学科</th>
+					<td>
+						<select id="subject" name="ebook.subject" style="width: 140px;" class="easyui-combobox" panelHeight="auto" editable=false></select>
+					</td>
+				</tr>
+				<tr>
+					<th class="lab">版本</th>
+					<td>
+						<select id="serVersion" name="ebook.serVersion" style="width: 140px;" class="easyui-combobox" panelHeight="auto" editable=false></select>
+					</td>
+					<th class="lab">教材版本</th>
+					<td>
+						<select id="eduVersion" name="ebook.eduVersion" style="width: 140px;" class="easyui-combobox" panelHeight="auto" editable=false></select>
+					</td>
+				</tr>
+			--></tbody>
+  		</table>
+ 		<div class="hr" width="100%"></div>
+ 		<input type="hidden" name="ebook.bookPath" id="bookPath" />
+ 		<input type="hidden" name="bookSecret" id="isSecret" />
+ 		<input type="hidden" name="ebook.bookSize" id="bookSize" />
+ 		<a class="easyui-linkbutton" iconCls="icon-save" href="javascript:void(0)" onclick="saveEbook()">保&nbsp;&nbsp;存</a>
+	  </form>
+	</div>
+  </body>
+</html>

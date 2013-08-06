@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="school_json" namespace="/school" extends="json-default">
+		<action name="loadSchoolList" class="schoolManagerAction" method="loadSchoolList">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="deleteSchool" class="schoolManagerAction" method="deleteSchool">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="loadSchoolById" class="schoolManagerAction" method="loadSchoolById">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="addOrUpdate" class="schoolManagerAction" method="addOrUpdate">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="importExcel" class="schoolManagerAction" method="importExcel">
+			<result name="success" type="redirect">/admin/school/schoolList.jsp?importExcelSuccess=1</result>
+		</action>
+		<action name="exportExcel" class="schoolManagerAction" method="exportExcel">
+			<result name="fail" type="redirect">/admin/school/schoolList.jsp?exportExcelFail=1</result>
+			<result name="excel" type="stream">  
+                <param name="contentType">application/vnd.ms-excel</param>  
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>  
+                <param name="bufferSize">1024</param>
+                <param name="inputName">excelFile</param>  
+            </result>
+		</action>
+	</package>
+</struts>    

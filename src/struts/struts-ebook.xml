@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="admin_ebook" namespace="/admin/ebook" extends="json-default">
+		<action name="checkName" class="eBookAction" method="checkName">
+			<result name="success" type="json">
+				<param name="root">flag</param>
+			</result>
+		</action>
+		<action name="findEBookList" class="eBookAction" method="findEBookList">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="findUpdateEBookList" class="eBookAction" method="findUpdateEBookList">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="updateEbookStatus" class="eBookAction" method="updateEbookStatus"></action>
+		<action name="editEbookAttr" class="eBookAction" method="editEbookAttr">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="deleteEbookById" class="eBookAction" method="deleteEbookById"></action>
+		<action name="findAdviceList" class="bsFlowAction" method="findAdviceList">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="getEbookVersion" class="eBookAction" method="getEbookVersion">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+	<package name="ebook2" namespace="/admin/ebook" extends="struts-default">
+		<action name="uploadEbook" class="eBookAction" method="uploadEbook">
+			<result name="success" type="redirect">/admin/ebook_manager/ebook_response.jsp
+			</result>
+			<result name="error" type="redirect">/admin/error.jsp</result>
+			<result name="list" type="redirect">/admin/ebook_manager/u_EBookList.jsp
+			</result>
+		</action>
+		<action name="loadEBookByUpdate" class="eBookAction" method="loadEBookByUpdate">
+			<result>/admin/ebook_manager/update_ebook.jsp</result>
+			<result name="error" type="redirect">/admin/ebook_manager/tips_ebook.html
+			</result>
+		</action>
+	</package>
+	
+</struts>    

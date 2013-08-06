@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean name="adminLoginAction" class="com.hcctech.bookshelf.actions.AdminLoginAction"
+		scope="prototype" autowire="byName"></bean>
+	<bean name="registerAction" class="com.hcctech.bookshelf.actions.RegisterAction"
+		scope="prototype">
+		<property name="registerService" ref="registerService"></property>
+	</bean>
+	<bean name="loginAction" class="com.hcctech.bookshelf.actions.LoginAction"
+		scope="prototype">
+		<property name="userLoginService" ref="userLoginService"></property>
+	</bean>
+	<bean name="adminUserAction" class="com.hcctech.bookshelf.actions.AdminUserAction"
+		scope="prototype">
+		<property name="adminUserService" ref="adminUserService"></property>
+	</bean>
+	<bean name="bsProductsAction" class="com.hcctech.bookshelf.actions.BsProductsAction"
+		scope="prototype">
+		<property name="bsProductsService" ref="bsProductsService"></property>
+	</bean>
+	<bean name="bsReaderAction" class="com.hcctech.bookshelf.actions.BsReaderAction"
+		scope="prototype">
+		<property name="bsReaderService" ref="bsReaderService"></property>
+	</bean>
+	
+	<bean name="roleAction" class="com.hcctech.bookshelf.actions.RoleAction"
+		scope="prototype">
+		<property name="roleService" ref="roleService"></property>
+	</bean>
+	<bean name="functionAction" class="com.hcctech.bookshelf.actions.FunctionAction"
+		scope="prototype">
+		<property name="functionService" ref="functionService"></property>
+	</bean>
+	<bean name="licenseManagerAction" class="com.hcctech.bookshelf.actions.LicenseManagerAction"
+		scope="prototype">
+		<property name="licenseManagerService" ref="licenseManagerService"></property>
+	</bean>
+	<bean name="eBookAction" class="com.hcctech.bookshelf.actions.EBookAction"
+		scope="prototype">
+		<property name="eBookService" ref="eBookService"></property>
+	</bean>
+	<bean name="logAction" class="com.hcctech.bookshelf.actions.LogAction"
+		scope="prototype">
+		<property name="logService" ref="logService"></property>
+	</bean>
+	<bean name="userMessageAction" class="com.hcctech.bookshelf.actions.UserMessageAction"
+		scope="prototype">
+		<property name="userMessageServiceImpl" ref="userMessageService"></property>
+	</bean>
+
+
+	<bean name="myBookAction" class="com.hcctech.bookshelf.web.MyBookAction"
+		scope="prototype">
+		<property name="myBookService" ref="myBookService"></property>
+	</bean>
+	<bean name="sellSettingAction" class="com.hcctech.bookshelf.actions.SellSettingAction"
+		scope="prototype">
+		<property name="sellSettingServiceImpl" ref="sellSettingService"></property>
+	</bean>
+
+	<bean name="webUserAction" class="com.hcctech.bookshelf.actions.WebUserAction"
+		scope="prototype">
+		<property name="webUserService" ref="webUserService"></property>
+		<property name="bsAreaService" ref="bsAreaService"></property>
+		<property name="registerService" ref="registerService"></property>
+	</bean>
+	<bean name="bsFlowAction" class="com.hcctech.bookshelf.actions.BsFlowAction"
+		scope="prototype">
+		<property name="bsFlowService" ref="bsFlowService"></property>
+	</bean>
+	<bean name="orderAction" class="com.hcctech.bookshelf.actions.OrderAction"
+		scope="prototype">
+		<property name="orderService" ref="orderService"></property>
+	</bean>
+	<bean id="dictionaryAction" class="com.hcctech.bookshelf.actions.DictionaryAction"
+		scope="prototype">
+		<property name="dictionaryService" ref="dictionaryService"></property>
+	</bean>
+	<bean id="schoolManagerAction" class="com.hcctech.bookshelf.actions.SchoolManagerAction"
+		scope="prototype">
+		<property name="schoolManagerService" ref="schoolManagerService"></property>
+		<property name="bsAreaService" ref="bsAreaService"></property>
+	</bean>
+	<bean id="bsAreaAction" class="com.hcctech.bookshelf.actions.BsAreaAction"
+		scope="prototype">
+		<property name="bsAreaService" ref="bsAreaService"></property>
+	</bean>
+
+	<bean id="productsSearchAction" class="com.hcctech.bookshelf.web.ProductsSearchAction"
+	
+		scope="prototype">
+		<property name="productsSearchServiceImpl" ref="productsSearchService"></property>
+	</bean>
+
+
+	<bean id="webCartAction" class="com.hcctech.bookshelf.web.WebCartAction"
+		scope="prototype">
+		<property name="bsProductsService" ref="bsProductsService"></property>
+	</bean>
+	<bean name="bsOrderAction" class="com.hcctech.bookshelf.web.BsOrderAction"
+		scope="prototype">
+		<property name="orderService" ref="orderService"></property>
+	</bean>
+	<bean id="productOrderAction" class="com.hcctech.bookshelf.web.ProductOrderAction"
+		scope="prototype">
+		<property name="productOrderService" ref="productOrderService"></property>
+	</bean>
+	<bean id="webProductsAction" class="com.hcctech.bookshelf.web.WebProductsAction" scope="prototype">
+		<property name="bsProductsService" ref="bsProductsService"></property>
+	</bean>
+	<bean id="recommendSetAction" class="com.hcctech.bookshelf.actions.RecommendSetAction" scope="prototype">
+		<property name="recommendSetService" ref="recommendSetService"></property>
+	</bean>
+	
+	
+	<bean id="productsListAction" class="com.hcctech.bookshelf.web.ProductsListAction" scope="prototype">
+		<property name="productService" ref="productService"></property>
+	</bean>
+	
+	<bean id="gallerySetAction" class="com.hcctech.bookshelf.actions.GallerySetAction" scope="prototype">
+		<property name="thirdVelocityHtmlUtil" ref="thirdVelocityHtmlUtil"></property>
+	</bean>
+	<bean id="downloadReaderAction" class="com.hcctech.bookshelf.web.DownloadReaderAction" scope="prototype">
+		<property name="downloadReaderService" ref="downloadReaderService"></property>
+	</bean>
+	<bean id="bannerAction" class="com.hcctech.bookshelf.actions.BannerAction" scope="prototype">
+		<property name="thirdVelocityHtmlUtil" ref="thirdVelocityHtmlUtil"></property>
+	</bean>
+</beans>

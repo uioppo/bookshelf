@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>添加阅读器</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!-- easyui -->
+    <link rel="stylesheet" type="text/css" href="../js/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/themes/icon.css">
+	<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js"></script>
+	<link rel="stylesheet" type="text/css" href="../product/css/main.css">
+	<script type="text/javascript">
+		$(document).ready(function(){
+			function rand() {
+				$.ajax({
+					type:"post",
+					url: '../reandom.action?dd='+Math.random(),
+					cache : false,
+					success:function(msg) {
+					}
+				});
+			}
+			setInterval(rand,180*1000);
+		});
+		function onUploadFinish(path) {
+			$("#exePath").val(path);
+			$.messager.alert('提示','上传成功!','info');
+		}
+		function saveReader() {
+			
+			var version = $("#version").val();
+			if(version == null || version == '') {
+				$.messager.alert("提示","请输入版本号","info");
+				return ;
+			}
+			var exePath = $("#exePath").val();
+			if(exePath == null || exePath == '') {
+				$.messager.alert("提示","请上传阅读器","info");
+				return;
+			}
+			$("#ff").submit();
+			$('#save').linkbutton({disabled:true});
+		}
+	</script>
+	
+  </head>
+  
+  <body style="background-color: #fff">
+    <div style="padding:10px;">
+	    <form id="ff" method="post" class="addspeaker_form" action="addReader.action">
+	      <table border="0" cellpadding="4" cellspacing="1">
+  			<tbody>
+  				
+				<tr>
+					<th class="lab">版本</th>
+					<td><input id="version" style="width: 408px;" name="bsReader.version" class="easyui-validatebox" required="true" validType="length[1,20]"/></td>
+				</tr>
+				<tr>
+					<th class="lab">更新日志</th>
+					<td><textarea name="bsReader.changeLog" style="width: 408px;height: 50px"></textarea></td>
+				</tr>
+				<tr>
+					<th class="lab">选择阅读器</th>
+					<td>
+						<input type="hidden" name="bsReader.exePath" id="exePath"/>
+						<div style="background-color: #eeeeee; padding: 2px;" id="imgUpload">
+							<applet width="408" height="88"  code="com.hcctech.bookshelf.applet.FileFtpApplet" archive="../ftp/FileFtpApplet.jar">
+            					<param name="jnlp_href" value="../ftp/launch.jnlp"/>
+            					<param name="targetDir" value="/reader/"/>
+            					<param name="callback" value="onUploadFinish"/>
+            					<param name="filetype" value="exe">
+        					</applet>
+        				</div>
+        			</td>
+				</tr>
+			</tbody>
+  		</table>
+ 		<div class="hr" width="100%"></div>
+ 		<a class="easyui-linkbutton" iconCls="icon-save" href="javascript:void(0)" onclick="saveReader()" id="save">保&nbsp;&nbsp;存</a>
+	  </form>
+	</div>
+  </body>
+</html>
