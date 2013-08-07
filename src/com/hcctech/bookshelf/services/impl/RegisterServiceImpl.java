@@ -174,11 +174,11 @@ public class RegisterServiceImpl implements RegisterService{
 			return 502;
 		}else{
 			flag=1;
-			String token=Md5.getMD5Str(String.valueOf(Math.random()));
+//			String token=Md5.getMD5Str(String.valueOf(Math.random()));
 			bsWebUser.setWuUserName(bsWebUser.getWuEmail());
 			bsWebUser.setWuPassword(Md5.getMD5Str(bsWebUser.getWuPassword()));
-			bsWebUser.setWuToken(token);
-			bsWebUser.setWuActivestatus(0);
+			bsWebUser.setWuToken("");
+			bsWebUser.setWuActivestatus(1);
 			bsWebUser.setWuRegTime(new Timestamp(System.currentTimeMillis()));
 			BsUserInfo bsUserInfo = new BsUserInfo();
 			bsWebUserDao.save(bsUserInfo);
