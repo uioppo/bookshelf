@@ -65,7 +65,7 @@ public interface LicenseManagerService {
 	 */
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
 	void addLicenseKeyBatch(String idStr, String quId, Integer schoolId,
-			String schoolStage, Integer keySize, String lifeTime, String pattern,String serVersion);
+			String schoolStage, Integer keySize, String lifeTime, String pattern,String serVersion,String pattern_target);
 	/**
 	 * 授权码管理     导出授权码
 	 * @param batch 批次号 （搜索）

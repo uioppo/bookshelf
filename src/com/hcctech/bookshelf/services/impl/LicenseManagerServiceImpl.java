@@ -80,7 +80,7 @@ public class LicenseManagerServiceImpl implements LicenseManagerService {
 	 * @see com.hcctech.bookshelf.services.LicenseManagerService#addLicenseKeyBatch(java.lang.String, java.lang.String, java.lang.Integer, java.lang.String, java.lang.Integer, java.lang.String)
 	 */
 	public void addLicenseKeyBatch(String idStr, String quId, Integer schoolId,String schoolStage,
-			Integer keySize, String lifeTime,String pattern ,String serVersion){
+			Integer keySize, String lifeTime,String pattern ,String serVersion,String pattern_target){
 		if(serVersion == null){
 			return ;
 		}

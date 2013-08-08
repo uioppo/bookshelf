@@ -287,9 +287,11 @@ public class EBookServiceImpl implements EBookService{
 	private void saveOrUpdateEbook(BsEbook ebook, BsAdminUser adminUser,
 			String ebookcode, String key, String date, boolean isadd,boolean isSecret) {
 		String s=getRandom();
-		String bookurl = "/res/ebook/"+date+"/"+ebookcode+s;
-		String bookpath = "/res/ebook_zip/"+date+"/"+ebookcode+s+".zip";
+		String bookurl = ebook.getBookPath();
+		String bookpath = ebook.getBookPath();
 		if(isSecret) {
+			bookurl = "/res/ebook/"+date+"/"+ebookcode+s;
+			bookpath = "/res/ebook_zip/"+date+"/"+ebookcode+s+".zip";
 			sendEncryptCommand(ebook.getBookPath(), bookurl, bookpath, key);
 		}
 		//设置实际名称

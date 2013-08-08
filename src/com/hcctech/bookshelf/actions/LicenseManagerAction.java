@@ -47,6 +47,7 @@ public class LicenseManagerAction extends ActionSupport{
 	private Integer keySize;
 	private String lifeTime;
 	private String pattern;
+	private String pattern_target;
 	private String serVersion ;
 	
 	private int pageNo=1;
@@ -78,7 +79,7 @@ public class LicenseManagerAction extends ActionSupport{
 	 * 添加授权码    提交到数据库
 	 */
 	public String addLicenseKeyBatch(){
-		licenseManagerService.addLicenseKeyBatch(idStr,quId,schoolId,schoolStage,keySize,lifeTime,pattern,serVersion);
+		licenseManagerService.addLicenseKeyBatch(idStr,quId,schoolId,schoolStage,keySize,lifeTime,pattern,serVersion,pattern_target);
 		return SUCCESS;
 	}
 	/**
@@ -274,6 +275,9 @@ public class LicenseManagerAction extends ActionSupport{
 	}
 	public void setSerVersion(String serVersion) {
 		this.serVersion = serVersion;
+	}
+	public void setPattern_target(String pattern_target) {
+		this.pattern_target = pattern_target;
 	}
 	
 }
