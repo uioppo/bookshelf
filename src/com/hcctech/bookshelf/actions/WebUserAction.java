@@ -201,6 +201,8 @@ public class WebUserAction extends ActionSupport{
 						BsWebUser webUser = new BsWebUser();
 						webUser.setWuEmail(row.getCell(0).getStringCellValue());
 						webUser.setWuUserName(row.getCell(0).getStringCellValue());
+						webUser.setWuActivestatus(1);
+						webUser.setWuToken("");
 						Page<BsWebUser> ret = webUserService.loadWebUserList(webUser.getWuEmail(), 1, 10, null, null);
 						if(ret!=null && ret.getList()!=null && ret.getList().size()>0) {
 							continue;
