@@ -1,10 +1,8 @@
 package com.hcctech.bookshelf.flex;
 
-import com.hcctech.bookshelf.listener.MyFlexSessionListener;
-import com.hcctech.bookshelf.listener.MySessionContext;
+import com.hcctech.bookshelf.pojo.BsUserInfo;
 import com.hcctech.bookshelf.pojo.BsWebUser;
 import com.hcctech.bookshelf.services.RegisterService;
-import com.hcctech.bookshelf.services.UserLoginService;
 
 import flex.messaging.FlexContext;
 import flex.messaging.FlexSession;
@@ -19,19 +17,22 @@ public class UserRegisterFlex {
 	
 //	private  UserLoginService userLoginService;
 	
-	public int register(String email,String password){
+	public int register(String email,String password,String nickname){
 		FlexSession session = FlexContext.getFlexSession();
 		BsWebUser bsWebUser = new BsWebUser();
 		bsWebUser.setWuEmail(email);
 		bsWebUser.setWuPassword(password);
-		System.out.println("----------------"+email+"+++"+password);
+		BsUserInfo userInfo = new BsUserInfo();
+		userInfo.setNickName(nickname);
+		bsWebUser.setBsUserInfo(userInfo);
+//		System.out.println("----------------"+email+"+++"+password);
 		int flag = 0;
 		try {
 			flag = registerService.registerWebUser4Client(bsWebUser);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("|||||||||||"+flag);
+//		System.out.println("|||||||||||"+flag);
 		return flag;
 	}
 

@@ -180,7 +180,10 @@ public class RegisterServiceImpl implements RegisterService{
 			bsWebUser.setWuToken("");
 			bsWebUser.setWuActivestatus(1);
 			bsWebUser.setWuRegTime(new Timestamp(System.currentTimeMillis()));
-			BsUserInfo bsUserInfo = new BsUserInfo();
+			BsUserInfo bsUserInfo = bsWebUser.getBsUserInfo();
+			if(bsUserInfo == null) {
+				bsUserInfo = new BsUserInfo();
+			}
 			bsWebUserDao.save(bsUserInfo);
 			bsWebUser.setBsUserInfo(bsUserInfo);
 			bsWebUserDao.save(bsWebUser);
