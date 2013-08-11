@@ -179,6 +179,7 @@ public class MyBookServiceImpl implements MyBookService{
 	@SuppressWarnings("unchecked")
 	public String addMyBookByKey(String licenseKey,BsWebUser user){
 		String msg="";
+		String ret_flag="1";
 		boolean flag=false;
 		if(user==null) {
 			user=(BsWebUser)ActionContext.getContext().getSession().get("user"); 
@@ -186,7 +187,8 @@ public class MyBookServiceImpl implements MyBookService{
 			
 		if(user==null||user.getWuId()==null){
 			msg="操作失败  请重新登录再试";
-			return msg;
+			ret_flag = "-1";
+			return ret_flag;
 		}
 		
 		Integer lkid = null ;
@@ -203,7 +205,8 @@ public class MyBookServiceImpl implements MyBookService{
 			lkid = keyId(sb.toString());
 		}else {
 			msg="无效授权码！";
-			return msg;
+			ret_flag = "404";
+			return ret_flag;
 		}
 		
 		
@@ -214,20 +217,24 @@ public class MyBookServiceImpl implements MyBookService{
 		if(bsLicenseKey!=null){
 			if(bsLicenseKey.getUseStatus()!=0){
 				msg="授权码被使用！";
-				return msg;
+				ret_flag = "502";
+				return ret_flag;
 			}
 			if(!bsLicenseKey.getKeyId().equals(licenseKey)){
 				msg="无效授权码！";
-				return msg;
+				ret_flag = "404";
+				return ret_flag;
 			}
 		}else{
 			msg="无效授权码！";
-			return msg;
+			ret_flag = "404";
+			return ret_flag;
 		}
 		Set<BsProducts> set = bsLicenseKey.getBsProductses();
 		if(set==null||set.size()<=0){
 			msg="添加失败！";
-			return msg;
+			ret_flag = "500";
+			return ret_flag;
 		}
 		final String hql2="from BsMybook b where b.bsWebUser.wuId=?";
 		List<BsMybook> myBookList=bsMyBookDao.findByHql(hql2,user.getWuId());
@@ -293,7 +300,7 @@ public class MyBookServiceImpl implements MyBookService{
 		bsLicenseKey.setBsWebUser(bsWebUser);
 		bsLicenseKey.setUseStatus(1);
 		bsLicenseKeyDao.update(bsLicenseKey);
-		return msg;
+		return ret_flag;
 	}
 
 	/* (non-Javadoc)
