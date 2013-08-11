@@ -33,11 +33,13 @@ public class MyBookServiceImpl implements MyBookService{
 	 */
 	public String activeBookByKey(String licenseKey, int productId){
 		String msg="";
+		String ret_flag = "1";
 		boolean flag=false;
 		BsWebUser user=(BsWebUser)ActionContext.getContext().getSession().get("user"); 
 		if(user==null||user.getWuId()==null){
 			msg="操作失败  请重新登录再试";
-			return msg;
+			ret_flag = "-1";
+			return ret_flag;
 		}
 		System.out.println(licenseKey);
 		Integer lkid = null ;
@@ -54,7 +56,8 @@ public class MyBookServiceImpl implements MyBookService{
 			lkid = keyId(sb.toString());
 		}else {
 			msg="无效授权码！";
-			return msg;
+			ret_flag = "404";
+			return ret_flag;
 		}
 		
 		Timestamp t=new Timestamp(new Date().getTime());
@@ -63,21 +66,25 @@ public class MyBookServiceImpl implements MyBookService{
 		if(bsLicenseKey!=null){
 			if(bsLicenseKey.getUseStatus()!=0){
 				msg="授权码被使用！";
-				return msg;
+				ret_flag = "502";
+				return ret_flag;
 			}
 			if(!bsLicenseKey.getKeyId().equals(licenseKey)){
 				msg="无效授权码！";
-				return msg;
+				ret_flag = "404";
+				return ret_flag;
 			}
 		}else{
 			msg="无效授权码！";
-			return msg;
+			ret_flag = "404";
+			return ret_flag;
 		}
 		@SuppressWarnings("unchecked")
 		Set<BsProducts> set = bsLicenseKey.getBsProductses();
 		if(set==null||set.size()<=0){
 			msg="添加失败！";
-			return msg;
+			ret_flag = "500";
+			return ret_flag;
 		}
 		boolean flag_=true;
 		for(BsProducts bsProducts:set){
@@ -87,7 +94,8 @@ public class MyBookServiceImpl implements MyBookService{
 		}
 		if(flag_){
 			msg="该授权码不与本书对应，操作失败！";
-			return msg;
+			ret_flag = "500";
+			return ret_flag;
 		}
 		final String hql2="from BsMybook b where b.bsWebUser.wuId=?";
 		List<BsMybook> myBookList=bsMyBookDao.findByHql(hql2,user.getWuId());
@@ -152,7 +160,7 @@ public class MyBookServiceImpl implements MyBookService{
 		bsLicenseKey.setBsWebUser(bsWebUser);
 		bsLicenseKey.setUseStatus(1);
 		bsLicenseKeyDao.update(bsLicenseKey);
-		return msg;
+		return ret_flag;
 	}
 	/* (non-Javadoc)
 	 * @see com.hcctech.bookshelf.services.MyBookService#myBookDetail(int)
@@ -169,10 +177,13 @@ public class MyBookServiceImpl implements MyBookService{
 	 * @see com.hcctech.bookshelf.services.MyBookService#addMyBookByKey(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
-	public String addMyBookByKey(String licenseKey){
+	public String addMyBookByKey(String licenseKey,BsWebUser user){
 		String msg="";
 		boolean flag=false;
-		BsWebUser user=(BsWebUser)ActionContext.getContext().getSession().get("user"); 
+		if(user==null) {
+			user=(BsWebUser)ActionContext.getContext().getSession().get("user"); 
+		}
+			
 		if(user==null||user.getWuId()==null){
 			msg="操作失败  请重新登录再试";
 			return msg;

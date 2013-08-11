@@ -26,7 +26,7 @@ public interface MyBookService {
 	 * @return
 	 */
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	String addMyBookByKey(String licenseKey);
+	String addMyBookByKey(String licenseKey,BsWebUser user);
 	
 	/**
 	 * 我的电子书   查看详细页

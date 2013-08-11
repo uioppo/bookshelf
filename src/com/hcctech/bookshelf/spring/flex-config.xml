@@ -28,10 +28,15 @@
 	<property name="bsMyBookDao" ref="bsMyBookDao"></property>
 </bean>
 
+<bean name="licenseKeyFlex" class="com.hcctech.bookshelf.flex.LicenseKeyFlex"  scope="prototype">
+	<property name="myBookService" ref="myBookService"></property>
+</bean>
+
 
 <!--flex remoting destination-->
 <flex:remoting-destination destination-id="userLoginFlex" ref="userLoginFlex"/>
 <flex:remoting-destination destination-id="userRegisterFlex" ref="userRegisterFlex"/>
 <flex:remoting-destination destination-id="myBookFlex" ref="myBookFlex"/>
 <flex:remoting-destination destination-id="myBookDownLoadFlex" ref="myBookDownLoadFlex"/>
+<flex:remoting-destination destination-id="licenseKeyFlex" ref="licenseKeyFlex"/>
 </beans>

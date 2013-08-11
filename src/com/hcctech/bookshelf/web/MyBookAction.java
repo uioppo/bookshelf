@@ -65,7 +65,7 @@ public class MyBookAction extends ActionSupport{
 	 * 用授权码添加我的电子书
 	 */
 	public String addMyBookByKey(){
-		msg=myBookService.addMyBookByKey(licenseKey);
+		msg=myBookService.addMyBookByKey(licenseKey,null);
 		return SUCCESS;
 	}
 	/**
