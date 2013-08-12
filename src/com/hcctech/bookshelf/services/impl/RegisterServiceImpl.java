@@ -86,9 +86,6 @@ public class RegisterServiceImpl implements RegisterService{
 	}
 	
 	public String lostPassword4Client(BsWebUser bsWebUser){
-		if(bsWebUser!=null&&!("".equals(bsWebUser.getWuEmail()))&&!("".equals(bsWebUser.getWuToken()))){
-			return "-1";
-		}
 		final String hql = "from BsWebUser b where b.wuEmail = '"+bsWebUser.getWuEmail()+"'"; 
 		BsWebUser bwu =  bsWebUserDao.findUniqueByHql(hql);
 		if(bwu==null) {

@@ -40,10 +40,16 @@ public class UserRegisterFlex {
 		this.registerService = registerService;
 	}
 
-	public String lostPassword(){
-		FlexSession session = FlexContext.getFlexSession();
-		BsWebUser user=(BsWebUser)session.getAttribute("user");
-		return registerService.lostPassword4Client(user);
+	public String lostPassword(String userEmail){
+		try {
+			BsWebUser user= new BsWebUser();
+			user.setWuEmail(userEmail);
+			return registerService.lostPassword4Client(user);
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+		return "-1";
 	} 
 
 	

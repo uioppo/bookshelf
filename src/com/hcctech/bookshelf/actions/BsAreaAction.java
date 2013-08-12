@@ -98,6 +98,9 @@ public class BsAreaAction extends ActionSupport{
 	    		for (Row row : sheet) {
 					if(i++==0) continue;
 					try {
+						if(isExistBsArea(treeList, row.getCell(0).getStringCellValue(), row.getCell(1).toString())) {
+							continue;
+						}
 						bsArea = new BsArea();
 						bsArea.setAreaName(row.getCell(0).getStringCellValue());
 						bsArea.setAreaCode(row.getCell(1).toString());
@@ -139,6 +142,16 @@ public class BsAreaAction extends ActionSupport{
     	return null;
     }
     
+    private boolean isExistBsArea(List<TreeJson> treeList,String areaName,String areaCode) {
+    	if(treeList!=null) {
+    		for (TreeJson treeJson : treeList) {
+				if(treeJson.getName().equals(areaName) && treeJson.getAreaCode().equals(areaCode)) {
+					return true;
+				}
+			}
+    	}
+    	return false;
+    }
 	/**
 	 * 查询所有地区数据 整合TreeJson格式
 	 * @return
