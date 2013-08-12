@@ -51,6 +51,14 @@ public interface RegisterService {
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
 	void lostPassword(BsWebUser bsWebUser);
 	
+	
+	/**
+	 * @param bsWebUser web用户
+	 * 
+	 */
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	String lostPassword4Client(BsWebUser bsWebUser);
+	
 	/**
 	 * @param bsWebUser web用户
 	 * @return flag 判断标志

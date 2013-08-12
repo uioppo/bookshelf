@@ -40,7 +40,12 @@ public class UserRegisterFlex {
 		this.registerService = registerService;
 	}
 
-	
+	public String lostPassword(){
+		FlexSession session = FlexContext.getFlexSession();
+		BsWebUser user=(BsWebUser)session.getAttribute("user");
+		return registerService.lostPassword4Client(user);
+	} 
+
 	
 }
  

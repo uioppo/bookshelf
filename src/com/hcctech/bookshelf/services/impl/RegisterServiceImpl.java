@@ -85,6 +85,36 @@ public class RegisterServiceImpl implements RegisterService{
 		}
 	}
 	
+	public String lostPassword4Client(BsWebUser bsWebUser){
+		if(bsWebUser!=null&&!("".equals(bsWebUser.getWuEmail()))&&!("".equals(bsWebUser.getWuToken()))){
+			return "-1";
+		}
+		final String hql = "from BsWebUser b where b.wuEmail = '"+bsWebUser.getWuEmail()+"'"; 
+		BsWebUser bwu =  bsWebUserDao.findUniqueByHql(hql);
+		if(bwu==null) {
+			return "404";
+		}
+			
+		if(bwu!=null){
+			String token=Md5.getMD5Str(String.valueOf(Math.random()));
+			bwu.setWuToken(token);
+			bsWebUserDao.update(bwu);
+			//发邮件
+			final Map<String, Object> model = new HashMap<String, Object>();
+			model.put("userName", bsWebUser.getWuEmail());
+			model.put("activateURL",DomainUtil.getDomainName() + "/register/registerAction_findPassword.action?bsWebUser.wuEmail="+bsWebUser.getWuEmail()+"&bsWebUser.wuToken="+token);
+			final String _userName = bsWebUser.getWuEmail();
+			Runnable run = new Runnable() {
+				public void run() {
+					thirdVelocityEmailUtil.sendEmail(model, "找回密码", "lostPassWordEmailVM.vm",new String[] {_userName}, null);
+				}
+			};
+			Thread thread = new Thread(run);
+			thread.start();
+		}
+		return "1";
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.hcctech.bookshelf.services.RegisterService#validateUserName(com.hcctech.bookshelf.pojo.BsWebUser)
 	 */
