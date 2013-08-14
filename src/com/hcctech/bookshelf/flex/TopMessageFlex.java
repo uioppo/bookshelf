@@ -1,10 +1,13 @@
 package com.hcctech.bookshelf.flex;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import com.hcctech.bookshelf.pojo.BsTopMessage;
 import com.hcctech.bookshelf.pojo.BsWebUser;
+import com.hcctech.bookshelf.util.DomainUtil;
 
 import flex.messaging.FlexContext;
 import flex.messaging.FlexSession;
@@ -14,19 +17,26 @@ public class TopMessageFlex {
 	
 	public List<BsTopMessage> findTopMessages() {
 		//
-		FlexSession session = FlexContext.getFlexSession();
-		BsWebUser user=(BsWebUser)session.getAttribute("user");
-		BsTopMessage bsTopMessage = new BsTopMessage("测试","http://211.144.136.253/images/menu_list02.gif","http://www.sina.com.cn");
-		BsTopMessage bsTopMessage1 = new BsTopMessage("测试1","http://211.144.136.253/images/menu_list03.gif","http://www.sina.com.cn");
-		BsTopMessage bsTopMessage2 = new BsTopMessage("测试2","http://211.144.136.253/images/menu_list04.gif","http://www.sina.com.cn");
-		BsTopMessage bsTopMessage3 = new BsTopMessage("测试3","http://211.144.136.253/images/menu_list05.gif","http://www.sina.com.cn");
-		BsTopMessage bsTopMessage4 = new BsTopMessage("version","2.0","http://www.sina.com.cn");
 		List<BsTopMessage> list = new ArrayList<BsTopMessage>();
-		list.add(bsTopMessage);
-		list.add(bsTopMessage1);
-		list.add(bsTopMessage2);
-		list.add(bsTopMessage3);
-		list.add(bsTopMessage4);
+		try {
+			String classPath = this.getClass().getResource("/").getPath();
+			classPath=classPath.substring(1, classPath.indexOf("classes"));
+			Properties prop = new Properties();
+			prop.load(new FileInputStream(classPath+"topmessage.properties"));
+			String domainPath = DomainUtil.getDomainName();
+			String value = null;
+			String[] element = null;
+			BsTopMessage bsTopMessage = null;
+			for (Object key : prop.keySet()) {
+				value = prop.getProperty(key.toString());
+				element = value.split(",");
+				bsTopMessage = new BsTopMessage(element[0],domainPath+element[1],element[2]);
+				list.add(bsTopMessage);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return list;//myBookService.addMyBookByKey(licenseKey);
 	}
 

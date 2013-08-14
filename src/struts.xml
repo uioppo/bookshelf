@@ -115,6 +115,16 @@
 			<result name="success">/admin/gallerySet/gallerySet.jsp</result>
 		</action>
 	</package>
+	<package name="topMessageAction" namespace="/" extends="struts-default">
+		<action name="topMessage" class="topMessageAction" method="topmessage">
+			<result name="success" type="redirect">/admin/message/topmessage.jsp</result>
+		</action>
+	</package>
+	<package name="topMessageAction_json" namespace="/" extends="json-default" >
+		<action name="delTopMessage" class="topMessageAction" method="del">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
 	<package name="gallerySetAction1" namespace="/newBookSet" extends="json-default">
 		<action name="newBookSave" class="gallerySetAction" method="newBookSave">
 			<result name="success" type="json"></result>

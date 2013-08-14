@@ -120,6 +120,8 @@
 		<property name="productService" ref="productService"></property>
 	</bean>
 	
+	<bean id="topMessageAction" class="com.hcctech.bookshelf.actions.TopMessageAction" scope="prototype">
+	</bean>
 	<bean id="gallerySetAction" class="com.hcctech.bookshelf.actions.GallerySetAction" scope="prototype">
 		<property name="thirdVelocityHtmlUtil" ref="thirdVelocityHtmlUtil"></property>
 	</bean>
