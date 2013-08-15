@@ -38,7 +38,7 @@ public class TopMessageFlex {
 			for (Object key : prop.keySet()) {
 				value = prop.getProperty(key.toString());
 				element = value.split(",");
-				bsTopMessage = new BsTopMessage(element[0],domainPath+element[1],element[2]);
+				bsTopMessage = new BsTopMessage(element[0],key.equals("version")?element[1]:domainPath+element[1],element[2]);
 				list.add(bsTopMessage);
 			}
 		}catch(Exception e) {
