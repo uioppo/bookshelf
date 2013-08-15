@@ -42,11 +42,10 @@ public class TopMessageAction extends ActionSupport{
 	
 	
 	public String topmessage() throws Exception{
-		
-		String classPath = this.getClass().getResource("/").getPath();
-		classPath=classPath.substring(1, classPath.indexOf("classes"));
+		String webAppPath = ServletActionContext.getServletContext().getRealPath("");
+		System.out.println(webAppPath);
 		Properties prop = new Properties();
-		prop.load(new FileInputStream(classPath+"topmessage.properties"));
+		prop.load(new FileInputStream(webAppPath+"/WEB-INF/topmessage.properties"));
 		if(topmessage!=null && topmessage.size()>0) {
 			SimpleDateFormat format = new SimpleDateFormat("yyyyMM");
 			HttpServletRequest request = ServletActionContext.getRequest();
@@ -62,7 +61,7 @@ public class TopMessageAction extends ActionSupport{
 				String fileSrc="/" + targetName + suffixName;
 				File upload = new File(filePath+ fileSrc);
 				FileUtils.copyFile(topmessage.get(i), upload);
-				String value = topmessageTitle[i]+",/images/topmessage"+basepath+fileSrc+","+topmessageHref[i];
+				String value = topmessageTitle[i]+",/"+basepath+fileSrc+","+topmessageHref[i];
 				prop.setProperty(topmessageTitle[i], value);
 			}
 		}
@@ -70,7 +69,7 @@ public class TopMessageAction extends ActionSupport{
 			prop.setProperty("version", "version,"+versionName+","+versionHref);
 		}
 			
-		FileOutputStream out = new FileOutputStream(classPath+"topmessage.properties");  
+		FileOutputStream out = new FileOutputStream(webAppPath+"/WEB-INF/topmessage.properties");  
 		prop.store(out, null);
 		return SUCCESS;
 	}
@@ -94,13 +93,13 @@ public class TopMessageAction extends ActionSupport{
 			
 		}else {
 			try {
-			String classPath = this.getClass().getResource("/").getPath();
-			classPath=classPath.substring(1, classPath.indexOf("classes"));
-			Properties prop = new Properties();
-			prop.load(new FileInputStream(classPath+"topmessage.properties"));
+		    String webAppPath = ServletActionContext.getServletContext().getRealPath("");
+	        System.out.println(webAppPath);
+	        Properties prop = new Properties();
+	        prop.load(new FileInputStream(webAppPath+"/WEB-INF/topmessage.properties"));
 			if(prop!=null && !prop.isEmpty()) {
 				prop.remove(key);
-				FileOutputStream out = new FileOutputStream(classPath+"topmessage.properties");  
+				FileOutputStream out = new FileOutputStream(webAppPath+"/WEB-INF/topmessage.properties");  
 				prop.store(out, null);  
 				flag="1";
 			}
