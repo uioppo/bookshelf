@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.hcctech.bookshelf.pojo.BsProducts;
 
 /**
  * @author randyjie
@@ -88,6 +91,51 @@ public class LicenseKeyUtil {
 	 * @return
 	 */
 	public static String generateSN(int type,String areaCode,String pattern,String versions,String grade,String subject,String sheets,Date date,String edition,int num){
+		char typeStr = 'A';//数字教材：1
+		if(type==0)typeStr='C';//数字教辅:0
+		if(type==2)typeStr='B';//数字教参：2
+		if(areaCode==null || areaCode.equals("")) {
+			areaCode = "000";
+		}
+		if(areaCode.length()>3)
+			areaCode=areaCode.substring(areaCode.length()-3);
+		if(sheets.equals("上册"))
+			sheets = "1";
+		else if(sheets.equals("下册"))
+			sheets = "2";
+		else
+			sheets = "0";
+		
+		SimpleDateFormat dateFormat =new SimpleDateFormat("yy");
+		String datestr = dateFormat.format(date);//年份
+		String numStr = String.valueOf(num);
+		String _temp = "";
+		if(numStr.length()<8){
+			for (int i = 0; i < 8-numStr.length(); i++) {
+				_temp +="0";
+			}
+		}
+		numStr = _temp + numStr;
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(typeStr);//A-数字教材B-数字教参C-数字教辅
+		buffer.append(areaCode);//地区编号后三位
+		buffer.append(" ");//分隔
+		buffer.append(pattern);//渠道：A-出版社B-新华书店C-省代D-市代E-区代F-oemZ-其他渠道
+		buffer.append("");//渠道目标对象1-教育局2-学校3-培训机构
+		buffer.append(versions);//版本:T-体验版F-分章版P-普通版H-合订版G-高级版Z-至尊版
+		buffer.append(" ");//分隔
+		buffer.append(grade);//年级
+		buffer.append(subject);//科目
+		buffer.append(" ");//分隔
+		buffer.append(sheets);//册数
+		buffer.append(datestr);//教材年份后两位
+		buffer.append(edition);//教材版本：人教版-1北师大版-2苏教版-3山教版-4北教版-5外研社-6其他-Z
+		buffer.append(" ");//分隔
+		buffer.append(numStr);//8位序号
+		return buffer.toString();
+	}
+	
+	public static String generateSN(Set<BsProducts> bsProducts,String areaCode,String pattern,String versions,String grade,String subject,String sheets,Date date,String edition,int num){
 		char typeStr = 'A';//数字教材：1
 		if(type==0)typeStr='C';//数字教辅:0
 		if(type==2)typeStr='B';//数字教参：2

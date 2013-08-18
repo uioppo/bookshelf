@@ -118,10 +118,12 @@ public class LicenseManagerServiceImpl implements LicenseManagerService {
 		bsLicenseBatchDao.save(bsLicenseBatch);
 		//授权码
 	//	List<String> list=LicenseKeyUtil.getLicenKey(keySize);
-		//String[] str=idStr.split(",");
+		String[] str=idStr.split(",");
 		Set<BsProducts> bsProductses = new HashSet<BsProducts>();
-		BsProducts products = bsProductsDao.get(Integer.valueOf(idStr));
-		bsProductses.add(products);
+		for (String id : str) {
+			BsProducts products = bsProductsDao.get(Integer.valueOf(id));
+			bsProductses.add(products);
+		}
 		//final String productSql="insert into bs_license_ebook (product_id,key_id) values(?,?)";
 		
 		List<BsDictionary> dictionaries = bsDictionaryDao.findByHql("from BsDictionary bd where bd.name = ?", products.getSubject());
@@ -152,7 +154,7 @@ public class LicenseManagerServiceImpl implements LicenseManagerService {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-				//e.printStackTrace();
+				e.printStackTrace();
 			}
 			/*for(int j=0;j<str.length;j++){
 				bsLicenseKeyDao.executeSQL(productSql,Integer.valueOf(idStr),list.get(i));
