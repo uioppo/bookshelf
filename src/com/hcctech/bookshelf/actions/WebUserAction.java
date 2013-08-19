@@ -79,12 +79,14 @@ public class WebUserAction extends ActionSupport{
     		HSSFRow row = sheet.createRow((short) 0);
     		OperatorExcel.createCell(row, 0, null, HSSFCell.CELL_TYPE_STRING, "用户名	");
     		OperatorExcel.createCell(row, 1, null, HSSFCell.CELL_TYPE_STRING, "姓名");
-    		OperatorExcel.createCell(row, 2, null, HSSFCell.CELL_TYPE_STRING, "所在地");
-    		OperatorExcel.createCell(row, 3, null, HSSFCell.CELL_TYPE_STRING, "学校");
-    		OperatorExcel.createCell(row, 4, null, HSSFCell.CELL_TYPE_STRING, "昵称");
-    		OperatorExcel.createCell(row, 5, null, HSSFCell.CELL_TYPE_STRING, "性别");
-    		OperatorExcel.createCell(row, 6, null, HSSFCell.CELL_TYPE_STRING, "联系电话");
-    		OperatorExcel.createCell(row, 7, null, HSSFCell.CELL_TYPE_STRING, "出生日期");
+    		OperatorExcel.createCell(row, 2, null, HSSFCell.CELL_TYPE_STRING, "省");
+    		OperatorExcel.createCell(row, 3, null, HSSFCell.CELL_TYPE_STRING, "市");
+    		OperatorExcel.createCell(row, 4, null, HSSFCell.CELL_TYPE_STRING, "县");
+    		OperatorExcel.createCell(row, 5, null, HSSFCell.CELL_TYPE_STRING, "学校");
+    		OperatorExcel.createCell(row, 6, null, HSSFCell.CELL_TYPE_STRING, "昵称");
+    		OperatorExcel.createCell(row, 7, null, HSSFCell.CELL_TYPE_STRING, "性别");
+    		OperatorExcel.createCell(row, 8, null, HSSFCell.CELL_TYPE_STRING, "联系电话");
+    		OperatorExcel.createCell(row, 9, null, HSSFCell.CELL_TYPE_STRING, "出生日期");
     		Long pageTotal = null;
     		short i = 1;
     		do {
@@ -100,13 +102,15 @@ public class WebUserAction extends ActionSupport{
     				row = sheet.createRow(i++);
     				OperatorExcel.createCell(row, 0, null, HSSFCell.CELL_TYPE_STRING, bsWebUser.getWuEmail());
     	    		OperatorExcel.createCell(row, 1, null, HSSFCell.CELL_TYPE_STRING, bsWebUser.getBsUserInfo().getRealName());
-    	    		OperatorExcel.createCell(row, 2, null, HSSFCell.CELL_TYPE_STRING, getAreaNameById(treeList,bsWebUser.getBsUserInfo().getSheng())+getAreaNameById(treeList,bsWebUser.getBsUserInfo().getShi())+getAreaNameById(treeList,bsWebUser.getBsUserInfo().getXian()));
-    	    		OperatorExcel.createCell(row, 3, null, HSSFCell.CELL_TYPE_STRING, bsWebUser.getBsUserInfo().getSchool());
-    	    		OperatorExcel.createCell(row, 4, null, HSSFCell.CELL_TYPE_STRING, bsWebUser.getBsUserInfo().getNickName());
-    	    		OperatorExcel.createCell(row, 5, null, HSSFCell.CELL_TYPE_STRING, getSex_String(bsWebUser.getBsUserInfo().getSex()));
-    	    		OperatorExcel.createCell(row, 6, null, HSSFCell.CELL_TYPE_STRING, bsWebUser.getBsUserInfo().getMobile());
+    	    		OperatorExcel.createCell(row, 2, null, HSSFCell.CELL_TYPE_STRING, getAreaNameById(treeList,bsWebUser.getBsUserInfo().getSheng()));
+    	    		OperatorExcel.createCell(row, 3, null, HSSFCell.CELL_TYPE_STRING, getAreaNameById(treeList,bsWebUser.getBsUserInfo().getShi()));
+    	    		OperatorExcel.createCell(row, 4, null, HSSFCell.CELL_TYPE_STRING, getAreaNameById(treeList,bsWebUser.getBsUserInfo().getXian()));
+    	    		OperatorExcel.createCell(row, 5, null, HSSFCell.CELL_TYPE_STRING, bsWebUser.getBsUserInfo().getSchool());
+    	    		OperatorExcel.createCell(row, 6, null, HSSFCell.CELL_TYPE_STRING, bsWebUser.getBsUserInfo().getNickName());
+    	    		OperatorExcel.createCell(row, 7, null, HSSFCell.CELL_TYPE_STRING, getSex_String(bsWebUser.getBsUserInfo().getSex()));
+    	    		OperatorExcel.createCell(row, 8, null, HSSFCell.CELL_TYPE_STRING, bsWebUser.getBsUserInfo().getMobile());
     	    		if(bsWebUser.getBsUserInfo().getBirthday()!=null) {
-    	    			OperatorExcel.createCell(row, 7, null, HSSFCell.CELL_TYPE_STRING, format.format(bsWebUser.getBsUserInfo().getBirthday()));
+    	    			OperatorExcel.createCell(row, 9, null, HSSFCell.CELL_TYPE_STRING, format.format(bsWebUser.getBsUserInfo().getBirthday()));
     	    		}
     	    		
 				}
