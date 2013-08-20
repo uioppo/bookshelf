@@ -102,68 +102,73 @@ public class LicenseManagerServiceImpl implements LicenseManagerService {
 			e.printStackTrace();
 			return;
 		}
-		final String schoolHql="from BsSchool b where b.schoolId = ?";
-		BsSchool bsSchool = bsSchoolDao.findUniqueByHql(schoolHql,schoolId);
-		if(bsSchool==null){
-			return;
+		try {
+    		final String schoolHql="from BsSchool b where b.schoolId = ?";
+    		BsSchool bsSchool = bsSchoolDao.findUniqueByHql(schoolHql,schoolId);
+    		if(bsSchool==null){
+    			return;
+    		}
+    		//批次
+    		BsLicenseBatch bsLicenseBatch=new BsLicenseBatch();
+    		if (idStr == null ||"".equals(idStr) ||idStr.trim().equals("")) {
+    			return;
+    		}
+    		bsLicenseBatch.setCreateTime( new Timestamp(System.currentTimeMillis()));
+    		bsLicenseBatch.setOperator(user.getUserName());
+    		bsLicenseBatch.setSchoolStage(Integer.valueOf(schoolStage));
+    		bsLicenseBatchDao.save(bsLicenseBatch);
+    		//授权码
+    	//	List<String> list=LicenseKeyUtil.getLicenKey(keySize);
+    		String[] str=idStr.split(",");
+    		Set<BsProducts> bsProductses = new HashSet<BsProducts>();
+    		for (String id : str) {
+    			BsProducts products = bsProductsDao.get(Integer.valueOf(id));
+    			bsProductses.add(products);
+    		}
+    		//final String productSql="insert into bs_license_ebook (product_id,key_id) values(?,?)";
+    		if(bsProductses==null || bsProductses.size()<=0) {
+    		    return ;
+    		}
+    		List<BsDictionary> dictionaries = bsDictionaryDao.findByHql("from BsDictionary bd where bd.name = ?", bsProductses.iterator().next().getSubject());
+    		String subject = "Z";
+    		if(dictionaries!=null&&!dictionaries.isEmpty()){
+    			subject = dictionaries.get(0).getDicCode();
+    		}
+    		
+    		List<BsEbook> ebook = bsEbookDao.findByHql("from BsEbook e where e.bookCode = ?", bsProductses.iterator().next().getBookCode());
+    		String eduVersion = "Z";
+    		if(ebook!=null&&!ebook.isEmpty()){
+    			eduVersion = ebook.get(0).getEduVersion();
+    		}//获取电子书版本
+    		for(int i=0;i<keySize;i++){
+    			BsLicenseKey bsLicenseKey=new BsLicenseKey();
+    			bsLicenseKey.setBsLicenseBatch(bsLicenseBatch);
+    			bsLicenseKey.setBsSchool(bsSchool);
+    			bsLicenseKey.setBsWebUser(null);
+    			bsLicenseKey.setKeyId("");
+    			bsLicenseKey.setUseStatus(0);
+    			bsLicenseKey.setLifeTime(date);
+    			//products.getBookCode()
+    			String sn = LicenseKeyUtil.generateSN(bsProductses, bsSchool.getBsArea().getAreaCode(), pattern,pattern_target, serVersion ,subject, eduVersion, i);
+    			bsLicenseKey.setSerialNum(sn);
+    			bsLicenseKey.setBsProductses(bsProductses);
+    			bsLicenseKeyDao.save(bsLicenseKey);
+    			bsLicenseKey.setKeyId(LicenseKeyUtil.generateLicenKey(bsLicenseKey.getLkid()));
+    			try {
+    				Thread.sleep(10);
+    			} catch (InterruptedException e) {
+    				e.printStackTrace();
+    			}
+    			/*for(int j=0;j<str.length;j++){
+    				bsLicenseKeyDao.executeSQL(productSql,Integer.valueOf(idStr),list.get(i));
+    			}*/
+    			//bsLicenseKeyDao.executeSQL(productSql,Integer.valueOf(idStr),list.get(i));
+    		}
+    		logger.info("添加授权码批次"+bsLicenseBatch.getBatchId());
+		}catch(Exception e) {
+		    e.printStackTrace();
+		    return;
 		}
-		//批次
-		BsLicenseBatch bsLicenseBatch=new BsLicenseBatch();
-		if (idStr == null ||"".equals(idStr) ||idStr.trim().equals("")) {
-			return;
-		}
-		bsLicenseBatch.setCreateTime( new Timestamp(System.currentTimeMillis()));
-		bsLicenseBatch.setOperator(user.getUserName());
-		bsLicenseBatch.setSchoolStage(Integer.valueOf(schoolStage));
-		bsLicenseBatchDao.save(bsLicenseBatch);
-		//授权码
-	//	List<String> list=LicenseKeyUtil.getLicenKey(keySize);
-		String[] str=idStr.split(",");
-		Set<BsProducts> bsProductses = new HashSet<BsProducts>();
-		for (String id : str) {
-			BsProducts products = bsProductsDao.get(Integer.valueOf(id));
-			bsProductses.add(products);
-		}
-		//final String productSql="insert into bs_license_ebook (product_id,key_id) values(?,?)";
-		if(bsProductses==null || bsProductses.size()<=0) {
-		    return ;
-		}
-		List<BsDictionary> dictionaries = bsDictionaryDao.findByHql("from BsDictionary bd where bd.name = ?", bsProductses.iterator().next().getSubject());
-		String subject = "Z";
-		if(dictionaries!=null&&!dictionaries.isEmpty()){
-			subject = dictionaries.get(0).getDicCode();
-		}
-		
-		List<BsEbook> ebook = bsEbookDao.findByHql("from BsEbook e where e.bookCode = ?", bsProductses.iterator().next().getBookCode());
-		String eduVersion = "Z";
-		if(ebook!=null&&!ebook.isEmpty()){
-			eduVersion = ebook.get(0).getEduVersion();
-		}//获取电子书版本
-		for(int i=0;i<keySize;i++){
-			BsLicenseKey bsLicenseKey=new BsLicenseKey();
-			bsLicenseKey.setBsLicenseBatch(bsLicenseBatch);
-			bsLicenseKey.setBsSchool(bsSchool);
-			bsLicenseKey.setBsWebUser(null);
-			bsLicenseKey.setKeyId("");
-			bsLicenseKey.setUseStatus(0);
-			bsLicenseKey.setLifeTime(date);
-			//products.getBookCode()
-			String sn = LicenseKeyUtil.generateSN(bsProductses, bsSchool.getBsArea().getAreaCode(), pattern,pattern_target, serVersion ,subject, eduVersion, i);
-			bsLicenseKey.setSerialNum(sn);
-			bsLicenseKey.setBsProductses(bsProductses);
-			bsLicenseKeyDao.save(bsLicenseKey);
-			bsLicenseKey.setKeyId(LicenseKeyUtil.generateLicenKey(bsLicenseKey.getLkid()));
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			/*for(int j=0;j<str.length;j++){
-				bsLicenseKeyDao.executeSQL(productSql,Integer.valueOf(idStr),list.get(i));
-			}*/
-			//bsLicenseKeyDao.executeSQL(productSql,Integer.valueOf(idStr),list.get(i));
-		}
-		logger.info("添加授权码批次"+bsLicenseBatch.getBatchId());
 	}
 	
 	/* (non-Javadoc)
