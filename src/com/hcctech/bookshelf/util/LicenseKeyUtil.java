@@ -134,9 +134,36 @@ public class LicenseKeyUtil {
 		buffer.append(numStr);//8位序号
 		return buffer.toString();
 	}
-	
-	public static String generateSN(Set<BsProducts> bsProducts,String areaCode,String pattern,String versions,String grade,String subject,String sheets,Date date,String edition,int num){
-		char typeStr = 'A';//数字教材：1
+	private enum GradeEnum{
+	    grage_1(0x0001,"一年级"),//1年级
+	    grage_2(0x0002,"二年级"),//2年级
+	    grage_3(0x0004,"三年级"),//3年级
+	    grage_4(0x0008,"四年级"),//4年级
+	    grage_5(0x0010,"五年级"),//5年级
+	    grage_6(0x0020,"六年级"),//6年级
+	    grage_7(0x0040,"初一"),//7年级
+	    grage_8(0x0080,"初二"),//8年级
+	    grage_9(0x0100,"初三"),//9年级
+	    grage_10(0x0200,"高一"),//10年级
+	    grage_11(0x0400,"高二"),//11年级
+	    grage_12(0x0800,"高三"),//12年级
+	    grage_13(0x1000,"学前");//学前
+	    
+	    private Integer value;
+	    private String nameStr;
+	    
+	    private GradeEnum(Integer value,String nameStr) {
+	        this.value=value;
+	        this.nameStr = nameStr;
+	    }
+	    
+	}
+	public static String generateSN(Set<BsProducts> bsProducts,String areaCode,String pattern,String patternTarget,String versions,String subject,String edition,int num){
+		if(bsProducts == null || bsProducts.size()<=0) {
+		    return "";
+		}
+	    char typeStr = 'A';//数字教材：1
+		int type = bsProducts.iterator().next().getProductType();
 		if(type==0)typeStr='C';//数字教辅:0
 		if(type==2)typeStr='B';//数字教参：2
 		if(areaCode==null || areaCode.equals("")) {
@@ -144,15 +171,60 @@ public class LicenseKeyUtil {
 		}
 		if(areaCode.length()>3)
 			areaCode=areaCode.substring(areaCode.length()-3);
-		if(sheets.equals("上册"))
-			sheets = "1";
-		else if(sheets.equals("下册"))
-			sheets = "2";
-		else
-			sheets = "0";
+		Integer sheets = 0;
+		Integer grade = 0;
+		for(BsProducts products : bsProducts)
+        {
+		    if(products.getVolume().equals("上册"))
+	            sheets += 1;
+	        else if(products.getVolume().equals("下册"))
+	            sheets += 2;
+	        else
+	            sheets += 0;
+		    if(StringUtils.isNotBlank(products.getGradeCode())) {
+		        Integer grade_code = Integer.valueOf(products.getGradeCode());
+		        switch(grade_code) {
+		            case 1: grade +=0x0001;
+		                    break;
+		            case 2: grade +=0x0002;
+		                    break;
+		            case 3: grade +=0x0004;
+		                    break;
+		            case 4: grade +=0x0008;
+                            break;
+                    case 5: grade +=0x0010;
+                            break;
+                    case 6: grade +=0x0020;
+                            break;
+                    case 7: grade +=0x0040;
+                            break;
+                    case 8: grade +=0x0080;
+                            break;
+                    case 9: grade +=0x0100;
+                            break;
+                    case 10: grade +=0x0200;
+                            break;
+                    case 11: grade +=0x0400;
+                            break;
+                    case 12: grade +=0x0800;
+                            break;
+                    case 13: grade +=0x1000;
+                            break;
+                    default:grade +=0;
+		        }
+		    }
+        }
+		String grade_str = Integer.toHexString(grade);
+		if(grade_str.length()<4) {
+		    int other = 4-grade_str.length();
+		    for(int i = 0; i < other; i++)
+            {
+                grade_str += "0";
+            }
+		}
 		
 		SimpleDateFormat dateFormat =new SimpleDateFormat("yy");
-		String datestr = dateFormat.format(date);//年份
+		String datestr = dateFormat.format(bsProducts.iterator().next().getPublishTime());//年份
 		String numStr = String.valueOf(num);
 		String _temp = "";
 		if(numStr.length()<8){
@@ -166,10 +238,10 @@ public class LicenseKeyUtil {
 		buffer.append(areaCode);//地区编号后三位
 		buffer.append(" ");//分隔
 		buffer.append(pattern);//渠道：A-出版社B-新华书店C-省代D-市代E-区代F-oemZ-其他渠道
-		buffer.append("");//渠道目标对象1-教育局2-学校3-培训机构
+		buffer.append(patternTarget);//渠道目标对象1-教育局2-学校3-培训机构
 		buffer.append(versions);//版本:T-体验版F-分章版P-普通版H-合订版G-高级版Z-至尊版
 		buffer.append(" ");//分隔
-		buffer.append(grade);//年级
+		buffer.append(grade_str);//年级
 		buffer.append(subject);//科目
 		buffer.append(" ");//分隔
 		buffer.append(sheets);//册数
@@ -205,5 +277,15 @@ public class LicenseKeyUtil {
         String s = UUID.randomUUID().toString(); 
         //去掉“-”符号 
         return s.substring(0,8)+s.substring(9,13)+s.substring(14,18)+s.substring(19,23)+s.substring(24); 
+    }
+	
+	
+	public static void main(String[] args)
+    {
+        int a = 0x0020;
+        int c = 0x0040;
+        int b = 0x0080;
+        System.out.println(Integer.toHexString(a+b+c));
+	    
     }
 }

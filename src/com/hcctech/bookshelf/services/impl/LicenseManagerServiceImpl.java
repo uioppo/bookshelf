@@ -125,14 +125,16 @@ public class LicenseManagerServiceImpl implements LicenseManagerService {
 			bsProductses.add(products);
 		}
 		//final String productSql="insert into bs_license_ebook (product_id,key_id) values(?,?)";
-		
-		List<BsDictionary> dictionaries = bsDictionaryDao.findByHql("from BsDictionary bd where bd.name = ?", products.getSubject());
+		if(bsProductses==null || bsProductses.size()<=0) {
+		    return ;
+		}
+		List<BsDictionary> dictionaries = bsDictionaryDao.findByHql("from BsDictionary bd where bd.name = ?", bsProductses.iterator().next().getSubject());
 		String subject = "Z";
 		if(dictionaries!=null&&!dictionaries.isEmpty()){
 			subject = dictionaries.get(0).getDicCode();
 		}
 		
-		List<BsEbook> ebook = bsEbookDao.findByHql("from BsEbook e where e.bookCode = ?", products.getBookCode());
+		List<BsEbook> ebook = bsEbookDao.findByHql("from BsEbook e where e.bookCode = ?", bsProductses.iterator().next().getBookCode());
 		String eduVersion = "Z";
 		if(ebook!=null&&!ebook.isEmpty()){
 			eduVersion = ebook.get(0).getEduVersion();
@@ -146,7 +148,7 @@ public class LicenseManagerServiceImpl implements LicenseManagerService {
 			bsLicenseKey.setUseStatus(0);
 			bsLicenseKey.setLifeTime(date);
 			//products.getBookCode()
-			String sn = LicenseKeyUtil.generateSN(products.getProductType(), bsSchool.getBsArea().getAreaCode(), pattern, serVersion , products.getGradeCode(), subject, products.getVolume(), products.getPublishTime(), eduVersion, i);
+			String sn = LicenseKeyUtil.generateSN(bsProductses, bsSchool.getBsArea().getAreaCode(), pattern,pattern_target, serVersion ,subject, eduVersion, i);
 			bsLicenseKey.setSerialNum(sn);
 			bsLicenseKey.setBsProductses(bsProductses);
 			bsLicenseKeyDao.save(bsLicenseKey);
