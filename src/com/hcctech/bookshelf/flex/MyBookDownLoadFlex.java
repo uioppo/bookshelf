@@ -47,6 +47,9 @@ public class MyBookDownLoadFlex{
 		}
 		Map<String, String> map = myBookDownLoadFlexService.downloadEbook(cpuIdStr, user, myBookId);
 		//
+		if(map==null) {
+			return null;
+		}
 		StringBuffer buffer = new StringBuffer();
 		buffer.append( map.get("path"));
 		String str = cpuIdStr+"<,>"+user.getWuId()+"<,>"+myBookId;
