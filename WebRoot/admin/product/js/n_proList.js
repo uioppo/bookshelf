@@ -19,12 +19,12 @@ function loadProduct(status) {
 					formatter:function(value,rec){
 						var str ;
 						if(rec.status == 2) {
-							str = '<a href="javascript:void(0)" onclick=\"showProduct('+ rec.productId + ')\" title="查看商品信息" iconcls="icon-search" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-search" style="padding-left: 20px;"></span></span></a>';
-							str += '<a href="javascript:void(0)" onclick=\"editProduct('+ rec.productId + ')\" title="编辑" iconcls="icon-edit" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-edit" style="padding-left: 20px;"></span></span></a>';
+//							str = '<a href="javascript:void(0)" onclick=\"showProduct('+ rec.productId + ')\" title="查看商品信息" iconcls="icon-search" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-search" style="padding-left: 20px;"></span></span></a>';
+							str = '<a href="javascript:void(0)" onclick=\"editProduct('+ rec.productId + ')\" title="编辑" iconcls="icon-edit" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-edit" style="padding-left: 20px;"></span></span></a>';
 							str += '<a href="javascript:void(0)" onclick=\"editStatus(' + rec.productId + ',' + rec.status + ',3)\" title="提交" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-ok" style="padding-left: 20px;"></sapn></span></a>';
 						} else {
-							str = '<a href="javascript:void(0)" onclick=\"showProduct('+ rec.productId + ')\" title="查看商品信息" iconcls="icon-search" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-search" style="padding-left: 20px;"></span></span></a>';
-							str += '<a href="javascript:void(0)" onclick=\"editStatus(' + rec.productId + ',' + rec.status + ',2)\" title="回退" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-back" style="padding-left: 20px;"></sapn></span></a>';
+//							str = '<a href="javascript:void(0)" onclick=\"showProduct('+ rec.productId + ')\" title="查看商品信息" iconcls="icon-search" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-search" style="padding-left: 20px;"></span></span></a>';
+							str = '<a href="javascript:void(0)" onclick=\"editStatus(' + rec.productId + ',' + rec.status + ',2)\" title="回退" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-back" style="padding-left: 20px;"></sapn></span></a>';
 							str += '<a href="javascript:void(0)" onclick=\"editStatus('+ rec.productId + ',' + rec.status + ',4)\" title="审核" iconcls="icon-manager" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-manager" style="padding-left: 20px;"></span></span></a>';
 						}
 						return str;					

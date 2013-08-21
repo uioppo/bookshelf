@@ -11,12 +11,12 @@ function loadYEBookList(){
 		remoteSort: false,
 		idField:'id',
 		frozenColumns:[[
-						 {title:'操作',field:'cz',width:150,align:'center',formatter:function(value,row,index){
-							 var str = "<a href='javascript:void(0);' class='easyui-linkbutton l-btn l-btn-plain' onclick='showBook("+row.id+")'><span class='l-btn-left'><span class='l-btn-text icon-search' style='padding-left: 20px; '>查看</span></span><a/>";
-				        	 str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-				        	 //str += "<a href='javascript:void(0);' onclick='status_("+row.id+")'>退回<a/>";
-				        	 return str;
-				        }},
+//						 {title:'操作',field:'cz',width:150,align:'center',formatter:function(value,row,index){
+//							 var str = "<a href='javascript:void(0);' class='easyui-linkbutton l-btn l-btn-plain' onclick='showBook("+row.id+")'><span class='l-btn-left'><span class='l-btn-text icon-search' style='padding-left: 20px; '>查看</span></span><a/>";
+//				        	 str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+//				        	 //str += "<a href='javascript:void(0);' onclick='status_("+row.id+")'>退回<a/>";
+//				        	 return str;
+//				        }},
 				        {title:'名称',field:'bookName',width:200,sortable:true,align:'center'}
 					]],
 					columns:[[

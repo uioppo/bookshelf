@@ -12,9 +12,9 @@ function loadYEBookList(){
 		idField:'id',
 		frozenColumns:[[
 						 {title:'操作',field:'cz',width:200,align:'center',formatter:function(value,row,index){
-							 var str = "<a href='javascript:void(0);' class='l-btn l-btn-plain' onclick='showBook("+row.id+")'><span class='l-btn-left'><span class='l-btn-text icon-search' style='padding-left: 20px; '>查看</span></span><a/>";
-				        	 str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-				        	 str += "<a href='../ebook/loadEBookByUpdate.action?bookId="+row.id+"' class='l-btn l-btn-plain'><span class='l-btn-left'><span class='l-btn-text icon-up' style='padding-left: 20px; '>更新</span></span><a/>";
+//							 var str = "<a href='javascript:void(0);' class='l-btn l-btn-plain' onclick='showBook("+row.id+")'><span class='l-btn-left'><span class='l-btn-text icon-search' style='padding-left: 20px; '>查看</span></span><a/>";
+//				        	 str += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+				        	 var str = "<a href='../ebook/loadEBookByUpdate.action?bookId="+row.id+"' class='l-btn l-btn-plain'><span class='l-btn-left'><span class='l-btn-text icon-up' style='padding-left: 20px; '>更新</span></span><a/>";
 				        	 return str;
 				        }},
 				        {title:'名称',field:'bookName',width:200,sortable:true,align:'center'}

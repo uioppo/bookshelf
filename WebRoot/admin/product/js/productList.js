@@ -20,14 +20,14 @@ function loadProduct(status) {
 					formatter:function(value,rec){
 						var str ;
 						if(rec.status == 0) {
-							str = '<a href="javascript:void(0)" onclick=\"showProduct('+ rec.productId + ')\" title="查看商品信息" iconcls="icon-search" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-search" style="padding-left: 20px;"></span></span></a>';
-							str += '<a href="javascript:void(0)" onclick=\"racking(' + rec.productId + ',' + rec.status + ',1)\" title="上架" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-up" style="padding-left: 20px;"></sapn></span></a>';
+//							str = '<a href="javascript:void(0)" onclick=\"showProduct('+ rec.productId + ')\" title="查看商品信息" iconcls="icon-search" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-search" style="padding-left: 20px;"></span></span></a>';
+							str = '<a href="javascript:void(0)" onclick=\"racking(' + rec.productId + ',' + rec.status + ',1)\" title="上架" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-up" style="padding-left: 20px;"></sapn></span></a>';
 						} else if(rec.status == 1){
-							str = '<a href="javascript:void(0)" onclick=\"editProduct('+ rec.productId + ')\" title="编辑商品信息" iconcls="icon-edit" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-edit" style="padding-left: 20px;"></span></span></a>';
-							str += '<a href="javascript:void(0)" onclick=\"racking(' + rec.productId + ',' + rec.status + ',0)\" title="下架" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-down" style="padding-left: 20px;"></sapn></span></a>';
+//							str = '<a href="javascript:void(0)" onclick=\"editProduct('+ rec.productId + ')\" title="编辑商品信息" iconcls="icon-edit" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-edit" style="padding-left: 20px;"></span></span></a>';
+							str = '<a href="javascript:void(0)" onclick=\"racking(' + rec.productId + ',' + rec.status + ',0)\" title="下架" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-down" style="padding-left: 20px;"></sapn></span></a>';
 						}else if(rec.status == 4){
-							str = '<a href="javascript:void(0)" onclick=\"showProduct('+ rec.productId + ')\" title="查看商品信息" iconcls="icon-search" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-search" style="padding-left: 20px;"></span></span></a>';
-							str += '<a href="javascript:void(0)" onclick=\"racking(' + rec.productId + ',' + rec.status + ',1)\" title="发布" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-ok" style="padding-left: 20px;"></sapn></span></a>';
+//							str = '<a href="javascript:void(0)" onclick=\"showProduct('+ rec.productId + ')\" title="查看商品信息" iconcls="icon-search" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-search" style="padding-left: 20px;"></span></span></a>';
+							str = '<a href="javascript:void(0)" onclick=\"racking(' + rec.productId + ',' + rec.status + ',1)\" title="发布" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-ok" style="padding-left: 20px;"></sapn></span></a>';
 						}
 						return str;					
 					

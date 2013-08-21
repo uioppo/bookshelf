@@ -136,7 +136,7 @@ public class LicenseManagerServiceImpl implements LicenseManagerService {
     		}
     		
     		List<BsEbook> ebook = bsEbookDao.findByHql("from BsEbook e where e.bookCode = ?", bsProductses.iterator().next().getBookCode());
-    		String eduVersion = "Z";
+    		String eduVersion = "0";
     		if(ebook!=null&&!ebook.isEmpty()){
     			eduVersion = ebook.get(0).getEduVersion();
     		}//获取电子书版本

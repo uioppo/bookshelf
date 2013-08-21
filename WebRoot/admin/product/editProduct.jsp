@@ -201,7 +201,7 @@
         				</div>
         			</td>
 				</tr>
-				<tr>
+				<!-- tr>
 					<th class="lab">试读片段</th>
 					<td colspan="3" >
 						<input type="hidden" name="bsProducts.tryUrl" id="tryUrl" value="<s:property value='loadBsProducts.tryUrl'/>">
@@ -214,7 +214,7 @@
         					</applet>
         				</div>
         			</td>
-				</tr>
+				</tr-->
 				<tr>
 					<th class="lab1" colspan="5">内容简介</th>
 				</tr>

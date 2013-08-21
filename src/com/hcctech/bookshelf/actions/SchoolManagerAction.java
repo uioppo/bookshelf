@@ -24,6 +24,7 @@ import org.apache.struts2.ServletActionContext;
 import com.hcctech.bookshelf.dao.support.Page;
 import com.hcctech.bookshelf.pojo.BsArea;
 import com.hcctech.bookshelf.pojo.BsSchool;
+import com.hcctech.bookshelf.services.BsAreaService;
 import com.hcctech.bookshelf.services.SchoolManagerService;
 import com.hcctech.bookshelf.services.impl.BsAreaServiceImpl;
 import com.hcctech.bookshelf.util.OperatorExcel;
@@ -44,7 +45,7 @@ public class SchoolManagerAction extends ActionSupport{
 	private static Logger loger = Logger.getLogger(SchoolManagerAction.class);
 	
 	private SchoolManagerService schoolManagerService;
-	private BsAreaServiceImpl bsAreaService;
+	private BsAreaService bsAreaService;
 	
 	private List<BsSchool> rows;
 	private Page<BsSchool> schoolPage;
@@ -338,7 +339,7 @@ public class SchoolManagerAction extends ActionSupport{
 		this.downloadFileName = downloadFileName;
 	}
 
-	public void setBsAreaService(BsAreaServiceImpl bsAreaService) {
+	public void setBsAreaService(BsAreaService bsAreaService) {
 		this.bsAreaService = bsAreaService;
 	}
 	
