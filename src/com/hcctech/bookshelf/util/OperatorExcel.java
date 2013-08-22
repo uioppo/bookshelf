@@ -97,28 +97,29 @@ public static void exportExcel(String batch,Map<String, Object> map,HttpServletR
 		
 		//电子书信息
 		Iterator<BsProducts> iterator=bookSet.iterator();
-		if(iterator.hasNext()){
+		short cell = 4;
+		while(iterator.hasNext()){
 			BsProducts bsProducts= iterator.next();
 			
-			XSSFRow row5 = sheet.createRow((short)4);
+			XSSFRow row5 = sheet.createRow((short)cell++);
 			XSSFCell cell50 =  row5.createCell((short)0);
 			cell50.setCellValue("电子书名称");
 			XSSFCell cell51 =  row5.createCell((short)1);
 			cell51.setCellValue(bsProducts.getProductName());
 			
-			XSSFRow row6 = sheet.createRow((short)5);
+			XSSFRow row6 = sheet.createRow((short)cell++);
 			XSSFCell cell60 =  row6.createCell((short)0);
 			cell60.setCellValue("学科");
 			XSSFCell cell61 =  row6.createCell((short)1);
 			cell61.setCellValue(bsProducts.getSubject());
 			
-			XSSFRow row7 = sheet.createRow((short)6);
+			XSSFRow row7 = sheet.createRow((short)cell++);
 			XSSFCell cell70 =  row7.createCell((short)0);
 			cell70.setCellValue("价格");
 			XSSFCell cell71 =  row7.createCell((short)1);
 			cell71.setCellValue(bsProducts.getPrice_());
 			
-			XSSFRow row8 = sheet.createRow((short)7);
+			XSSFRow row8 = sheet.createRow((short)cell++);
 			XSSFCell cell80 =  row8.createCell((short)0);
 			cell80.setCellValue("年级");
 			XSSFCell cell81 =  row8.createCell((short)1);
@@ -131,7 +132,7 @@ public static void exportExcel(String batch,Map<String, Object> map,HttpServletR
 			cell91.setCellValue(bsProducts.getIsbn());*/
 		}
 		
-		int i=8;
+		int i=cell;
 		//授权码
 		XSSFFont font_=xssfWorkbook.createFont();
 		font_.setBold(true);
