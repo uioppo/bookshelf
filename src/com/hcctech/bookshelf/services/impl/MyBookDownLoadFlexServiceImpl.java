@@ -165,7 +165,11 @@ public class MyBookDownLoadFlexServiceImpl implements MyBookDownLoadFlexService{
 				String sign = Md5.getMD5Str(bookkey);
 				//下载地址
 				flag = new HashMap<String, String>();
-				flag.put("path", DomainUtil.getFileDomain()+ebook.getBookPath()+"?sign="+sign);
+				String bookPath = ebook.getBookPath();
+				if("01".equals(ebook.getBookType())) {//文科
+					bookPath = ebook.getBookUrl();
+				}
+				flag.put("path", DomainUtil.getFileDomain()+bookPath+"?sign="+sign);
 				flag.put("key", bookkey);
 				flag.put("sign", sign);
 				flag.put("bookcode", bookCode);

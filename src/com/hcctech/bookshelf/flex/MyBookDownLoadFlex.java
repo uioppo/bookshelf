@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.hcctech.bookshelf.flex.vo.FMyBook;
 import com.hcctech.bookshelf.pojo.BsEbook;
 import com.hcctech.bookshelf.pojo.BsWebUser;
@@ -39,7 +41,7 @@ public class MyBookDownLoadFlex{
 	 * @param cpuIdStr
 	 * @return
 	 */
-	public List<String> download(int myBookId,String cpuIdStr){
+	public List<String> download(int myBookId,String cpuIdStr,String deviceName){
 		FlexSession session = FlexContext.getFlexSession();
 		BsWebUser user=(BsWebUser)session.getAttribute("user");
 		if(user==null||user.getWuId()==null){
@@ -52,6 +54,13 @@ public class MyBookDownLoadFlex{
 		}
 		StringBuffer buffer = new StringBuffer();
 		buffer.append( map.get("path"));
+		if(StringUtils.isNotBlank(deviceName)) {
+			if(deviceName.equals("pc")) {
+				buffer.append("/wenke_book.zpk");
+			}else {
+				buffer.append("/wenke_book.fcb");
+			}
+		}
 		String str = cpuIdStr+"<,>"+user.getWuId()+"<,>"+myBookId;
 		byte[] byt = null;
 		String testxx = null;
