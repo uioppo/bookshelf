@@ -56,9 +56,11 @@ public class MyBookDownLoadFlex{
 		buffer.append( map.get("path"));
 		if(StringUtils.isNotBlank(deviceName)) {
 			if(deviceName.equals("pc")) {
-				buffer.append("/wenke_book.zpk");
+			    buffer.insert(buffer.indexOf("?"), "/wenke_book.zpk");
+//				buffer.append("/wenke_book.zpk");
 			}else {
-				buffer.append("/wenke_book.fcb");
+			    buffer.insert(buffer.indexOf("?"), "/wenke_book.fcb");
+//				buffer.append("/wenke_book.fcb");
 			}
 		}
 		String str = cpuIdStr+"<,>"+user.getWuId()+"<,>"+myBookId;
@@ -194,6 +196,5 @@ public class MyBookDownLoadFlex{
 	public void setMyBookDownLoadFlexService(MyBookDownLoadFlexService myBookDownLoadFlexService) {
 		this.myBookDownLoadFlexService = myBookDownLoadFlexService;
 	}
-	
 	
 }
