@@ -302,9 +302,14 @@ public class EBookServiceImpl implements EBookService{
 		}
 		//设置实际名称
 		String realFileName = ebook.getBookPath();
-		realFileName = realFileName.replace("\\", "/");
-		if(realFileName.indexOf("/")!=-1 && !realFileName.endsWith("/")) {
-			realFileName = realFileName.substring((realFileName.lastIndexOf("/")+1));
+		//如果是文科并且zip上传，realname就固定为wenke_book.fcb 否则就是上传的名称
+		if("01".equals(ebook.getBookType()) && bookpath.endsWith("zip")) {
+		    realFileName = "wenke_book.fcb";
+		}else {
+    		realFileName = realFileName.replace("\\", "/");
+    		if(realFileName.indexOf("/")!=-1 && !realFileName.endsWith("/")) {
+    			realFileName = realFileName.substring((realFileName.lastIndexOf("/")+1));
+    		}
 		}
 		ebook.setRealFileName(realFileName);
 		ebook.setBookPath(bookpath);

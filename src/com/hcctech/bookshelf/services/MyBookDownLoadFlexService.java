@@ -24,7 +24,7 @@ public interface MyBookDownLoadFlexService {
 	public int downLoadValidate(String cpuIdStr, BsWebUser user,
 			int myBookId);
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public Map<String, String> downloadEbook(String cpuIdStr, BsWebUser user,int myBookId);
+	public Map<String, String> downloadEbook(String cpuIdStr, BsWebUser user,int myBookId,String deviceName);
 
 	@Transactional(readOnly=true)
 	public List<BsEbook> checkUpdate(Map<String, Double> map);

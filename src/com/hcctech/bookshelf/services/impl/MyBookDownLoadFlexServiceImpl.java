@@ -120,7 +120,7 @@ public class MyBookDownLoadFlexServiceImpl implements MyBookDownLoadFlexService{
 	 * 返回下载地址
 	 * @return
 	 */
-	public Map<String, String> downloadEbook(String cpuIdStr, BsWebUser user,int myBookId){
+	public Map<String, String> downloadEbook(String cpuIdStr, BsWebUser user,int myBookId,String deviceName ){
 		String bookCode = null;
 		if(myBookId<=0||cpuIdStr==null||"".equals(StringUtils.trim(cpuIdStr))||user==null)
 			return null;
@@ -166,8 +166,17 @@ public class MyBookDownLoadFlexServiceImpl implements MyBookDownLoadFlexService{
 				//下载地址
 				flag = new HashMap<String, String>();
 				String bookPath = ebook.getBookPath();
-				if("01".equals(ebook.getBookType())) {//文科
+				//如果是文科，并且是zip文件就返回解压后的根目录，非zip的文科还是返回原来的地址
+				if("01".equals(ebook.getBookType()) && ebook.getBookPath().endsWith("zip")) {//文科
 					bookPath = ebook.getBookUrl();
+					//根据设备返回对应文件
+					if(StringUtils.isNotBlank(deviceName)) {
+			            if(deviceName.equals("pc")) {
+			                bookPath +="/wenke_book.zpk";
+			            }else {
+			                bookPath +="/wenke_book.fcb";
+			            }
+			        }
 				}
 				flag.put("path", DomainUtil.getFileDomain()+bookPath+"?sign="+sign);
 				flag.put("key", bookkey);

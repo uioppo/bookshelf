@@ -47,22 +47,13 @@ public class MyBookDownLoadFlex{
 		if(user==null||user.getWuId()==null){
 			return null;
 		}
-		Map<String, String> map = myBookDownLoadFlexService.downloadEbook(cpuIdStr, user, myBookId);
+		Map<String, String> map = myBookDownLoadFlexService.downloadEbook(cpuIdStr, user, myBookId,deviceName);
 		//
 		if(map==null) {
 			return null;
 		}
 		StringBuffer buffer = new StringBuffer();
 		buffer.append( map.get("path"));
-		if(StringUtils.isNotBlank(deviceName)) {
-			if(deviceName.equals("pc")) {
-			    buffer.insert(buffer.indexOf("?"), "/wenke_book.zpk");
-//				buffer.append("/wenke_book.zpk");
-			}else {
-			    buffer.insert(buffer.indexOf("?"), "/wenke_book.fcb");
-//				buffer.append("/wenke_book.fcb");
-			}
-		}
 		String str = cpuIdStr+"<,>"+user.getWuId()+"<,>"+myBookId;
 		byte[] byt = null;
 		String testxx = null;
@@ -116,7 +107,7 @@ public class MyBookDownLoadFlex{
 		if(user==null||user.getWuId()==null){
 			return null;
 		}
-		Map<String, String> map = myBookDownLoadFlexService.downloadEbook(cpuIdStr, user, myBookId);
+		Map<String, String> map = myBookDownLoadFlexService.downloadEbook(cpuIdStr, user, myBookId,null);
 		//
 		StringBuffer buffer = new StringBuffer();
 		buffer.append( map.get("path"));
