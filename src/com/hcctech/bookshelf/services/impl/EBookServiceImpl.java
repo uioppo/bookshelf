@@ -336,6 +336,7 @@ public class EBookServiceImpl implements EBookService{
 	private void sendEncryptCommand(String path, String bookurl,
 			String bookpath, String key) {
 		try {
+			System.out.println("_______开始加密");
 			UNZipServiceImplServiceStub implServiceStub = new UNZipServiceImplServiceStub();
 			UnzipAndEncrypt unzipAndEncrypt2 = new UnzipAndEncrypt();
 			unzipAndEncrypt2.setArg0(path);
@@ -349,8 +350,13 @@ public class EBookServiceImpl implements EBookService{
 			UnzipAndEncryptResponseE responseE = implServiceStub.unzipAndEncrypt(andEncryptE);
 			responseE.getUnzipAndEncryptResponse().get_return();
 			//System.out.println(return_str);
+			System.out.println("_______加密结束");
 		} catch (AxisFault e) {
+			e.printStackTrace();
 		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
