@@ -52,14 +52,14 @@ public class UserRegisterFlex {
 			BsWebUser bsWebUser = new BsWebUser();
 			bsWebUser.setWuId(userId);
 			bsWebUser = webUserService.loadWebUserById(bsWebUser);
-			if(StringUtils.isNotBlank(pwd)) {
-				bsWebUser.setWuPassword(Md5.getMD5Str(pwd));
-			}
 			if(StringUtils.isNotBlank(nickName)) {
 				bsWebUser.getBsUserInfo().setNickName(nickName);
+				webUserService.updateWebUser(bsWebUser);
 			}
-			
-			webUserService.updateWebUser(bsWebUser);
+			if(StringUtils.isNotBlank(pwd)) {
+				bsWebUser.setWuPassword(pwd);
+				registerService.updatePassword(bsWebUser);
+			}
 			return true;
 		}catch(Exception e) {
 			e.printStackTrace();
