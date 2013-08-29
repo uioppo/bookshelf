@@ -119,6 +119,7 @@ String path = request.getContextPath();
 			 			<select id="productType" name="bsProducts.productType" style="width: 140px;background-color: #ffffff;" class="easyui-combobox" panelHeight="auto" editable=false>
 							<option value="0">数字教辅</option>
 							<option value="1" selected="selected">数字教材</option>
+							<option value="2" selected="selected">电子书</option>
 						</select>
 		 			</td>
 		 			<td width="100" height="25" align="right">出版社&nbsp;</td>

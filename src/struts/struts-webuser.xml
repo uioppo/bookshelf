@@ -29,6 +29,7 @@
 		</action>
 		<action name="updateWebUser" class="webUserAction" method="updateWebUser">
 			<result name="success" type="redirect">/admin/webuser_manager/webUserList.jsp</result>
+			<result name="error">/admin/webuser_manager/editWebUser.jsp</result>
 		</action>
 	</package>
 	<package name="recommendSet" namespace="/recommendSet" extends="json-default">

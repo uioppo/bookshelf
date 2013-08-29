@@ -38,6 +38,8 @@ import com.hcctech.webservice.util.UNZipServiceImplServiceStub.UnzipAndEncrypt;
 import com.hcctech.webservice.util.UNZipServiceImplServiceStub.UnzipAndEncryptE;
 import com.hcctech.webservice.util.UNZipServiceImplServiceStub.UnzipAndEncryptResponseE;
 
+import freemarker.template.utility.StringUtil;
+
 public class EBookServiceImpl implements EBookService{
 
 	private BsEbookDao bsEbookDao;
@@ -267,6 +269,7 @@ public class EBookServiceImpl implements EBookService{
 				//
 			}
 			ebook.setBookKey(key);
+			ebook.setSecret(String.valueOf(isSecret));
 			saveOrUpdateEbook(ebook, adminUser, ebookcode, key, date, isadd,isSecret);
 		}else{
 			//更新电子书
@@ -279,6 +282,7 @@ public class EBookServiceImpl implements EBookService{
 			BsEbook ebook2 = new BsEbook(ebook);
 			ebook2.setVersion(d);
 			ebook2.setBookSize(bookSize);
+			isSecret = Boolean.parseBoolean(ebook2.getSecret());
 			saveOrUpdateEbook(ebook2, adminUser, ebookcode, key, date, isadd,isSecret);
 		}
 		
@@ -318,6 +322,7 @@ public class EBookServiceImpl implements EBookService{
 		ebook.setCreateTime(timestamp);
 		ebook.setUploadTime(timestamp);
 		ebook.setOperator(adminUser.getRealName());
+		
 		///=============//
 		bsEbookDao.save(ebook);
 		//==================//

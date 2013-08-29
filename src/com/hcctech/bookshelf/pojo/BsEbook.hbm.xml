@@ -24,6 +24,9 @@
         <property name="realFileName" type="java.lang.String">
             <column name="real_file_name" length="100" />
         </property>
+        <property name="secret" type="java.lang.String">
+            <column name="secret_flag" length="10" />
+        </property>
         <property name="bookSize" type="java.lang.Integer">
             <column name="book_size" />
         </property>
