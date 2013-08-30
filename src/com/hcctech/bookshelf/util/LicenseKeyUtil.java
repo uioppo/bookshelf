@@ -38,10 +38,10 @@ public class LicenseKeyUtil {
 	}
 	
 	
-	/**自定义进制(0,1没有加入,容易与o,l混淆)*/
-	private static final char[] r = new char[] { 'Q', 'W', 'E', '8', 'A', 'S', '2', 'D', 'Z', 'X', '9', 'C', '7', 'P', 'O', '5', 'I', 'K', '3', 'M', 'J', 'U', 'F', 'R', '4', 'V', 'Y', 'L', 'T', 'N', '6', 'B', 'G', 'H' };
+	/**自定义进制(o,l没有加入,容易与0,1混淆)*/
+	private static final char[] r = new char[] { 'Q', 'W', 'E', '8', 'A', 'S', '2', 'D', 'Z', '0', 'X', '9', 'C', '7', 'P', '5', 'K', '3', 'M', 'J', '1', 'U', 'F', 'R', '4', 'V', 'Y', 'L', 'T', 'N', '6', 'B', 'G', 'H' };
 	/**自动补全组(不能与自定义进制有重复)*/
-	private static final char[] b = new char[] { 'Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C', 'P', 'O', 'I', 'K', 'M', 'J', 'U', 'F', 'R', 'V', 'Y', 'T', 'N', 'B', 'G', 'H' };
+	private static final char[] b = new char[] { 'Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C', 'P', 'K', 'M', 'J', 'U', 'F', 'R', 'V', 'Y', 'T', 'N', 'B', 'G', 'H' };
 	/**进制长度*/
 	private static final int l = 34;
 	/**序列最小长度*/

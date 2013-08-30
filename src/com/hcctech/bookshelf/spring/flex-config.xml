@@ -19,6 +19,7 @@
 </bean>
 <bean name="userRegisterFlex" class="com.hcctech.bookshelf.flex.UserRegisterFlex" scope="prototype">
 	<property name="registerService" ref="registerService"></property>
+	<property name="webUserService" ref="webUserService"></property>
 </bean>
 <bean name="myBookDownLoadFlex" class="com.hcctech.bookshelf.flex.MyBookDownLoadFlex"  scope="prototype">
 	<property name="myBookDownLoadFlexService" ref="myBookDownLoadFlexService"></property>
