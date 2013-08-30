@@ -42,12 +42,12 @@ public class UserRegisterFlex {
 		return flag;
 	}
 	
-	
-	public boolean updateNickNameOrPwd(Integer userId,String nickName,String pwd) {
+	//返回1表示成功，返回404表示无此用户，-1表示系统错误,返回500表示旧密码不对
+	public String updateNickNameOrPwd(Integer userId,String nickName,String pwd,String oldPwd) {
 		try {
 			if(StringUtils.isBlank(nickName) && StringUtils.isBlank(pwd)) {
 				System.out.println("昵称和密码都为空！");
-				return false;
+				return "404";
 			}
 			BsWebUser bsWebUser = new BsWebUser();
 			bsWebUser.setWuId(userId);
@@ -57,13 +57,21 @@ public class UserRegisterFlex {
 				webUserService.updateWebUser(bsWebUser);
 			}
 			if(StringUtils.isNotBlank(pwd)) {
+				if(StringUtils.isBlank(oldPwd)) {
+					System.out.println("++++密码为空++++");
+					return "404";
+				}
+				if(!bsWebUser.getWuPassword().equals(Md5.getMD5Str(oldPwd))) {
+					System.out.println("+++++密码不正确++++++");
+					return "500";
+				}
 				bsWebUser.setWuPassword(pwd);
 				registerService.updatePassword(bsWebUser);
 			}
-			return true;
+			return "1";
 		}catch(Exception e) {
 			e.printStackTrace();
-			return false;
+			return "-1";
 		}
 	}
 
