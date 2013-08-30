@@ -1,12 +1,8 @@
 package com.hcctech.bookshelf.flex;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.hcctech.bookshelf.pojo.BsUserInfo;
 import com.hcctech.bookshelf.pojo.BsWebUser;
 import com.hcctech.bookshelf.services.RegisterService;
-import com.hcctech.bookshelf.services.WebUserService;
-import com.hcctech.bookshelf.util.Md5;
 
 import flex.messaging.FlexContext;
 import flex.messaging.FlexSession;
@@ -18,18 +14,16 @@ import flex.messaging.FlexSession;
 public class UserRegisterFlex {
 
 	private RegisterService registerService;
-	private WebUserService webUserService;
 	
 //	private  UserLoginService userLoginService;
 	
-	public int register(String email,String password,String nickname,String realName){
+	public int register(String email,String password,String nickname){
 		FlexSession session = FlexContext.getFlexSession();
 		BsWebUser bsWebUser = new BsWebUser();
 		bsWebUser.setWuEmail(email);
 		bsWebUser.setWuPassword(password);
 		BsUserInfo userInfo = new BsUserInfo();
 		userInfo.setNickName(nickname);
-		userInfo.setRealName(realName);
 		bsWebUser.setBsUserInfo(userInfo);
 //		System.out.println("----------------"+email+"+++"+password);
 		int flag = 0;
@@ -40,31 +34,6 @@ public class UserRegisterFlex {
 		}
 //		System.out.println("|||||||||||"+flag);
 		return flag;
-	}
-	
-	
-	public boolean updateNickNameOrPwd(Integer userId,String nickName,String pwd) {
-		try {
-			if(StringUtils.isBlank(nickName) && StringUtils.isBlank(pwd)) {
-				System.out.println("昵称和密码都为空！");
-				return false;
-			}
-			BsWebUser bsWebUser = new BsWebUser();
-			bsWebUser.setWuId(userId);
-			bsWebUser = webUserService.loadWebUserById(bsWebUser);
-			if(StringUtils.isNotBlank(nickName)) {
-				bsWebUser.getBsUserInfo().setNickName(nickName);
-				webUserService.updateWebUser(bsWebUser);
-			}
-			if(StringUtils.isNotBlank(pwd)) {
-				bsWebUser.setWuPassword(pwd);
-				registerService.updatePassword(bsWebUser);
-			}
-			return true;
-		}catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
 	}
 
 	public void setRegisterService(RegisterService registerService) {
@@ -81,10 +50,6 @@ public class UserRegisterFlex {
 			
 		}
 		return "-1";
-	}
-
-	public void setWebUserService(WebUserService webUserService) {
-		this.webUserService = webUserService;
 	} 
 
 	

@@ -55,7 +55,6 @@ String path = request.getContextPath();
   		&nbsp;&nbsp;|<a href="/webuser/exportExcel.action" class="easyui-linkbutton" icon="icon-redo" plain="true" >导出Excel</a>
   		</form>
   	  </div>
-  	    <a href="javascript:;" onclick="add_user()" class="easyui-linkbutton" icon="icon-add" plain="true" >添加用户</a>&nbsp;
 		用户名：<input id="wuEmail" name="wuEmail"/>
 		<a href="javascript:loadWebUserList();" class="easyui-linkbutton" data-options="iconCls:'icon-search'">搜索</a>
 	  </div>

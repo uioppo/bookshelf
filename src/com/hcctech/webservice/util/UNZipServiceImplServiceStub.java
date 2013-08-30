@@ -31,7 +31,6 @@ public class UNZipServiceImplServiceStub extends org.apache.axis2.client.Stub {
 	static
 	{
 		server = DomainUtil.getFtpserver();
-		System.out.println("____________server="+server);
 	}
 
 	private static synchronized java.lang.String getUniqueSuffix() {

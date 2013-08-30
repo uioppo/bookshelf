@@ -53,14 +53,9 @@ String path = request.getContextPath();
   <input name="bsWebUser.wuId" value="${bsWebUser.wuId }" type="hidden"/>
   <input name="bsWebUser.bsUserInfo.id" value="${bsWebUser.bsUserInfo.id }" type="hidden"/>
   	<table id="table">
-  		<s:if test="error!=null">
-  		<tr>
-  			<td class="lab" width="150px;" colspan="2"><font color="red">${error }</font></td>
-  		</tr>
-  		</s:if>
   		<tr>
   			<td class="lab" width="150px;">用户名：</td>
-  			<td style="background-color: #fff;" width="550px"><input name="bsWebUser.wuEmail" value="${bsWebUser.wuEmail}" <s:if test="bsWebUser!=null&&bsWebUser.wuEmail!=null&&error==null">disabled="disabled"</s:if> maxlength="40"/></td>
+  			<td style="background-color: #fff;" width="550px">${bsWebUser.wuEmail}</td>
   		</tr>
   		<tr>
   			<td class="lab">姓名：</td>

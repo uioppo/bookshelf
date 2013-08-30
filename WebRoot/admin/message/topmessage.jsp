@@ -73,12 +73,12 @@ prop.load(sc.getResourceAsStream("/WEB-INF/topmessage.properties"));
   				String value = prop.getProperty("version");
   				String[] elements = value.split(",");
   		%>
-  			<!-- tr>
+  			<tr>
 				<td>版本号：</td>
 				<td><input type="text" value="<%=elements[1]%>" name="versionName"  /> </td>
 				<td><input type="text" value="<%=elements[0]%>" name="versionKey" disabled="disabled"  /></td>
 				<td><input type="text" value="<%=elements[2]%>" name="versionHref"  /></td>
-			</tr-->
+			</tr>
   		<%			
   			}
   		}else{
@@ -95,12 +95,12 @@ prop.load(sc.getResourceAsStream("/WEB-INF/topmessage.properties"));
 				<td><input name="topmessageHref"/></td>
 				<td><a href="javascript:void(0);" onclick="delthis(this);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'">删除</a></td>
 			</tr>
-			<!-- tr>
+			<tr>
 				<td>版本号：</td>
 				<td><input type="text" name="versionName" /></td>
 				<td><input type="text" value="" name="versionHref"  /></td>
 				<td><a href="javascript:void(0);" onclick="delthis(this);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'">删除</a></td>
-			</tr-->
+			</tr>
 			<%} %>
   		</tbody>
   	</table>
@@ -111,7 +111,7 @@ prop.load(sc.getResourceAsStream("/WEB-INF/topmessage.properties"));
   	
   	</form>
   	<div style="padding: 5px; border: dashed 1px #ccc; margin-top: 20px;">
-  		请选择图片尺寸为 1039 * 235 的图片进行上传；<br/>
+  		请选择图片尺寸为 472 * 235 的图片进行上传；<br/>
   		图片格式为：*.jpg,*.png
   	</div>
   </body>

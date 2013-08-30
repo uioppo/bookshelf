@@ -16,7 +16,7 @@ public class UserLoginFlex {
 
 	private  UserLoginService userLoginService;
 	
-	public String[] login(String username,String password){
+	public boolean login(String username,String password){
 //		FlexSessionManager manager = new FlexSessionManager(broker);
 //		manager.
 		FlexSession session = FlexContext.getFlexSession();
@@ -39,10 +39,10 @@ public class UserLoginFlex {
 	//	session.getId();
 		BsWebUser bsWebUser = userLoginService.login(username,password);
 		if(bsWebUser == null) {
-			return new String[] {"-1"} ;
+			return false ;
 		}
 		session.setAttribute("user", bsWebUser);
-		return new String[] {String.valueOf(bsWebUser.getWuId()),bsWebUser.getBsUserInfo().getNickName(),bsWebUser.getBsUserInfo().getRealName()};
+		return true;
 	}
 
 	public boolean repeatLogin(String username) {

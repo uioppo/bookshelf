@@ -14,7 +14,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -68,8 +67,6 @@ public class WebUserAction extends ActionSupport{
     private InputStream excelFile;
 
     private String downloadFileName;
-    
-    private String error;
 
     public String exportExcel() {
     	try {
@@ -262,30 +259,15 @@ public class WebUserAction extends ActionSupport{
 	 * web用户管理  修改用户信息  提交到数据库
 	 */
 	public String updateWebUser(){
-		if(bsWebUser.getWuId()==null) {
-			bsWebUser.setWuPassword("666666");
-			int flag = registerService.registerWebUser4Client(bsWebUser);
-			if(flag == 0) {
-				error = "系统错误";
-			}else if(flag == 502) {
-				error = "用户已存在";
-			}
-		}else {
-			webUserService.updateWebUser(bsWebUser);
-			logger.info("修改web用户"+bsWebUser.getWuId()+"详细信息");
-		}
-		if(StringUtils.isNotBlank(error)) {
-			return "error";
-		}
+		webUserService.updateWebUser(bsWebUser);
+		logger.info("修改web用户"+bsWebUser.getWuId()+"详细信息");
 		return SUCCESS;
 	}
 	/**
 	 * 用ID查询web用户信息
 	 */
 	public String loadWebUserById(){
-		if(bsWebUser!=null && bsWebUser.getWuId()!=null) {
-			bsWebUser=webUserService.loadWebUserById(bsWebUser);
-		}
+		bsWebUser=webUserService.loadWebUserById(bsWebUser);
 		return SUCCESS;
 	}
 	/**
@@ -427,14 +409,6 @@ public class WebUserAction extends ActionSupport{
 
 	public void setRegisterService(RegisterService registerService) {
 		this.registerService = registerService;
-	}
-
-	public String getError() {
-		return error;
-	}
-
-	public void setError(String error) {
-		this.error = error;
 	}
 	
 }

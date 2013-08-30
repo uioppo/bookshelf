@@ -52,7 +52,6 @@ public class BsEbook implements java.io.Serializable {
 	private String bookType;//电子书类型
 	private String bookType_name; //电子书类型名称
 	private String realFileName;//实际名称
-	private String secret; //是否加密false:不加密，true：加密
 	// Constructors
 
 	/** default constructor */
@@ -451,13 +450,5 @@ public class BsEbook implements java.io.Serializable {
 
 	public void setBookType_name(String bookType_name) {
 		this.bookType_name = bookType_name;
-	}
-
-	public String getSecret() {
-		return secret;
-	}
-
-	public void setSecret(String secret) {
-		this.secret = secret;
 	}
 }

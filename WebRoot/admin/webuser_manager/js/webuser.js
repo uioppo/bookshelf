@@ -250,10 +250,6 @@ function checkmobile() {
 	}
 	return flag;
 }
-
-function add_user(){
-	window.location.href=path+"/webuser/loadWebUserById.action";
-}
 /*function checkAge(){
 	var flag = false;
 	var age = $("#age").val();
