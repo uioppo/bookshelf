@@ -26,6 +26,7 @@ public class FMyBook implements Serializable {
 	private String bookType ; 		//电子书类型    01 文科教材  02理科教材
 	private String realFileName;    //电子书实际名称
 	private String grade;			//年级
+	private String grade_code;      //年级编号
 
 	
 	public FMyBook() {
@@ -229,6 +230,12 @@ public class FMyBook implements Serializable {
 	}
 	public void setGrade(String grade) {
 		this.grade = grade;
+	}
+	public String getGrade_code() {
+		return grade_code;
+	}
+	public void setGrade_code(String grade_code) {
+		this.grade_code = grade_code;
 	}
 	
 	

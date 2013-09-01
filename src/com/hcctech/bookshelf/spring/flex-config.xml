@@ -36,6 +36,10 @@
 <bean name="topMessageFlex" class="com.hcctech.bookshelf.flex.TopMessageFlex"  scope="prototype">
 </bean>
 
+<bean name="readerFlex" class="com.hcctech.bookshelf.flex.ReaderFlex"  scope="prototype">
+	<property name="bsReaderDao" ref="bsReaderDao"></property>
+</bean>
+
 
 <!--flex remoting destination-->
 <flex:remoting-destination destination-id="userLoginFlex" ref="userLoginFlex"/>
@@ -44,4 +48,5 @@
 <flex:remoting-destination destination-id="myBookDownLoadFlex" ref="myBookDownLoadFlex"/>
 <flex:remoting-destination destination-id="licenseKeyFlex" ref="licenseKeyFlex"/>
 <flex:remoting-destination destination-id="topMessageFlex" ref="topMessageFlex"/>
+<flex:remoting-destination destination-id="readerFlex" ref="readerFlex"/>
 </beans>

@@ -22,6 +22,7 @@ public class BsReader implements java.io.Serializable {
 	private Timestamp createTime;
 	private String operator;
 	private String changeLog;
+	private String category;
 
 	// Constructors
 
@@ -31,13 +32,14 @@ public class BsReader implements java.io.Serializable {
 
 	/** full constructor */
 	public BsReader(String exePath, String version, Integer lastest,
-			Timestamp createTime, String operator, String changeLog) {
+			Timestamp createTime, String operator, String changeLog,String category) {
 		this.exePath = exePath;
 		this.version = version;
 		this.lastest = lastest;
 		this.createTime = createTime;
 		this.operator = operator;
 		this.changeLog = changeLog;
+		this.category = category;
 	}
 
 	// Property accessors
@@ -104,6 +106,14 @@ public class BsReader implements java.io.Serializable {
 
 	public void setChangeLog(String changeLog) {
 		this.changeLog = changeLog;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 }

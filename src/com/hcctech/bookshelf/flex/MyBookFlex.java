@@ -7,8 +7,10 @@ import java.util.Map;
 
 import com.hcctech.bookshelf.dao.BsMyBookDao;
 import com.hcctech.bookshelf.flex.vo.FMyBook;
+import com.hcctech.bookshelf.pojo.BsDictionary;
 import com.hcctech.bookshelf.pojo.BsMybook;
 import com.hcctech.bookshelf.pojo.BsWebUser;
+import com.hcctech.bookshelf.services.DictionaryService;
 
 import flex.messaging.FlexContext;
 import flex.messaging.FlexSession;
@@ -17,6 +19,7 @@ import flex.messaging.FlexSession;
 public class MyBookFlex {
 	
 	private BsMyBookDao bsMyBookDao;
+	private DictionaryService dictionaryService;
 
 	public List<FMyBook> findEBookList() {
 		//
@@ -28,13 +31,38 @@ public class MyBookFlex {
 		//System.out.println(mybooks);
 		Map<String, FMyBook> map =new HashMap<String, FMyBook>();
 		for (BsMybook bsMybook : mybooks) {
-			System.out.println(bsMybook.getfMyBook().getBookCode()+"idx__"+bsMybook.getfMyBook().getGoodsId());
+			try {
+				System.out.println(bsMybook.getfMyBook().getBookCode()+"idx__"+bsMybook.getfMyBook().getGoodsId());
+				bsMybook.getfMyBook().setGrade_code(getGradeCode(bsMybook.getfMyBook().getGrade()));
+			}catch(Exception e) {
+				e.printStackTrace();
+				continue;
+			}
 			map.put(bsMybook.getfMyBook().getBookCode()+"idx__"+bsMybook.getfMyBook().getGoodsId(), bsMybook.getfMyBook());
 		}
 		
 		List<FMyBook> bookList = new ArrayList<FMyBook>(map.values());
 
 		return bookList;
+	}
+	private static List<BsDictionary> bsDictionaryList = null;
+	private String getGradeCode(String grade) {
+		String ret = "";
+		synchronized (bsDictionaryList) {
+			if(bsDictionaryList==null) {
+				bsDictionaryList = dictionaryService.findDictionarybyStr(2);
+			}
+		}
+		if(bsDictionaryList!=null) {
+			for (BsDictionary bsDictionary : bsDictionaryList) {
+				if(bsDictionary.getName().equalsIgnoreCase(grade)) {
+					ret = bsDictionary.getDicCode();
+					break;
+				}
+			}
+		}
+		
+		return ret;
 	}
 	
 	

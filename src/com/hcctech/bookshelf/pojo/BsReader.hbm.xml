@@ -28,5 +28,8 @@
         <property name="changeLog" type="java.lang.String">
         	<column name="change_log" length="500"/>
         </property>
+        <property name="category" type="java.lang.String">
+        	<column name="category" length="4"/>
+        </property>
     </class>
 </hibernate-mapping>
