@@ -25,6 +25,7 @@ public class FMyBook implements Serializable {
 	private Integer bookSize ; 		//电子书大小		ebook
 	private String bookType ; 		//电子书类型    01 文科教材  02理科教材
 	private String realFileName;    //电子书实际名称
+	private String grade;			//年级
 
 	
 	public FMyBook() {
@@ -42,7 +43,7 @@ public class FMyBook implements Serializable {
 	public FMyBook(Integer mybookId,Integer goodsId, Timestamp addTime, Timestamp deadline,
 			Integer downNumbers, String bookCode, String bookName,
 			Integer schoolStage, String thumbnail, String subject,
-			Double version, Integer bookSize,String bookType) {
+			Double version, Integer bookSize,String bookType,String grade) {
 		super();
 		this.goodsId = goodsId;
 		this.mybookId = mybookId;
@@ -57,6 +58,7 @@ public class FMyBook implements Serializable {
 		this.version = version;
 		this.bookSize = bookSize;
 		this.bookType = bookType;
+		this.grade = grade;
 	}
 	public Integer getMybookId() {
 		return mybookId;
@@ -221,6 +223,12 @@ public class FMyBook implements Serializable {
 	}
 	public void setRealFileName(String realFileName) {
 		this.realFileName = realFileName;
+	}
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
 	
 	

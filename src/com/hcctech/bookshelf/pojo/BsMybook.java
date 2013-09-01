@@ -59,7 +59,7 @@ public class BsMybook implements java.io.Serializable {
 	public BsMybook(Integer mybookId,Integer goodsId, Integer downNumbers, Date addTime,
 			Date deadline, Integer totalNumbers, String bookCode,
 			String bookName, Integer schoolStage, String thumbnail,
-			String subject, Double version, Integer bookSize,String bookType,String realFileName) {
+			String subject, Double version, Integer bookSize,String bookType,String realFileName,String grade) {
 		this.fMyBook = new FMyBook();
 		this.fMyBook.setMybookId(mybookId);
 		this.fMyBook.setGoodsId(goodsId);
@@ -76,6 +76,7 @@ public class BsMybook implements java.io.Serializable {
 		this.fMyBook.setVersion(version);
 		this.fMyBook.setBookType(bookType);
 		this.fMyBook.setRealFileName(realFileName);
+		this.fMyBook.setGrade(grade);
 	}
 
 

@@ -23,7 +23,7 @@ public class MyBookFlex {
 		FlexSession session = FlexContext.getFlexSession();
 		BsWebUser user=(BsWebUser)session.getAttribute("user");
 		//,mybook.totalNumbers,mybook.bsProducts.bookCode,mybook.bsProducts.productName,mybook.bsProducts.schoolStage,mybook.bsProducts.thumbnail,mybook.bsProducts.subject,be.version,be.bookSize
-		final String hql = "SELECT new BsMybook(mybook.mybookId,mybook.bsProducts.productId,mybook.downNumbers,mybook.addTime,mybook.deadline,mybook.totalNumbers,mybook.bsProducts.bookCode,mybook.bsProducts.productName,mybook.bsProducts.schoolStage,mybook.bsProducts.thumbnail,mybook.bsProducts.subject,be.version,be.bookSize,be.bookType,be.realFileName) from BsMybook mybook,BsEbook be,BsFlow flow where mybook.bsWebUser.wuId = ? and mybook.bsProducts.bookCode=be.bookCode and be.id=flow.objectId and flow.type in (1,2) and flow.isPass = 1 order by be.bookCode,be.version";
+		final String hql = "SELECT new BsMybook(mybook.mybookId,mybook.bsProducts.productId,mybook.downNumbers,mybook.addTime,mybook.deadline,mybook.totalNumbers,mybook.bsProducts.bookCode,mybook.bsProducts.productName,mybook.bsProducts.schoolStage,mybook.bsProducts.thumbnail,mybook.bsProducts.subject,be.version,be.bookSize,be.bookType,be.realFileName,be.grade) from BsMybook mybook,BsEbook be,BsFlow flow where mybook.bsWebUser.wuId = ? and mybook.bsProducts.bookCode=be.bookCode and be.id=flow.objectId and flow.type in (1,2) and flow.isPass = 1 order by be.bookCode,be.version";
 		List<BsMybook> mybooks = bsMyBookDao.findByHql(hql, user.getWuId());
 		//System.out.println(mybooks);
 		Map<String, FMyBook> map =new HashMap<String, FMyBook>();
