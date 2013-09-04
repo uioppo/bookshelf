@@ -21,7 +21,7 @@ String path = request.getContextPath();
   	<%
 		String importExcelSuccess = request.getParameter("importExcelSuccess");
 		String exportExcelFail = request.getParameter("exportExcelFail");
-		String msg = request.getParameter("msg");
+		String msg = (String)request.getAttribute("msg");
 	%>
 	<script type="text/javascript">
 	var isImportExcelSuccess = <%=(importExcelSuccess!=null && "1".equals(importExcelSuccess))?"true":"false"%>
