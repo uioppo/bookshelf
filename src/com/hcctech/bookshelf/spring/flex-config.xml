@@ -27,6 +27,7 @@
 
 <bean name="myBookFlex" class="com.hcctech.bookshelf.flex.MyBookFlex"  scope="prototype">
 	<property name="bsMyBookDao" ref="bsMyBookDao"></property>
+	<property name="dictionaryService" ref="dictionaryService"></property>
 </bean>
 
 <bean name="licenseKeyFlex" class="com.hcctech.bookshelf.flex.LicenseKeyFlex"  scope="prototype">

@@ -265,17 +265,18 @@ public class ProductOrderServiceImpl implements ProductOrderService{
 		Timestamp t=new Timestamp(new Date().getTime());
 		boolean flag=false;
 		if(list!=null&&list.size()>0){
-			String keyCountStr=null;
-			try {
-				InputStream inputStream = ProductOrderServiceImpl.class.getClassLoader()
-				.getResourceAsStream("licenseKey.properties");
-				Properties p = new Properties();
-				p.load(inputStream);
-				keyCountStr=p.getProperty("keyCount");
-			} catch (IOException e) {
-				keyCountStr="3";
-			}
-			int keyCount=Integer.valueOf(keyCountStr);
+//			String keyCountStr=null;
+//			try {
+//				InputStream inputStream = ProductOrderServiceImpl.class.getClassLoader()
+//				.getResourceAsStream("licenseKey.properties");
+//				Properties p = new Properties();
+//				p.load(inputStream);
+//				keyCountStr=p.getProperty("keyCount");
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//				keyCountStr="3";
+//			}
+//			int keyCount=Integer.valueOf(keyCountStr);
 			for(BsOrderProduct bsOrderProduct:list){
 				BsProducts bsProducts=bsOrderProduct.getBsProducts();
 				if(myBookList!=null&&myBookList.size()>0){
@@ -294,8 +295,8 @@ public class ProductOrderServiceImpl implements ProductOrderService{
 									bsMybook.setDeadline(new Timestamp(now.getTimeInMillis()));
 								}
 							}
-							bsMybook.setDownNumbers(bsMybook.getDownNumbers()+(bsOrderProduct.getBuyCount()*((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?keyCount:bsProducts.getDownNumber())));
-							bsMybook.setTotalNumbers(bsMybook.getTotalNumbers()+(bsOrderProduct.getBuyCount()*((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?keyCount:bsProducts.getDownNumber())));
+							bsMybook.setDownNumbers(bsMybook.getDownNumbers()+(bsOrderProduct.getBuyCount()*((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber())));
+							bsMybook.setTotalNumbers(bsMybook.getTotalNumbers()+(bsOrderProduct.getBuyCount()*((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber())));
 							flag=true;
 						}
 					}
@@ -320,8 +321,8 @@ public class ProductOrderServiceImpl implements ProductOrderService{
 						now.set(Calendar.MONTH, now.get(Calendar.MONTH)+0);  
 						bsMybook1.setDeadline(new Timestamp(now.getTimeInMillis()));
 					}
-					bsMybook1.setDownNumbers(bsOrderProduct.getBuyCount()*keyCount);
-					bsMybook1.setTotalNumbers(bsOrderProduct.getBuyCount()*keyCount);
+					bsMybook1.setDownNumbers(bsOrderProduct.getBuyCount()*((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber()));
+					bsMybook1.setTotalNumbers(bsOrderProduct.getBuyCount()*((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber()));
 					bsMyBookDao.save(bsMybook1);
 				}
 			}

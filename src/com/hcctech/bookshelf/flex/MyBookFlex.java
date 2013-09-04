@@ -45,11 +45,11 @@ public class MyBookFlex {
 
 		return bookList;
 	}
-	private static List<BsDictionary> bsDictionaryList = null;
+	private static List<BsDictionary> bsDictionaryList = new ArrayList<BsDictionary>();
 	private String getGradeCode(String grade) {
 		String ret = "";
 		synchronized (bsDictionaryList) {
-			if(bsDictionaryList==null) {
+			if(bsDictionaryList==null || bsDictionaryList.size()<=0) {
 				bsDictionaryList = dictionaryService.findDictionarybyStr(2);
 			}
 		}
@@ -68,6 +68,11 @@ public class MyBookFlex {
 	
 	public void setBsMyBookDao(BsMyBookDao bsMyBookDao) {
 		this.bsMyBookDao = bsMyBookDao;
+	}
+
+
+	public void setDictionaryService(DictionaryService dictionaryService) {
+		this.dictionaryService = dictionaryService;
 	}
 
 	

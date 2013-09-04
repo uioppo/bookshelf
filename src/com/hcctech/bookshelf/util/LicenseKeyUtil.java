@@ -54,7 +54,7 @@ public class LicenseKeyUtil {
 		 Random rnd = new Random();
 		if(key.length()<8){
 			for (int i = 0; i < 8 - key.length(); i++) {
-				  sb.append(b[rnd.nextInt(24)]);
+				  sb.append(b[rnd.nextInt(22)]);
 			}
 		}
 		sb.append(key);
@@ -330,7 +330,7 @@ public class LicenseKeyUtil {
 	       StringBuffer sb = new StringBuffer();
 	       Random rnd = new Random();
 	       for (int i = 0; i < s - str.length(); i++) {
-	           sb.append(b[rnd.nextInt(24)]);
+	           sb.append(b[rnd.nextInt(22)]);
 	       }
 	       str += sb.toString();
 	   }

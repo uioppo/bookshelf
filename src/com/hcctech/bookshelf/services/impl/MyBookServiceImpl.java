@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.hcctech.bookshelf.dao.BsLicenseKeyDao;
 import com.hcctech.bookshelf.dao.BsMyBookDao;
 import com.hcctech.bookshelf.dao.support.Page;
@@ -102,7 +104,7 @@ public class MyBookServiceImpl implements MyBookService{
 		Calendar now = Calendar.getInstance();  
 		BsWebUser bsWebUser = new BsWebUser();
 		bsWebUser.setWuId(user.getWuId());
-		int key_count=getKeyCount();
+//		int key_count=getKeyCount();
 		for(BsProducts bsProducts:set){
 			if(myBookList!=null&&myBookList.size()>0){
 				for(BsMybook bsMybook:myBookList){
@@ -126,8 +128,8 @@ public class MyBookServiceImpl implements MyBookService{
 								}
 							}
 						}
-						bsMybook.setDownNumbers(bsMybook.getDownNumbers()+((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?key_count:bsProducts.getDownNumber()));
-						bsMybook.setTotalNumbers(bsMybook.getTotalNumbers()+((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?key_count:bsProducts.getDownNumber()));
+						bsMybook.setDownNumbers(bsMybook.getDownNumbers()+((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber()));
+						bsMybook.setTotalNumbers(bsMybook.getTotalNumbers()+((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber()));
 						flag=true;
 					}
 				}
@@ -152,8 +154,8 @@ public class MyBookServiceImpl implements MyBookService{
 					now.set(Calendar.MONTH, now.get(Calendar.MONTH)+0);  
 					bsMybook1.setDeadline(new Timestamp(now.getTimeInMillis()));
 				}
-				bsMybook1.setDownNumbers(key_count);
-				bsMybook1.setTotalNumbers(key_count);
+				bsMybook1.setDownNumbers((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber());
+				bsMybook1.setTotalNumbers((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber());
 				bsMyBookDao.save(bsMybook1);
 			}
 		}
@@ -190,7 +192,9 @@ public class MyBookServiceImpl implements MyBookService{
 			ret_flag = "-1";
 			return ret_flag;
 		}
-		
+		if(StringUtils.isNotBlank(licenseKey)) {
+			licenseKey = licenseKey.toUpperCase();
+		}
 		Integer lkid = null ;
 		if(licenseKey.length() == 16){
 			lkid = keyId(licenseKey);
@@ -220,7 +224,7 @@ public class MyBookServiceImpl implements MyBookService{
 				ret_flag = "502";
 				return ret_flag;
 			}
-			if(!bsLicenseKey.getKeyId().equals(licenseKey)){
+			if(!bsLicenseKey.getKeyId().equalsIgnoreCase(licenseKey)){
 				msg="无效授权码！";
 				ret_flag = "404";
 				return ret_flag;
@@ -241,7 +245,7 @@ public class MyBookServiceImpl implements MyBookService{
 		Calendar now = Calendar.getInstance();  
 		BsWebUser bsWebUser = new BsWebUser();
 		bsWebUser.setWuId(user.getWuId());
-		int key_count=getKeyCount();
+//		int key_count=getKeyCount();
 		for(BsProducts bsProducts:set){
 			if(myBookList!=null&&myBookList.size()>0){
 				for(BsMybook bsMybook:myBookList){
@@ -266,8 +270,8 @@ public class MyBookServiceImpl implements MyBookService{
 								
 							}
 						}
-						bsMybook.setDownNumbers(bsMybook.getDownNumbers()+((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?key_count:bsProducts.getDownNumber()));
-						bsMybook.setTotalNumbers(bsMybook.getTotalNumbers()+((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?key_count:bsProducts.getDownNumber()));
+						bsMybook.setDownNumbers(bsMybook.getDownNumbers()+((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber()));
+						bsMybook.setTotalNumbers(bsMybook.getTotalNumbers()+((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber()));
 						flag=true;
 					}
 				}
@@ -292,8 +296,8 @@ public class MyBookServiceImpl implements MyBookService{
 					now.set(Calendar.MONTH, now.get(Calendar.MONTH)+0);  
 					bsMybook1.setDeadline(new Timestamp(now.getTimeInMillis()));
 				}
-				bsMybook1.setDownNumbers(key_count);
-				bsMybook1.setTotalNumbers(key_count);
+				bsMybook1.setDownNumbers(((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber()));
+				bsMybook1.setTotalNumbers(((bsProducts.getDownNumber()==null||bsProducts.getDownNumber()<=0)?3:bsProducts.getDownNumber()));
 				bsMyBookDao.save(bsMybook1);
 			}
 		}
@@ -342,20 +346,6 @@ public class MyBookServiceImpl implements MyBookService{
 		lkid = Integer.parseInt(sb.toString());
 		return lkid ;
 	}
-	public int getKeyCount(){
-		String keyCountStr=null;
-		try {
-			InputStream inputStream = MyBookServiceImpl.class.getClassLoader()
-			.getResourceAsStream("licenseKey.properties");
-			Properties p = new Properties();
-			p.load(inputStream);
-			keyCountStr=p.getProperty("keyCount");
-		} catch (IOException e) {
-			keyCountStr="3";
-		}
-		int keyCount=Integer.valueOf(keyCountStr);
-		return keyCount;
-	}
 	public void setBsMyBookDao(BsMyBookDao bsMyBookDao) {
 		this.bsMyBookDao = bsMyBookDao;
 	}
@@ -363,6 +353,5 @@ public class MyBookServiceImpl implements MyBookService{
 	public void setBsLicenseKeyDao(BsLicenseKeyDao bsLicenseKeyDao) {
 		this.bsLicenseKeyDao = bsLicenseKeyDao;
 	}
-	
 	
 }
