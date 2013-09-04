@@ -26,15 +26,24 @@ public class MyBookDownLoadFlex{
 	 * @return
 	 */
 	private MyBookDownLoadFlexService myBookDownLoadFlexService;
-	public int downLoadValidate(int myBookId,String cpuIdStr){
-		FlexSession session = FlexContext.getFlexSession();
-		BsWebUser user=(BsWebUser)session.getAttribute("user");
-		if(user==null||user.getWuId()==null){
-			return 0;
-		}
-		int flag=myBookDownLoadFlexService.downLoadValidate(cpuIdStr, user, myBookId);
-		return flag;
-	}
+    
+    public int downLoadValidate(int myBookId, String cpuIdStr)
+    {
+        int flag = 0;
+        try{
+            FlexSession session = FlexContext.getFlexSession();
+            BsWebUser user = (BsWebUser) session.getAttribute("user");
+            if(user == null || user.getWuId() == null){
+                return 0;
+            }
+            flag = myBookDownLoadFlexService.downLoadValidate(cpuIdStr, user, myBookId);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+        return flag;
+    }
 	
 	/**
 	 * @param myBookId
