@@ -204,56 +204,62 @@ public class WebUserAction extends ActionSupport{
 	    		int i = 0;
 	    		for (Row row : sheet) {
 					if(i++==0) continue;
-					try {
-						BsWebUser webUser = new BsWebUser();
-						webUser.setWuEmail(row.getCell(0).getStringCellValue());
-						webUser.setWuUserName(row.getCell(0).getStringCellValue());
-						webUser.setWuActivestatus(1);
-						webUser.setWuToken("");
-						Page<BsWebUser> ret = webUserService.loadWebUserList(webUser.getWuEmail(), 1, 10, null, null);
-						if(ret!=null && ret.getList()!=null && ret.getList().size()>0) {
-							continue;
+					BsWebUser webUser = new BsWebUser();
+					if(!row.getCell(0).getStringCellValue().matches("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")){
+//							   System.out.println("邮箱格式不正确");
+						msg = row.getCell(0).getStringCellValue().trim()+"不是合法邮箱";
+						throw new Exception(msg);
+					}
+					webUser.setWuEmail(row.getCell(0).getStringCellValue());
+					webUser.setWuUserName(row.getCell(0).getStringCellValue());
+					webUser.setWuActivestatus(1);
+					webUser.setWuToken("");
+					Page<BsWebUser> ret = webUserService.loadWebUserList(webUser.getWuEmail(), 1, 10, null, null);
+					if(ret!=null && ret.getList()!=null && ret.getList().size()>0) {
+//						continue;
+						msg = row.getCell(0).getStringCellValue()+"已经存在";
+						throw new Exception(msg);
+					}
+					webUser.setWuPassword("666666");
+					int flag = registerService.registerWebUser4Client(webUser);
+					if(flag==1) {
+						BsUserInfo userInfo = webUser.getBsUserInfo();
+						userInfo.setRealName(row.getCell(1).toString());
+						if(row.getCell(2)!=null) {
+							userInfo.setSheng(getAreaIdByName(treeList, row.getCell(2).toString()));
 						}
-						webUser.setWuPassword("666666");
-						int flag = registerService.registerWebUser4Client(webUser);
-						if(flag==1) {
-							BsUserInfo userInfo = webUser.getBsUserInfo();
-							userInfo.setRealName(row.getCell(1).toString());
-							if(row.getCell(2)!=null) {
-								userInfo.setSheng(getAreaIdByName(treeList, row.getCell(2).toString()));
-							}
-							if(row.getCell(3)!=null) {
-								if(row.getCell(3).equals("市辖区") || row.getCell(3).equals("县")) {
-									userInfo.setShi(getAreaIdByNameAndParentId(treeList, row.getCell(3).toString(),userInfo.getSheng()));
-								}else {
-									userInfo.setShi(getAreaIdByName(treeList, row.getCell(3).toString()));
-								}
-							}
-							if(row.getCell(4)!=null) {
-								userInfo.setXian(getAreaIdByName(treeList, row.getCell(4).toString()));
-							}
-							userInfo.setSchool(row.getCell(5).toString());
-							userInfo.setNickName(row.getCell(6).toString());
-							userInfo.setSex(getSex_cod(row.getCell(7).toString()));
-							if(row.getCell(8).getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
-								userInfo.setMobile(df.format(row.getCell(8).getNumericCellValue()));
+						if(row.getCell(3)!=null) {
+							if(row.getCell(3).equals("市辖区") || row.getCell(3).equals("县")) {
+								userInfo.setShi(getAreaIdByNameAndParentId(treeList, row.getCell(3).toString(),userInfo.getSheng()));
 							}else {
-								userInfo.setMobile(row.getCell(8).toString());
+								userInfo.setShi(getAreaIdByName(treeList, row.getCell(3).toString()));
 							}
-								
-							userInfo.setBirthday(row.getCell(9).getDateCellValue());
-							webUserService.updateWebUser(webUser);
 						}
-					}catch(Exception e) {
-						e.printStackTrace();
-						continue;
+						if(row.getCell(4)!=null) {
+							userInfo.setXian(getAreaIdByName(treeList, row.getCell(4).toString()));
+						}
+						userInfo.setSchool(row.getCell(5).toString());
+						userInfo.setNickName(row.getCell(6).toString());
+						userInfo.setSex(getSex_cod(row.getCell(7).toString()));
+						if(row.getCell(8).getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
+							userInfo.setMobile(df.format(row.getCell(8).getNumericCellValue()));
+						}else {
+							userInfo.setMobile(row.getCell(8).toString());
+						}
+							
+						userInfo.setBirthday(row.getCell(9).getDateCellValue());
+						webUserService.updateWebUser(webUser);
 					}
 				}
 	    	}else {
 	    	    return "fail";
 	    	}
     	}catch(Exception e) {
+    		if(StringUtils.isBlank(msg)) {
+    			msg = e.getMessage();
+    		}
     		e.printStackTrace();
+    		return "fail";
     	}
     	return SUCCESS;
     }

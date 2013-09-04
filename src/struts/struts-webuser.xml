@@ -11,7 +11,7 @@
 		
 		<action name="importExcel" class="webUserAction" method="importExcel">
 			<result name="success" type="redirect">/admin/webuser_manager/webUserList.jsp?importExcelSuccess=1</result>
-			<result name="fail" type="redirect">/admin/webuser_manager/webUserList.jsp?importExcelSuccess=0</result>
+			<result name="fail" type="dispatcher">/admin/webuser_manager/webUserList.jsp?importExcelSuccess=0</result>
 		</action>
 		<action name="exportExcel" class="webUserAction" method="exportExcel">
 			<result name="fail" type="redirect">/admin/webuser_manager/webUserList.jsp?exportExcelFail=1</result>

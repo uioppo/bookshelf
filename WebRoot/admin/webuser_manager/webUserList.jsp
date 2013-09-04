@@ -21,13 +21,22 @@ String path = request.getContextPath();
   	<%
 		String importExcelSuccess = request.getParameter("importExcelSuccess");
 		String exportExcelFail = request.getParameter("exportExcelFail");
+		String msg = request.getParameter("msg");
 	%>
 	<script type="text/javascript">
 	var isImportExcelSuccess = <%=(importExcelSuccess!=null && "1".equals(importExcelSuccess))?"true":"false"%>
+	var isImportExcelFail = <%=(importExcelSuccess!=null && "0".equals(importExcelSuccess))?"true":"false"%>
 	var idExportExcelFail = <%=(exportExcelFail!=null && "1".equals(exportExcelFail))?"true":"false"%>
+	var msg = "<%=msg%>";
 	$(document).ready(function(){
 		if(isImportExcelSuccess){
 			alert("上传成功！");
+		}else if(isImportExcelFail){
+			if(msg==null || msg==""){
+				alert("上传失败！");
+			}else{
+				alert(msg);
+			}
 		}
 		if(idExportExcelFail){
 			alert("导出失败，请联系管理员！");

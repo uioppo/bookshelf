@@ -50,16 +50,18 @@ function saveSetting() {
 	});
 }
 function delthis(o,key){
-	if(key){
-		$.post(path+'/delTopMessage.action',{"key":key},function(data){
-			  if(data && data.flag=="1"){
-				  alert("删除成功！");
-			  }else if(data && data.flag=="-1"){
-				  alert(data.msg);
-			  }
+	if(confirm("确认删除？")){
+		if(key){
+			$.post(path+'/delTopMessage.action',{"key":key},function(data){
+				if(data && data.flag=="1"){
+					alert("删除成功！");
+				}else if(data && data.flag=="-1"){
+					alert(data.msg);
+				}
 			},'json');
+		}
+		$(o).parents("tr").remove();
 	}
-	$(o).parents("tr").remove();
 }
 function addone(){
 	var _tr=$("<tr></tr>");
