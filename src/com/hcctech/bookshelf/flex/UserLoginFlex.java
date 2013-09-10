@@ -41,7 +41,7 @@ public class UserLoginFlex {
 		
 		if(bsWebUser == null) {
 			//用户不存在
-			return new String[] {"-1","用户不存在"} ;
+			return new String[] {"-1","用户名或密码错误"} ;
 		}else {
 			if(bsWebUser.getWuActivestatus() == 0) {
 //				loginMsg = "该用户未激活！";
