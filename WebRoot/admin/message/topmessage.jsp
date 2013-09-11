@@ -111,7 +111,7 @@ prop.load(sc.getResourceAsStream("/WEB-INF/topmessage.properties"));
   	
   	</form>
   	<div style="padding: 5px; border: dashed 1px #ccc; margin-top: 20px;">
-  		请选择图片尺寸为 1039 * 235 的图片进行上传；<br/>
+  		请选择图片尺寸为 1039 * 117 的图片进行上传；<br/>
   		图片格式为：*.jpg,*.png
   	</div>
   </body>
