@@ -19,6 +19,18 @@ public class JDBCPoolAppender extends JDBCAppender {
 	
 	public JDBCPoolAppender(){
 		super();
+//		property = new Properties();
+//		try
+//        {
+//            property.load(this.getClass().getClassLoader().getResourceAsStream("jdbc.properties"));
+//            this.databaseURL = property.getProperty("log.url");
+//            this.databaseUser = property.getProperty("log.username");
+//            this.databasePassword = property.getProperty("log.password");
+//        }
+//        catch(IOException e)
+//        {
+//            e.printStackTrace();
+//        }
 		if(cpds==null){
 			cpds = new ComboPooledDataSource();
 			
@@ -29,16 +41,17 @@ public class JDBCPoolAppender extends JDBCAppender {
 				cpds.setJdbcUrl(property.getProperty("log.url"));
 				cpds.setUser(property.getProperty("log.username"));
 				cpds.setPassword(property.getProperty("log.password"));
-				cpds.setMinPoolSize(5);
-				cpds.setMaxPoolSize(20);
+				cpds.setMinPoolSize(20);
+				cpds.setMaxPoolSize(80);
 				cpds.setMaxIdleTime(1800);
 				cpds.setAcquireIncrement(2);
-				cpds.setMaxStatements(0);
-				cpds.setInitialPoolSize(2);
+				cpds.setMaxStatements(20);
+				cpds.setInitialPoolSize(20);
 				cpds.setIdleConnectionTestPeriod(1800);
 				cpds.setAcquireRetryAttempts(30);
-				cpds.setBreakAfterAcquireFailure(true);
-				cpds.setTestConnectionOnCheckout(false);
+				cpds.setAcquireRetryDelay(1000);
+				cpds.setBreakAfterAcquireFailure(false);
+				cpds.setTestConnectionOnCheckout(true);
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			} catch (IOException e1) {
@@ -50,20 +63,19 @@ public class JDBCPoolAppender extends JDBCAppender {
 		
 	}
 	
-	@Override
-	protected void closeConnection(Connection conn) {
-		try {
-			if(conn!=null && !conn.isClosed()){
-				conn.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+//	@Override
+//	protected void closeConnection(Connection conn) {
+//		try {
+//			if(conn!=null && !conn.isClosed()){
+//				conn.close();
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
-	@Override
-	protected Connection getConnection() throws SQLException {
-		//if(cpds)
-		return cpds.getConnection();
-	}
+//	@Override
+//	protected Connection getConnection() throws SQLException {
+//		return super.getConnection();
+//	}
 }
