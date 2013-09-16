@@ -262,6 +262,11 @@ public class LicenseManagerServiceImpl implements LicenseManagerService {
 							if(bsLicenseKey!=null){
 								BsSchool bsSchool = bsLicenseKey.getBsSchool();
 								try {
+									if(bsLicenseKey.getLifeTime().before(new Date())) {
+										bsLicenseBatch.setIsLift("已过期");
+									}else {
+										bsLicenseBatch.setIsLift("未过期");
+									}
 								if(bsSchool!=null&&bsSchool.getSchoolName()!=null&&!"".equals(bsSchool.getSchoolName())){
 										bsLicenseBatch.setSchoolName(bsSchool.getSchoolName());
 								}else{

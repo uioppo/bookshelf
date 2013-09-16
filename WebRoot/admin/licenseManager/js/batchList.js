@@ -25,6 +25,7 @@ function loadBatchPage(){
 					}
 				}
 			},
+			{field:'isLift',title:'是否过期',width:100,sortable:true,align:'center'},
 			{field:'operator',title:'操作人',width:200,sortable:true,align:'center'},
 			{field:'createTime_',title:'操作时间',width:200,align:'center'},
 			{field:'edit',title:'操作',width:150,align:'center',

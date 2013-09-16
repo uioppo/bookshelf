@@ -7,7 +7,7 @@ function loadWebUserList(){
 	striped:true,
 	singleSelect:true,
 	url:path+'/webuser/loadWebUserList.action',
-	queryParams:{'wuEmail':wuEmail},
+	queryParams:{'wuEmail':wuEmail,'sort':'wuId','order':'desc'},
 	loadMsg:'数据加载中请稍后……',
 	columns:[[
 		{field:'wuEmail',title:'用户名',width:150,sortable:true,align:'center'},

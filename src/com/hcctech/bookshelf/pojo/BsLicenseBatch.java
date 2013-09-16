@@ -23,6 +23,7 @@ public class BsLicenseBatch implements java.io.Serializable {
 	private Integer schoolStage;
 	private Timestamp createTime;
 	private String operator;
+	private String isLift;
 	private Set<BsLicenseKey>  bsLicenseKeies = new HashSet<BsLicenseKey> (0);
 
 	
@@ -107,6 +108,14 @@ public class BsLicenseBatch implements java.io.Serializable {
 
 	public void setShuliang(String shuliang) {
 		this.shuliang = shuliang;
+	}
+
+	public String getIsLift() {
+		return isLift;
+	}
+
+	public void setIsLift(String isLift) {
+		this.isLift = isLift;
 	}
 	
 }

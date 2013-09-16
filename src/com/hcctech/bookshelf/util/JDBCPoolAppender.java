@@ -41,8 +41,8 @@ public class JDBCPoolAppender extends JDBCAppender {
 				cpds.setJdbcUrl(property.getProperty("log.url"));
 				cpds.setUser(property.getProperty("log.username"));
 				cpds.setPassword(property.getProperty("log.password"));
-				cpds.setMinPoolSize(20);
-				cpds.setMaxPoolSize(80);
+				cpds.setMinPoolSize(5);
+				cpds.setMaxPoolSize(20);
 				cpds.setMaxIdleTime(1800);
 				cpds.setAcquireIncrement(2);
 				cpds.setMaxStatements(20);
@@ -63,19 +63,20 @@ public class JDBCPoolAppender extends JDBCAppender {
 		
 	}
 	
-//	@Override
-//	protected void closeConnection(Connection conn) {
-//		try {
-//			if(conn!=null && !conn.isClosed()){
-//				conn.close();
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	@Override
+	protected void closeConnection(Connection conn) {
+		try {
+			if(conn!=null && !conn.isClosed()){
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-//	@Override
-//	protected Connection getConnection() throws SQLException {
+	@Override
+	protected Connection getConnection() throws SQLException {
 //		return super.getConnection();
-//	}
+		return cpds.getConnection();
+	}
 }

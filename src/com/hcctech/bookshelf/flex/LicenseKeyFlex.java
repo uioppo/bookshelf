@@ -1,5 +1,7 @@
 package com.hcctech.bookshelf.flex;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.hcctech.bookshelf.pojo.BsWebUser;
 import com.hcctech.bookshelf.services.MyBookService;
 import com.opensymphony.xwork2.ActionContext;
@@ -20,7 +22,7 @@ public class LicenseKeyFlex {
 		BsWebUser user=(BsWebUser)session.getAttribute("user");
 		if(myBookService==null)
 			System.out.println("server="+myBookService);
-		return myBookService.addMyBookByKey(licenseKey,user);
+		return myBookService.addMyBookByKey(licenseKey.trim(),user);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
