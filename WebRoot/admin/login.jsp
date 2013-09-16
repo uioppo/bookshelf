@@ -48,13 +48,15 @@ window.parent.location.href="<%=path%>/admin/login.jsp";
 </script>
 </head>
 <body>
-	<div id="message-box">
-		<s:property value="msg" />
-	</div>
 	<div id="wrap">
 		<div id="header"></div>
 		<div id="content-wrap">
-			<div class="space"></div>
+			<div class="space">
+			<div id="message-box" style="margin-left: auto; margin-right: auto;" aa="ad">
+				<s:property value="msg" />
+				
+			</div>
+			</div>
 			<form action="<%=path%>/admin/adminlogin.action" method="post" onsubmit="return onsub();">
 				<div class="content">
 					<div class="field">

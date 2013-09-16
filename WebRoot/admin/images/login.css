@@ -35,7 +35,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 	}
 
 body{ background:#0a76b0}
-#message-box{ height:30px; width:300px; background:#f81900; position:absolute; right:0px; line-height:30px; text-align:center; display:none} 
+#message-box{ height:30px; width:600px; background:#f81900; right:0px; line-height:30px; text-align:center; display:none} 
 #wrap{ width:960px; margin:0 auto; background:url(login-bg.gif); height:613px;}
 #header{ height:170px;}
 #content-wrap{ width:593px; height:357px; background:url(login-bg.png); margin:0 auto;}
