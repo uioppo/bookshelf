@@ -28,7 +28,7 @@ String path = request.getContextPath();
 			setInterval(rand,180*1000);
 		});
 	
-		function onUploadFinish(o,s){
+		function onUploadFinish(o,s,i){
 			$("#bookPath").val(o);
 			$("#bookSize").val(s);
 			$.messager.alert('提示','上传成功!','info');

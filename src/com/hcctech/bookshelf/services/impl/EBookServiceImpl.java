@@ -135,12 +135,12 @@ public class EBookServiceImpl implements EBookService{
 //		hql += " order by a.bookCode,a.version";
 		hql+=" order by b.time desc";
 		page = bsEbookDao.pagedQuery(hql, pageNo, pageSize);
-		List<BsEbook> ebooks = page.getList();
-		Map<String, BsEbook> map = new HashMap<String, BsEbook>();
-		for (BsEbook book : ebooks) {
-			map.put(book.getBookCode(), book);
-		}
-		page.setList(new ArrayList<BsEbook>(map.values()));
+//		List<BsEbook> ebooks = page.getList();
+//		Map<String, BsEbook> map = new HashMap<String, BsEbook>();
+//		for (BsEbook book : ebooks) {
+//			map.put(book.getBookCode(), book);
+//		}
+//		page.setList(new ArrayList<BsEbook>(map.values()));
 		return page;
 	}
 	
