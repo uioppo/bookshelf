@@ -37,7 +37,7 @@ function loadAllBook(idStr){
 	width:'100%',
 	striped:true,
 	singleSelect:false,
-	idField:"fldId",
+	idField:"productId",
 	url:path+'/license/loadProductAll.action',
 	queryParams:{'productName':productName,'idStr':idStr},
 	loadMsg:'数据加载中请稍后……',

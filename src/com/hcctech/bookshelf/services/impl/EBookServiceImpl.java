@@ -277,11 +277,13 @@ public class EBookServiceImpl implements EBookService{
 			ebookcode = ebook.getBookCode();
 			key = ebook.getBookKey();
 			Double d = ebook.getVersion();
+			String bookPath = ebook.getBookPath();
 			int bookSize = ebook.getBookSize();
 			ebook = bsEbookDao.get(ebook.getId());
 			BsEbook ebook2 = new BsEbook(ebook);
 			ebook2.setVersion(d);
 			ebook2.setBookSize(bookSize);
+			ebook2.setBookPath(bookPath);
 			isSecret = Boolean.parseBoolean(ebook2.getSecret());
 			saveOrUpdateEbook(ebook2, adminUser, ebookcode, key, date, isadd,isSecret);
 		}
