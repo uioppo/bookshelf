@@ -100,8 +100,10 @@ String path = request.getContextPath();
  		<input name="ebook.bookCode" value="${ebook.bookCode}" type="hidden"/>
  		<input name="ebook.version" value="${ebook.version}" type="hidden"/>
  		<input name="ebook.bookKey" value="${ebook.bookKey}" type="hidden"/>
+ 		<input name="ebook.secret" value="${ebook.secret}" type="hidden"/>
  		<input type="hidden" name="ebook.bookPath" id="bookPath" />
  		<input type="hidden" name="ebook.bookSize" id="bookSize" />
+ 		<input type="hidden" name="bookSecret" id="bookSecret" value="${ebook.secret}" />
  		<a class="easyui-linkbutton" iconCls="icon-save" href="javascript:void(0)" onclick="saveEbook()">保&nbsp;&nbsp;存</a>
 	  </form>
 	</div>

@@ -143,6 +143,7 @@ public class BsEbook implements java.io.Serializable {
 		this.edition = ebook.getEdition();
 		this.gradeCode = ebook.getGradeCode();
 		this.bookType = ebook.getBookType();
+		this.secret = ebook.getSecret();
 	}
 	public Integer getId() {
 		return this.id;
