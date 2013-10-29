@@ -45,7 +45,7 @@ String path = request.getContextPath();
 			var isbookVersion = $("#bookVersion").validatebox("isValid");
 			var version1=$("#version").val();
 			var version2=$("#bookVersion").val();
-			if(version2!=null&&version2!=""&&version2.trim()!=""){
+			if(version2!=null&&version2!=""){
 				if(parseFloat(version1)<parseFloat(version2)){
 					isbookVersion=isbookVersion&&true;
 				}else{
