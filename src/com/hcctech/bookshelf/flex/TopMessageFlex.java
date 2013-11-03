@@ -28,7 +28,7 @@ public class TopMessageFlex {
 //		    System.out.println("_____flex_____4"+resource.getURL().getPath());
 //		    Properties prop = PropertiesLoaderUtils.loadProperties(resource);
 			String webAppPath = FlexContext.getServletContext().getRealPath("");
-            System.out.println("_____flex_____"+webAppPath);
+//            System.out.println("_____flex_____"+webAppPath);
             Properties prop = new Properties();
             prop.load(new FileInputStream(webAppPath+"/WEB-INF/topmessage.properties"));
 			String domainPath = DomainUtil.getDomainName();
