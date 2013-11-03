@@ -106,7 +106,7 @@ public class EBookServiceImpl implements EBookService{
 				hql += " and be.publishing like '%"+value +"%'";
 			}
 		}
-		hql+=" order by bf.time desc";
+		hql+=" order by be.createTime desc";
 		Page<BsEbook> page = bsEbookDao.pagedQuery(hql, pageNo, pageSize, "1","2",status);
 		return page;
 	}
