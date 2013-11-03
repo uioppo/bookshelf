@@ -80,7 +80,7 @@ String path = request.getContextPath();
 				</tr>
 				<tr>
 					<th class="lab">电子书名称</th>
-					<td colspan="3"><input id="bookName" readonly="readonly" value="${ebook.bookName }" name="ebook.bookName"  style="width: 408px;"/></td>
+					<td colspan="3"><input id="bookName" readonly="readonly" disabled="disabled" value="${ebook.bookName }" name="bookName"  style="width: 408px;"/></td>
 				</tr>
 				<tr>
 					<th class="lab">原版本号</th>
@@ -94,6 +94,7 @@ String path = request.getContextPath();
   		</table>
  		<div class="hr" width="100%"></div>
  		<input name="ebook.id" value="<%=request.getParameter("bookId") %>" type="hidden"/>
+ 		<input  name="ebook.bookName" value="${ebook.bookName }" type="hidden"/>
  		<input name="ebook.subject" value="${ebook.subject}" type="hidden"/>
  		<input name="ebook.serVersion" value="${ebook.serVersion}" type="hidden"/>
  		<input name="ebook.eduVersion" value="${ebook.eduVersion}" type="hidden"/>
