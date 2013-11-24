@@ -47,6 +47,7 @@ public class TopMessageAction extends ActionSupport{
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(webAppPath+"/WEB-INF/topmessage.properties"));
 		if(topmessage!=null && topmessage.size()>0) {
+			prop.clear();
 			SimpleDateFormat format = new SimpleDateFormat("yyyyMM");
 			HttpServletRequest request = ServletActionContext.getRequest();
 			String basepath = "images/topmessage";
