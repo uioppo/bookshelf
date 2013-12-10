@@ -1,5 +1,7 @@
 package com.hcctech.webservice;
 
+import org.apache.axis2.context.MessageContext;
+import org.apache.axis2.context.ServiceContext;
 import com.hcctech.bookshelf.pojo.BsWebUser;
 import com.hcctech.bookshelf.services.UserLoginService;
 
@@ -9,9 +11,7 @@ public class UserLoginServiceImpl implements IUserLoginService
 
     public String[] login(String username, String password)
     {
-        
         BsWebUser bsWebUser = userLoginService.login(username,password);
-        
         if(bsWebUser == null) {
             //用户不存在
             return new String[] {"-1","用户名或密码错误"} ;
@@ -27,7 +27,9 @@ public class UserLoginServiceImpl implements IUserLoginService
                 return new String[] {"-1","该用户已锁定，请稍候再试！"} ;
             }
         }
-        
+        MessageContext context = MessageContext.getCurrentMessageContext();
+        ServiceContext ctx = context.getServiceContext();
+        ctx.setProperty("user",bsWebUser);
 //        session.setAttribute("user", bsWebUser);
         return new String[] {String.valueOf(bsWebUser.getWuId()),bsWebUser.getBsUserInfo().getNickName(),bsWebUser.getBsUserInfo().getRealName()};
     
