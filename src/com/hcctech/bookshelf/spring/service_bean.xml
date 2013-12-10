@@ -140,7 +140,9 @@
 	<bean id="downloadReaderService" class="com.hcctech.bookshelf.services.impl.DownloadReaderServiceImpl" >
 		<property name="bsReaderDao" ref="bsReaderDao"></property>
 	</bean>
-	
+	<bean name="userLoginWebService" class="com.hcctech.webservice.UserLoginServiceImpl" scope="prototype">
+	<property name="userLoginService" ref="userLoginService"></property>
+</bean>
 	
 	
 	<!-- 定时删除未激活用户  start -->
