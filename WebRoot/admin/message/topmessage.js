@@ -9,16 +9,22 @@ function saveSetting() {
 			var s=jQuery("input[name='topmessage']").map(function(){
 				return jQuery(this).val();
 			}).get();
+			var img = jQuery("input[name='image']").map(function(){
+				return jQuery(this).val();
+			}).get();
 			for(var i=0;i<s.length;i++){
-				if(s[i] == "") {
-					$.messager.alert("系统提示","图片不能为空",'info');
-					return false ;
-				}
-				var type = s[i].substring(s[i].lastIndexOf(".")) ;
-				if(type == ".jpg" || type == ".JPG" || type == ".JPEG" || type == ".PNG" || type == ".jpeg" || type == ".png") {				
-				} else {
-					$.messager.alert("系统提示","第" + (i+1) + "行 " + "图片格式只能为jpg或jpeg或png");
-					return false;
+				if(i>img.length || img[i] == ""){
+					if(s[i] == "") {
+						$.messager.alert("系统提示","图片不能为空",'info');
+						return false ;
+					}
+				}else{
+					var type = s[i].substring(s[i].lastIndexOf(".")) ;
+					if(type == ".jpg" || type == ".JPG" || type == ".JPEG" || type == ".PNG" || type == ".jpeg" || type == ".png") {				
+					} else {
+						$.messager.alert("系统提示","第" + (i+1) + "行 " + "图片格式只能为jpg或jpeg或png");
+						return false;
+					}
 				}
 			}
 			var describe=jQuery("input[name='topmessageTitle']").map(function(){

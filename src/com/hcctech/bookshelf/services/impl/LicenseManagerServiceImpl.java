@@ -248,6 +248,7 @@ public class LicenseManagerServiceImpl implements LicenseManagerService {
 	 */
 	public Page<BsLicenseBatch> loadBatchList(String batch, String schoolName,
 			int pageNo, int pageSize, String sort, String order) {
+	    String temp = "from BsLicenseKey b inner join fetch b.bsLicenseBatch where b.bsLicenseBatch.batchId=?";
 		final StringBuilder hql = new StringBuilder("select b from BsLicenseBatch b join b.bsLicenseKeies as c ");
 		appendHqlBatch(batch, schoolName, hql, sort, order);
 		Page<BsLicenseBatch> page = bsLicenseBatchDao.queryPage_(hql.toString(), pageNo, pageSize);
@@ -281,7 +282,16 @@ public class LicenseManagerServiceImpl implements LicenseManagerService {
 								break;
 							}
 						}
-						bsLicenseBatch.setShuliang(i + "/" + zongshu);
+						final String hql0 = "from BsLicenseKey b inner join fetch b.bsLicenseBatch where b.bsLicenseBatch.batchId=?  order by b.useStatus asc";
+			            List list = bsLicenseKeyDao.findByHql(hql0, Integer.valueOf(batch));
+			            // 已用授权码数量
+			            final String hql1 = "from BsLicenseKey b inner join fetch b.bsLicenseBatch where b.bsLicenseBatch.batchId=? and b.useStatus=1";
+			            List list1 = bsLicenseKeyDao.findByHql(hql1, Integer.valueOf(batch));
+			            int usedSize = 0;
+			            if (list1 != null && list1.size() > 0) {
+			                usedSize = list1.size();
+			            }
+						bsLicenseBatch.setShuliang(usedSize + "/" + list.size());
 				}
 				}
 			}
