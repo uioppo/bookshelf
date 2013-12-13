@@ -61,7 +61,7 @@ prop.load(sc.getResourceAsStream("/WEB-INF/topmessage.properties"));
   				if(!key.equals("version")){
   		%>
   			<tr>
-				<td><img name="image" src="<%=elements[1] %>" /><input type="file" name="topmessage" /></td>
+				<td><img name="image" src="<%=elements[1] %>" /><input type="file" name="topmessage" /><input type="hidden" name="topmessageFile" value="<%=elements[1] %>"/></td>
 				<td><input name="topmessageTitle" value="<%=elements[0]%>" /></td>
 				<td><input name="topmessageHref" value="<%=elements[2]%>" /></td>
 				<td><a href="javascript:void(0);" onclick="delthis(this,'<%=key.toString() %>');" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'">删除</a></td>

@@ -32,7 +32,7 @@ public class MyBookFlex {
 		Map<String, FMyBook> map =new HashMap<String, FMyBook>();
 		for (BsMybook bsMybook : mybooks) {
 			try {
-				System.out.println(bsMybook.getfMyBook().getBookCode()+"idx__"+bsMybook.getfMyBook().getGoodsId());
+//				System.out.println(bsMybook.getfMyBook().getBookCode()+"idx__"+bsMybook.getfMyBook().getGoodsId());
 				bsMybook.getfMyBook().setGrade_code(getGradeCode(bsMybook.getfMyBook().getGrade()));
 			}catch(Exception e) {
 				e.printStackTrace();

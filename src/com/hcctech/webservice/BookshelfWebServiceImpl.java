@@ -6,20 +6,49 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.apache.axis2.context.MessageContext;
-import org.apache.axis2.context.ServiceContext;
+import org.apache.axis2.context.ServiceGroupContext;
 import com.hcctech.bookshelf.pojo.BsWebUser;
 import com.hcctech.bookshelf.services.MyBookDownLoadFlexService;
 import com.hcctech.bookshelf.services.UserLoginService;
 import com.hcctech.bookshelf.util.AESUtils;
 import com.hcctech.bookshelf.util.Base64Utils;
 
-public class MyBookServiceImpl implements IMyBookService
+public class BookshelfWebServiceImpl implements IBookshelfWebService
 {
+    
     private  UserLoginService userLoginService;
     
     private MyBookDownLoadFlexService myBookDownLoadFlexService;
     
     private BsWebUser user = null;
+    
+    public String[] login(String username, String password)
+    {
+        BsWebUser bsWebUser = userLoginService.login(username,password);
+        if(bsWebUser == null) {
+            //用户不存在
+            return new String[] {"-1","用户名或密码错误"} ;
+        }else {
+            if(bsWebUser.getWuActivestatus() == 0) {
+//              loginMsg = "该用户未激活！";
+                return new String[] {"-1","该用户未激活！"} ;
+            }else if(bsWebUser.getWuActivestatus() == 2){
+//              loginMsg = "该用户已禁用！";
+                return new String[] {"-1","该用户已禁用！"} ;
+            }else if(bsWebUser.getWuActivestatus() == 3){
+//              loginMsg = "该用户已锁定，请稍候再试！";
+                return new String[] {"-1","该用户已锁定，请稍候再试！"} ;
+            }
+        }
+        MessageContext context = MessageContext.getCurrentMessageContext();
+        ServiceGroupContext ctx = context.getServiceGroupContext();
+        ctx.setProperty("user",bsWebUser);
+        System.out.println("login"+ctx.getProperties());
+//        session.setAttribute("user", bsWebUser);
+        return new String[] {String.valueOf(bsWebUser.getWuId()),bsWebUser.getBsUserInfo().getNickName(),bsWebUser.getBsUserInfo().getRealName()};
+    
+    }
+    
     public int downLoadValidate(int myBookId, String cpuIdStr)
     {
         try {
@@ -104,9 +133,11 @@ public class MyBookServiceImpl implements IMyBookService
         return Base64Utils.encode(kb);
     }
     
+    
     private boolean isLogin() {
         MessageContext context = MessageContext.getCurrentMessageContext();
-        ServiceContext ctx = context.getServiceContext();
+        ServiceGroupContext ctx = context.getServiceGroupContext();
+        System.out.println(ctx.getProperties());
         user = (BsWebUser)ctx.getProperty("user");
         if(user == null)
             return false;

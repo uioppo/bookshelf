@@ -28,6 +28,7 @@ public class TopMessageAction extends ActionSupport{
 	
 	private String[] topmessageTitle;
 	private String[] topmessageHref;
+	private String[] topmessageFile;
 	private List<File> topmessage;
 	private List<String> topmessageFileName;
 	private List<String> topmessageContentType;
@@ -43,11 +44,14 @@ public class TopMessageAction extends ActionSupport{
 	
 	public String topmessage() throws Exception{
 		String webAppPath = ServletActionContext.getServletContext().getRealPath("");
-		System.out.println(webAppPath);
 		Properties prop = new Properties();
 		prop.load(new FileInputStream(webAppPath+"/WEB-INF/topmessage.properties"));
-		if(topmessage!=null && topmessage.size()>0) {
-			prop.clear();
+		prop.clear();
+		if(topmessageFile!=null && topmessageFile.length>0) {
+		    int start = 0;
+		    if(topmessageFile.length > topmessage.size()) {
+		        start = topmessageFile.length - topmessage.size();
+		    }
 			SimpleDateFormat format = new SimpleDateFormat("yyyyMM");
 			HttpServletRequest request = ServletActionContext.getRequest();
 			String basepath = "images/topmessage";
@@ -56,12 +60,15 @@ public class TopMessageAction extends ActionSupport{
 			filePath += basepath;
 			File _file = new File(filePath);
 			if(!_file.exists()) _file.mkdirs();
-			for(int i=0;i<topmessage.size();i++){
-				String suffixName = topmessageFileName.get(i).substring(topmessageFileName.get(i).lastIndexOf("."));
-				String targetName = getTimeRand();
-				String fileSrc="/" + targetName + suffixName;
-				File upload = new File(filePath+ fileSrc);
-				FileUtils.copyFile(topmessage.get(i), upload);
+			for(int i=0;i<topmessageFile.length;i++){
+			    String fileSrc= topmessageFile[i];
+			    if((fileSrc==null || fileSrc.equals("")) && i<topmessageFileName.size()) {
+    				String suffixName = topmessageFileName.get(i).substring(topmessageFileName.get(i).lastIndexOf("."));
+    				String targetName = getTimeRand();
+    				fileSrc="/" + targetName + suffixName;
+    				File upload = new File(filePath+ fileSrc);
+    				FileUtils.copyFile(topmessage.get(i), upload);
+			    }
 				String value = topmessageTitle[i]+",/"+basepath+fileSrc+","+topmessageHref[i];
 				prop.setProperty(topmessageTitle[i], value);
 			}
@@ -165,6 +172,21 @@ public class TopMessageAction extends ActionSupport{
 	public void setVersionHref(String versionHref) {
 		this.versionHref = versionHref;
 	}
+
+
+    public String[] getTopmessageFile()
+    {
+        return topmessageFile;
+    }
+
+
+    public void setTopmessageFile(String[] topmessageFile)
+    {
+        this.topmessageFile = topmessageFile;
+    }
+
+
+    
 	
 	
 }

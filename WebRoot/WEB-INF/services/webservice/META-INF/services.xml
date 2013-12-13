@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <serviceGroup>  
-    <service name="userLoginService" scope="transportsession">  
-        <description>userLoginService</description>  
-        <parameter name="ServiceClass">com.hcctech.webservice.IUserLoginService</parameter>  
+    <service name="bookshelfWebServices" scope="transportsession">  
+        <description>bookshelfWebServices</description>  
+        <parameter name="ServiceClass">com.hcctech.webservice.IBookshelfWebService</parameter>  
         <parameter name="ServiceObjectSupplier">  
             org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier  
         </parameter>  
-        <parameter name="SpringBeanName">userLoginWebService</parameter>  
+        <parameter name="SpringBeanName">bookshelfWebServices</parameter>  
         <messageReceivers>  
-            <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"  
-                class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />  
+            <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+				class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+				class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
         </messageReceivers>  
     </service>
-    
-    <service name="myBookService" scope="transportsession">  
-        <description>myBookService</description>  
-        <parameter name="ServiceClass">com.hcctech.webservice.IMyBookService</parameter>  
-        <parameter name="ServiceObjectSupplier">  
-            org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier  
-        </parameter>  
-        <parameter name="SpringBeanName">myBookWebService</parameter>  
-        <messageReceivers>  
-            <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"  
-                class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />  
-        </messageReceivers>  
-    </service>  
 </serviceGroup>

@@ -246,58 +246,75 @@ public class LicenseManagerServiceImpl implements LicenseManagerService {
 	/* (non-Javadoc)
 	 * @see com.hcctech.bookshelf.services.LicenseManagerService#loadBatchList(java.lang.String, java.lang.String, int, int, java.lang.String, java.lang.String)
 	 */
-	public Page<BsLicenseBatch> loadBatchList(String batch, String schoolName,
-			int pageNo, int pageSize, String sort, String order) {
-	    String temp = "from BsLicenseKey b inner join fetch b.bsLicenseBatch where b.bsLicenseBatch.batchId=?";
-		final StringBuilder hql = new StringBuilder("select b from BsLicenseBatch b join b.bsLicenseKeies as c ");
-		appendHqlBatch(batch, schoolName, hql, sort, order);
-		Page<BsLicenseBatch> page = bsLicenseBatchDao.queryPage_(hql.toString(), pageNo, pageSize);
-		if (page != null && page.getList() != null && page.getList().size() > 0) {
-			for (BsLicenseBatch bsLicenseBatch : page.getList()) {
-				if(bsLicenseBatch!=null){
-					Set<BsLicenseKey> s = bsLicenseBatch.getBsLicenseKeies();
-					if(s!=null){
-						int zongshu = s.size();
-						int i = 0;
-						for (BsLicenseKey bsLicenseKey : s) {
-							if(bsLicenseKey!=null){
-								BsSchool bsSchool = bsLicenseKey.getBsSchool();
-								try {
-									if(bsLicenseKey.getLifeTime().before(new Date())) {
-										bsLicenseBatch.setIsLift("已过期");
-									}else {
-										bsLicenseBatch.setIsLift("未过期");
-									}
-								if(bsSchool!=null&&bsSchool.getSchoolName()!=null&&!"".equals(bsSchool.getSchoolName())){
-										bsLicenseBatch.setSchoolName(bsSchool.getSchoolName());
-								}else{
-									bsLicenseBatch.setSchoolName("");
-								}
-								} catch (Exception e) {
-									bsLicenseBatch.setSchoolName("");
-								}
-								if (bsLicenseKey.getUseStatus() == 1) {
-									i = i + 1;
-								}
-								break;
-							}
-						}
-						final String hql0 = "from BsLicenseKey b inner join fetch b.bsLicenseBatch where b.bsLicenseBatch.batchId=?  order by b.useStatus asc";
-			            List list = bsLicenseKeyDao.findByHql(hql0, Integer.valueOf(batch));
-			            // 已用授权码数量
-			            final String hql1 = "from BsLicenseKey b inner join fetch b.bsLicenseBatch where b.bsLicenseBatch.batchId=? and b.useStatus=1";
-			            List list1 = bsLicenseKeyDao.findByHql(hql1, Integer.valueOf(batch));
-			            int usedSize = 0;
-			            if (list1 != null && list1.size() > 0) {
-			                usedSize = list1.size();
-			            }
-						bsLicenseBatch.setShuliang(usedSize + "/" + list.size());
-				}
-				}
-			}
-		}
-		return page;
-	}
+    public Page<BsLicenseBatch> loadBatchList(String batch, String schoolName, int pageNo, int pageSize, String sort, String order)
+    {
+        String temp = "from BsLicenseKey b inner join fetch b.bsLicenseBatch where b.bsLicenseBatch.batchId=?";
+        final StringBuilder hql = new StringBuilder("select b from BsLicenseBatch b join b.bsLicenseKeies as c ");
+        appendHqlBatch(batch, schoolName, hql, sort, order);
+        Page<BsLicenseBatch> page = bsLicenseBatchDao.queryPage_(hql.toString(), pageNo, pageSize);
+        if(page != null && page.getList() != null && page.getList().size() > 0)
+        {
+            for(BsLicenseBatch bsLicenseBatch : page.getList())
+            {
+                if(bsLicenseBatch != null)
+                {
+                    Set<BsLicenseKey> s = bsLicenseBatch.getBsLicenseKeies();
+                    if(s != null)
+                    {
+                        int zongshu = s.size();
+                        int i = 0;
+                        for(BsLicenseKey bsLicenseKey : s)
+                        {
+                            if(bsLicenseKey != null)
+                            {
+                                BsSchool bsSchool = bsLicenseKey.getBsSchool();
+                                try
+                                {
+                                    if(bsLicenseKey.getLifeTime().before(new Date()))
+                                    {
+                                        bsLicenseBatch.setIsLift("已过期");
+                                    }
+                                    else
+                                    {
+                                        bsLicenseBatch.setIsLift("未过期");
+                                    }
+                                    if(bsSchool != null && bsSchool.getSchoolName() != null && !"".equals(bsSchool.getSchoolName()))
+                                    {
+                                        bsLicenseBatch.setSchoolName(bsSchool.getSchoolName());
+                                    }
+                                    else
+                                    {
+                                        bsLicenseBatch.setSchoolName("");
+                                    }
+                                }
+                                catch(Exception e)
+                                {
+                                    bsLicenseBatch.setSchoolName("");
+                                }
+                                if(bsLicenseKey.getUseStatus() == 1)
+                                {
+                                    i = i + 1;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    final String hql0 = "from BsLicenseKey b  where b.bsLicenseBatch.batchId=? ";
+                    List list = bsLicenseKeyDao.findByHql(hql0, bsLicenseBatch.getBatchId());
+                    // 已用授权码数量
+                    final String hql1 = "from BsLicenseKey b where b.bsLicenseBatch.batchId=? and b.useStatus=1";
+                    List list1 = bsLicenseKeyDao.findByHql(hql1, bsLicenseBatch.getBatchId());
+                    int usedSize = 0;
+                    if(list1 != null && list1.size() > 0)
+                    {
+                        usedSize = list1.size();
+                    }
+                    bsLicenseBatch.setShuliang(usedSize + "/" + list.size());
+                }
+            }
+        }
+        return page;
+    }
 
 	/**
 	 * 拼hql
