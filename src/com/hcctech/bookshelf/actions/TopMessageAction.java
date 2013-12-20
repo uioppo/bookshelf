@@ -102,7 +102,7 @@ public class TopMessageAction extends ActionSupport{
 		}else {
 			try {
 		    String webAppPath = ServletActionContext.getServletContext().getRealPath("");
-	        System.out.println(webAppPath);
+//	        System.out.println(webAppPath);
 	        Properties prop = new Properties();
 	        prop.load(new FileInputStream(webAppPath+"/WEB-INF/topmessage.properties"));
 			if(prop!=null && !prop.isEmpty()) {

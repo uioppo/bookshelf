@@ -49,11 +49,13 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
     
     }
     
-    public int downLoadValidate(int myBookId, String cpuIdStr)
+    public int downLoadValidate(String username,String password,int myBookId, String cpuIdStr)
     {
         try {
-            if(isLogin()) {
+            if(isLogin(username,password)) {
+                System.out.println("downLoadValidate is here! myBookId="+myBookId+"|cpuId="+cpuIdStr);
                 int flag = myBookDownLoadFlexService.downLoadValidate(cpuIdStr, user, myBookId);
+                System.out.println("downLoadValidate flag = "+flag);
                 return flag;
             }else {
                 return 0;//登录不成功
@@ -64,10 +66,11 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
         }
     }
     
-    public List<String> download(int myBookId, String cpuIdStr, String deviceName)
+    public List<String> download(String username,String password,int myBookId, String cpuIdStr, String deviceName)
     {
         try {
-            if(isLogin()) {
+            if(isLogin(username,password)) {
+                System.out.println("download is here! myBookId="+myBookId+"|cpuId="+cpuIdStr+"|deviceName = "+deviceName);
                 Map<String, String> map = myBookDownLoadFlexService.downloadEbook(cpuIdStr, user, myBookId,deviceName);
                 if(map==null) {
                     return null;
@@ -108,6 +111,7 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
                 arr.add(buffer.toString());
                 arr.add(secretStr);
                 arr.add(testxx);
+                System.out.println("download return = "+arr);
                 return arr;
             }else {
                 return null;//登录不成功
@@ -134,13 +138,35 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
     }
     
     
-    private boolean isLogin() {
+    private boolean isLogin(String username,String password) {
+        System.out.println("username="+username+"|pwd="+password);
         MessageContext context = MessageContext.getCurrentMessageContext();
         ServiceGroupContext ctx = context.getServiceGroupContext();
-        System.out.println(ctx.getProperties());
+        System.out.println("ctx:"+ctx.getProperties());
         user = (BsWebUser)ctx.getProperty("user");
-        if(user == null)
+        if(user != null) {
+            System.out.println("ctx_user_is_null!");
+            return true;
+        }
+        BsWebUser bsWebUser = userLoginService.login(username,password);
+        if(bsWebUser==null) {
+            System.out.println("bsWebUser==null,username="+username+"|pwd="+password);
             return false;
+        }
+        if(bsWebUser.getWuActivestatus() == 0) {
+//          loginMsg = "该用户未激活！";
+            System.out.println("该用户未激活！,username="+username+"|pwd="+password);
+            return false ;
+        }else if(bsWebUser.getWuActivestatus() == 2){
+//          loginMsg = "该用户已禁用！";
+            System.out.println("该用户已禁用！,username="+username+"|pwd="+password);
+            return false ;
+        }else if(bsWebUser.getWuActivestatus() == 3){
+//          loginMsg = "该用户已锁定，请稍候再试！";
+            System.out.println("该用户已锁定！,username="+username+"|pwd="+password);
+            return false ;
+        }
+        
         return true;
     }
 
