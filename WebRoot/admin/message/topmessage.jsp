@@ -61,8 +61,8 @@ prop.load(sc.getResourceAsStream("/WEB-INF/topmessage.properties"));
   				if(!key.equals("version")){
   		%>
   			<tr>
-				<td><img name="image" src="<%=elements[1] %>" /><input type="file" name="topmessage" /><input type="hidden" name="topmessageFile" value="<%=elements[1] %>"/></td>
-				<td><input name="topmessageTitle" value="<%=elements[0]%>" /></td>
+				<td><img name="image" src="<%=elements[1] %>" /><input type="file" name="topmessage" onchange="setupload(this)" /><input type="hidden" name="topmessageFile" value="<%=elements[1] %>"/></td>
+				<td><input type="hidden" name="isUpload" value="0"/><input name="topmessageTitle" value="<%=elements[0]%>" /></td>
 				<td><input name="topmessageHref" value="<%=elements[2]%>" /></td>
 				<td><a href="javascript:void(0);" onclick="delthis(this,'<%=key.toString() %>');" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'">删除</a></td>
 			</tr>
@@ -84,14 +84,14 @@ prop.load(sc.getResourceAsStream("/WEB-INF/topmessage.properties"));
   		}else{
   		%>
   			<tr>
-				<td><input type="file" name="topmessage" /></td>
-				<td><input name="topmessageTitle"/></td>
+				<td><input type="file" name="topmessage" onchange="setupload(this)"  /><input type="hidden" name="topmessageFile" value=""/></td>
+				<td><input type="hidden" name="isUpload" value="0"/><input name="topmessageTitle"/></td>
 				<td><input name="topmessageHref"/></td>
 				<td><a href="javascript:void(0);" onclick="delthis(this);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'">删除</a></td>
 			</tr>
 			<tr>
-				<td><input type="file" name="topmessage" /></td>
-				<td><input name="topmessageTitle"/></td>
+				<td><input type="file" name="topmessage" onchange="setupload(this)"  /><input type="hidden" name="topmessageFile" value=""/></td>
+				<td><input type="hidden" name="isUpload" value="0"/><input name="topmessageTitle"/></td>
 				<td><input name="topmessageHref"/></td>
 				<td><a href="javascript:void(0);" onclick="delthis(this);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'">删除</a></td>
 			</tr>

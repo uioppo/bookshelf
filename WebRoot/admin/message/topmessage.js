@@ -73,10 +73,17 @@ function delthis(o,key){
 		$(o).parents("tr").remove();
 	}
 }
+
+function setupload(thizz){
+//	alert($(thizz).parent().next().find("input[name=isUpload]").attr("name"));
+	if($(thizz).parent().next().find("input[name=isUpload]")){
+		$(thizz).parent().next().find("input[name=isUpload]").val("1");
+	}
+}
 function addone(){
 	var _tr=$("<tr></tr>");
-	var str="<td><input type='file' name='topmessage' /><input type='hidden' name='topmessageFile' value=''/></td>";
-		str+="<td><input name='topmessageTitle'/></td>";
+	var str="<td><input type='file' name='topmessage' onchange='setupload(this)' /><input type='hidden' name='topmessageFile' value=''/></td>";
+		str+="<td><input type='hidden' name='isUpload' value='0'/><input name='topmessageTitle'/></td>";
 		str+="<td><input name='topmessageHref'/></td>";
 		str+="<td>";
 		str+="<a href='javascript:void(0);' onclick='delthis(this);' class='easyui-linkbutton l-btn l-btn-plain'><span class='l-btn-left'><span class='l-btn-text icon-cancel' style='padding-left: 20px; '>删除</span></span><a/></td>";
