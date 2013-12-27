@@ -70,11 +70,12 @@
 					<th class="lab">价格</th>
 					<td><input id="price" name="bsProducts.price" class="easyui-numberbox" data-options="min:0,precision:2,required:true"/></td>
 				</tr>
+				
 				<tr>
 					<th class="lab">缩略图</th>
 					<td colspan="4" >
 						<input type="hidden" name="bsProducts.thumbnail" id="thumbnail">
-						<div style="position:absolute;background-color: #eeeeee; padding: 2px; z-index: -1;" id="imgUpload">
+						<div style="background-color: #eeeeee; padding: 2px; z-index: -1;" id="imgUpload">
 							<applet width="375" height="88"  code="com.hcctech.bookshelf.applet.FileFtpApplet" archive="../ftp/FileFtpApplet.jar">
             					<param name="jnlp_href" value="../ftp/launch.jnlp"/>
             					<param name="targetDir" value="/images/"/>
@@ -191,7 +192,6 @@
 				
 				
 				<tfoot>
-				
 				<!--  tr>
 					<th class="lab">试读片段</th>
 					<td colspan="4" >
