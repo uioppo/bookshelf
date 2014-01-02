@@ -12,18 +12,22 @@ import com.hcctech.bookshelf.services.MyBookDownLoadFlexService;
 import com.hcctech.bookshelf.services.UserLoginService;
 import com.hcctech.bookshelf.util.AESUtils;
 import com.hcctech.bookshelf.util.Base64Utils;
+import com.hcctech.bookshelf.util.Md5;
 
 public class BookshelfWebServiceImpl implements IBookshelfWebService
 {
-    
+    private static final String PRIVATEKEY = "bookshelf_20131229";
     private  UserLoginService userLoginService;
     
     private MyBookDownLoadFlexService myBookDownLoadFlexService;
     
     private BsWebUser user = null;
     
-    public String[] login(String username, String password)
+    public String[] login(String username, String password,String md5)
     {
+    	if(!validateUrl(md5,username,password)) {
+    		return new String[] {"-1","非法请求"} ;
+    	}
         BsWebUser bsWebUser = userLoginService.login(username,password);
         if(bsWebUser == null) {
             //用户不存在
@@ -43,19 +47,24 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
         MessageContext context = MessageContext.getCurrentMessageContext();
         ServiceGroupContext ctx = context.getServiceGroupContext();
         ctx.setProperty("user",bsWebUser);
-        System.out.println("login"+ctx.getProperties());
+//        System.out.println("login"+ctx.getProperties());
 //        session.setAttribute("user", bsWebUser);
         return new String[] {String.valueOf(bsWebUser.getWuId()),bsWebUser.getBsUserInfo().getNickName(),bsWebUser.getBsUserInfo().getRealName()};
     
     }
-    
-    public int downLoadValidate(String username,String password,int myBookId, String cpuIdStr)
+    public static void main(String[] args) {
+		System.out.println(Md5.getMD5Str("test@ceshi.com111111bookshelf_20131229"));
+	}
+    public int downLoadValidate(String username,String password,int myBookId, String cpuIdStr,String md5)
     {
         try {
+        	if(!validateUrl(md5,username,password,cpuIdStr)) {
+        		return -1;
+        	}
             if(isLogin(username,password)) {
-                System.out.println("downLoadValidate is here! myBookId="+myBookId+"|cpuId="+cpuIdStr);
+//                System.out.println("downLoadValidate is here! myBookId="+myBookId+"|cpuId="+cpuIdStr);
                 int flag = myBookDownLoadFlexService.downLoadValidate(cpuIdStr, user, myBookId);
-                System.out.println("downLoadValidate flag = "+flag);
+//                System.out.println("downLoadValidate flag = "+flag);
                 return flag;
             }else {
                 return 0;//登录不成功
@@ -66,11 +75,14 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
         }
     }
     
-    public List<String> download(String username,String password,int myBookId, String cpuIdStr, String deviceName)
+    public List<String> download(String username,String password,int myBookId, String cpuIdStr, String deviceName,String md5)
     {
         try {
+        	if(!validateUrl(md5,username,password,String.valueOf(myBookId),cpuIdStr,deviceName)) {
+        		return null;
+        	}
             if(isLogin(username,password)) {
-                System.out.println("download is here! myBookId="+myBookId+"|cpuId="+cpuIdStr+"|deviceName = "+deviceName);
+//                System.out.println("download is here! myBookId="+myBookId+"|cpuId="+cpuIdStr+"|deviceName = "+deviceName);
                 Map<String, String> map = myBookDownLoadFlexService.downloadEbook(cpuIdStr, user, myBookId,deviceName);
                 if(map==null) {
                     return null;
@@ -104,14 +116,14 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
                 secret.append("-++-++-");
                 secret.append(cpuIdStr);
                 
-                String key1 = generateKey(myBookId, cpuIdStr, user);
+                String key1 = generateKey(myBookId, cpuIdStr, username);
                 byte[] bs = AESUtils.encrypt(secret.toString().getBytes(),key1 );
                 secretStr = Base64Utils.encode(bs);
                 List<String> arr = new ArrayList<String>();
                 arr.add(buffer.toString());
                 arr.add(secretStr);
                 arr.add(testxx);
-                System.out.println("download return = "+arr);
+//                System.out.println("download return = "+arr);
                 return arr;
             }else {
                 return null;//登录不成功
@@ -122,9 +134,68 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
         }
     }
     
-    private String generateKey(int myBookId, String cpuIdStr, BsWebUser user)
+    public List<String> getDownLoadInfo(String username, int bookId,String cpuIdStr,String deviceName, String md5) {
+    	try {
+	    	if(!validateUrl(md5,username,String.valueOf(bookId))) {
+	    		return null;
+	    	}
+	    	Integer userId = getWebUserId(username);
+	    	Map<String, String> map = myBookDownLoadFlexService.getDownloadEbookInfo(bookId, deviceName);//.downloadEbook(cpuIdStr, user, bookId,deviceName);
+            if(map==null) {
+                return null;
+            }
+            StringBuffer buffer = new StringBuffer();
+            buffer.append( map.get("path"));
+            String str = cpuIdStr+"<,>"+userId+"<,>"+bookId;
+            byte[] byt = null;
+            String testxx = null;
+            String secretStr =null;
+            String key =  "JQy4loN+iEaybInzfBFGTw==";
+            byt = AESUtils.encrypt(str.getBytes(), key);
+            buffer.append("&kongfu=");
+            String str11 = Base64Utils.encode(byt);
+            testxx = str11;
+            str11 = URLEncoder.encode(str11, "UTF-8");
+            buffer.append(str11);
+            
+            
+            StringBuffer secret = new StringBuffer();
+            secret.append(map.get("bookcode"));
+            secret.append("-++-++-");
+            secret.append(map.get("key"));
+            secret.append("-++-++-");
+            secret.append(map.get("deadline"));
+            secret.append("-++-++-");
+            secret.append(username);
+            secret.append("-++-++-");
+            secret.append(bookId);
+            secret.append("-++-++-");
+            secret.append(cpuIdStr);
+            
+            String key1 = generateKey(bookId, cpuIdStr, username);
+            byte[] bs = AESUtils.encrypt(secret.toString().getBytes(),key1 );
+            secretStr = Base64Utils.encode(bs);
+            List<String> arr = new ArrayList<String>();
+            arr.add(buffer.toString());
+            arr.add(secretStr);
+            arr.add(testxx);
+//            System.out.println("download return = "+arr);
+            return arr;
+    	
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+		return null;
+	}
+    
+    private Integer getWebUserId(String username) {
+    	
+    	return 0;
+    }
+    
+    private String generateKey(int myBookId, String cpuIdStr, String username)
             throws UnsupportedEncodingException, Exception {
-        byte[] keyb = (cpuIdStr+myBookId+user.getWuEmail()).getBytes("UTF-8");
+        byte[] keyb = (cpuIdStr+myBookId+username).getBytes("UTF-8");
         byte[] kb = new byte[16];
         if(keyb.length>16){
             for (int i = 0; i < 8; i++) {
@@ -139,13 +210,13 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
     
     
     private boolean isLogin(String username,String password) {
-        System.out.println("username="+username+"|pwd="+password);
+//        System.out.println("username="+username+"|pwd="+password);
         MessageContext context = MessageContext.getCurrentMessageContext();
         ServiceGroupContext ctx = context.getServiceGroupContext();
-        System.out.println("ctx:"+ctx.getProperties());
+//        System.out.println("ctx:"+ctx.getProperties());
         user = (BsWebUser)ctx.getProperty("user");
         if(user != null) {
-            System.out.println("ctx_user_is_null!");
+//            System.out.println("ctx_user_is_null!");
             return true;
         }
         user = userLoginService.login(username,password);
@@ -169,6 +240,20 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
         
         return true;
     }
+    
+    private boolean validateUrl(String md5,String... values) {
+    	if(values!=null && values.length>0) {
+    		StringBuilder source = new StringBuilder();
+    		for (String value : values) {
+				source.append(value);
+			}
+    		source.append(PRIVATEKEY);
+    		if(Md5.getMD5Str(source.toString()).equals(md5)) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
     public UserLoginService getUserLoginService()
     {
@@ -189,5 +274,6 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
     {
         this.myBookDownLoadFlexService = myBookDownLoadFlexService;
     }
+
     
 }

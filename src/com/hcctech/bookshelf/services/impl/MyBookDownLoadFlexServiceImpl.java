@@ -115,6 +115,43 @@ public class MyBookDownLoadFlexServiceImpl implements MyBookDownLoadFlexService{
 		return flag;
 	}
 	
+	
+	public Map<String,String> getDownloadEbookInfo(int bookId,String deviceName){
+		String bookCode = null;
+		
+		BsEbook ebook = bsEbookDao.findUniqueByHql("from BsEbook b where b.id=?", bookId);//.get(myBookId);
+		Map<String, String> flag = null;
+		if(ebook!=null){
+			String bookkey =ebook.getBookKey();
+			String sign = Md5.getMD5Str(bookkey);
+			//下载地址
+			flag = new HashMap<String, String>();
+			String bookPath = ebook.getBookPath();
+			//如果是文科，并且是zip文件就返回解压后的根目录，非zip的文科还是返回原来的地址
+			if("01".equals(ebook.getBookType()) && ebook.getBookPath().endsWith("zip")) {//文科
+				bookPath = ebook.getBookUrl();
+				//根据设备返回对应文件
+				if(StringUtils.isNotBlank(deviceName)) {
+		            if(deviceName.equals("pc")) {
+		                bookPath +="/wenke_book.zpk";
+		            }else {
+		                bookPath +="/wenke_book.fcb";
+		            }
+		        }
+			}
+			flag.put("path", DomainUtil.getFileDomain()+bookPath+"?sign="+sign);
+			flag.put("key", bookkey);
+			flag.put("sign", sign);
+			flag.put("bookcode", bookCode);
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+//			if(bsMybook.getDeadline()!=null)
+//				flag.put("deadline", dateFormat.format(bsMybook.getDeadline()));
+//			else
+				flag.put("deadline", "2100-01-01");
+		
+		}
+		return flag;
+	}
 	/**
 	 * 下载电子书
 	 * 返回下载地址

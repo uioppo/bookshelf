@@ -28,4 +28,7 @@ public interface MyBookDownLoadFlexService {
 
 	@Transactional(readOnly=true)
 	public List<BsEbook> checkUpdate(Map<String, Double> map);
+	
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	public Map<String,String> getDownloadEbookInfo(int bookId,String deviceName);
 }
