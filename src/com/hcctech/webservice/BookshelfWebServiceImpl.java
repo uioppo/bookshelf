@@ -148,20 +148,20 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService
             System.out.println("ctx_user_is_null!");
             return true;
         }
-        BsWebUser bsWebUser = userLoginService.login(username,password);
-        if(bsWebUser==null) {
+        user = userLoginService.login(username,password);
+        if(user==null) {
             System.out.println("bsWebUser==null,username="+username+"|pwd="+password);
             return false;
         }
-        if(bsWebUser.getWuActivestatus() == 0) {
+        if(user.getWuActivestatus() == 0) {
 //          loginMsg = "该用户未激活！";
             System.out.println("该用户未激活！,username="+username+"|pwd="+password);
             return false ;
-        }else if(bsWebUser.getWuActivestatus() == 2){
+        }else if(user.getWuActivestatus() == 2){
 //          loginMsg = "该用户已禁用！";
             System.out.println("该用户已禁用！,username="+username+"|pwd="+password);
             return false ;
-        }else if(bsWebUser.getWuActivestatus() == 3){
+        }else if(user.getWuActivestatus() == 3){
 //          loginMsg = "该用户已锁定，请稍候再试！";
             System.out.println("该用户已锁定！,username="+username+"|pwd="+password);
             return false ;
