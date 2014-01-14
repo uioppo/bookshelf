@@ -144,6 +144,8 @@
 	<bean name="bookshelfWebServices" class="com.hcctech.webservice.BookshelfWebServiceImpl" scope="prototype">
 		<property name="userLoginService" ref="userLoginService"></property>
 		<property name="myBookDownLoadFlexService" ref="myBookDownLoadFlexService"></property>
+		<property name="bsLogDao" ref="bsLogDao"></property>
+		<property name="bsWebUserDao" ref="bsWebUserDao"></property>
 	</bean>
 	
 	
