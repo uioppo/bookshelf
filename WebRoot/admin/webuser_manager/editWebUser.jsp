@@ -60,7 +60,7 @@ String path = request.getContextPath();
   		</s:if>
   		<tr>
   			<td class="lab" width="150px;">用户名：</td>
-  			<td style="background-color: #fff;" width="550px"><input name="bsWebUser.wuEmail" value="${bsWebUser.wuEmail}" <s:if test="bsWebUser!=null&&bsWebUser.wuEmail!=null&&error==null">disabled="disabled"</s:if> maxlength="40"/></td>
+  			<td style="background-color: #fff;" width="550px"><input name="bsWebUser.wuEmail" value="${bsWebUser.wuEmail}" <s:if test="bsWebUser!=null&&bsWebUser.wuEmail!=null&&error==null">disabled="disabled"</s:if> maxlength="300" style="width:300px"/></td>
   		</tr>
   		<tr>
   			<td class="lab">姓名：</td>

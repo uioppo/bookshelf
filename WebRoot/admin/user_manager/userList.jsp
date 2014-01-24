@@ -75,7 +75,7 @@ String path = request.getContextPath();
 		 		<input id="editUserStatus" type="hidden"/>
 		 		<input id="editUserTime" type="hidden"/>
 		 		<input id="passwordE" type="hidden"/>
-		 		<table width="200px" border="0" cellpadding="0" cellspacing="1">
+		 		<table width="250px" border="0" cellpadding="0" cellspacing="1">
 		 			<tr>
 		 				<td height="25">新&nbsp;密&nbsp;码&nbsp;&nbsp;</td>
 		 				<td height="25"><input type="password" id="newPassword"/></td>
