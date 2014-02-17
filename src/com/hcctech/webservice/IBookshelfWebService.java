@@ -11,4 +11,6 @@ public interface IBookshelfWebService
     public String[] login(String username,String password,String md5);
     
     public List<String> getDownLoadInfo(String username,int bookId,String cpuIdStr,String deviceName,String md5);
+    
+    public int addMyBook(String username,int bookId, String md5);
 }

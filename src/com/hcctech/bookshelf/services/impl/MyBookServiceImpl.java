@@ -1,19 +1,19 @@
 package com.hcctech.bookshelf.services.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.hcctech.bookshelf.dao.BsEbookDao;
 import com.hcctech.bookshelf.dao.BsLicenseKeyDao;
 import com.hcctech.bookshelf.dao.BsMyBookDao;
+import com.hcctech.bookshelf.dao.BsProductsDao;
 import com.hcctech.bookshelf.dao.support.Page;
+import com.hcctech.bookshelf.pojo.BsEbook;
 import com.hcctech.bookshelf.pojo.BsLicenseKey;
 import com.hcctech.bookshelf.pojo.BsMybook;
 import com.hcctech.bookshelf.pojo.BsProducts;
@@ -29,6 +29,8 @@ public class MyBookServiceImpl implements MyBookService{
 	
 	private BsMyBookDao bsMyBookDao;
 	private BsLicenseKeyDao bsLicenseKeyDao;
+	private BsEbookDao ebookDao;
+	private BsProductsDao bsProductsDao;
 	
 	/* (non-Javadoc)
 	 * @see com.hcctech.bookshelf.services.MyBookService#activeBookByKey(java.lang.String, int)
@@ -175,6 +177,39 @@ public class MyBookServiceImpl implements MyBookService{
 		}
 		return bsMybook;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public String addMyBook(int bookId, BsWebUser user) {
+		BsEbook ebook = ebookDao.get(bookId);
+		if(ebook!=null) return "-3";
+		String hql = "from BsProducts bp where bp.bookCode=?";
+		List<BsProducts> productsList =bsProductsDao.findByHql(hql, ebook.getBookCode());
+		if(productsList==null || productsList.size()<=0) return "-3";
+		BsProducts product = productsList.get(0);
+		Timestamp t=new Timestamp(new Date().getTime());
+		BsMybook bsMybook1=new BsMybook();
+		bsMybook1.setAddTime(t);
+		bsMybook1.setBsProducts(product);
+		bsMybook1.setBsWebUser(user);
+		Calendar now = Calendar.getInstance();
+		now.setTime(t);  
+		if(product.getUsePeriod()!=null){
+			if(product.getUsePeriod()==1200){
+				bsMybook1.setDeadline(null);
+			}else{
+				now.set(Calendar.MONTH, now.get(Calendar.MONTH)+product.getUsePeriod());  
+				bsMybook1.setDeadline(new Timestamp(now.getTimeInMillis()));
+			}
+		}else{
+			now.set(Calendar.MONTH, now.get(Calendar.MONTH)+0);  
+			bsMybook1.setDeadline(new Timestamp(now.getTimeInMillis()));
+		}
+		bsMybook1.setDownNumbers(3);
+		bsMybook1.setTotalNumbers(3);
+		bsMyBookDao.save(bsMybook1);
+		return "1";
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.hcctech.bookshelf.services.MyBookService#addMyBookByKey(java.lang.String)
 	 */
@@ -353,5 +388,12 @@ public class MyBookServiceImpl implements MyBookService{
 	public void setBsLicenseKeyDao(BsLicenseKeyDao bsLicenseKeyDao) {
 		this.bsLicenseKeyDao = bsLicenseKeyDao;
 	}
+	public void setEbookDao(BsEbookDao ebookDao) {
+		this.ebookDao = ebookDao;
+	}
+	public void setBsProductsDao(BsProductsDao bsProductsDao) {
+		this.bsProductsDao = bsProductsDao;
+	}
+	
 	
 }

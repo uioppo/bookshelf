@@ -80,6 +80,8 @@
 		scope="singleton">
 		<property name="bsMyBookDao" ref="bsMyBookDao"></property>
 		<property name="bsLicenseKeyDao" ref="bsLicenseKeyDao"></property>
+		<property name="ebookDao" ref="bsEbookDao"></property>
+		<property name="bsProductsDao" ref="bsProductsDao"></property>
 	</bean>
 	<bean name="webUserService"
 		class="com.hcctech.bookshelf.services.impl.WebUserServiceImpl" scope="singleton">
@@ -144,6 +146,7 @@
 	<bean name="bookshelfWebServices" class="com.hcctech.webservice.BookshelfWebServiceImpl" scope="prototype">
 		<property name="userLoginService" ref="userLoginService"></property>
 		<property name="myBookDownLoadFlexService" ref="myBookDownLoadFlexService"></property>
+		<property name="myBookService" ref="myBookService"></property>
 		<property name="bsLogDao" ref="bsLogDao"></property>
 		<property name="bsWebUserDao" ref="bsWebUserDao"></property>
 	</bean>

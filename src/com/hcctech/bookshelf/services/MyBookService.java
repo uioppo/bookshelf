@@ -29,6 +29,13 @@ public interface MyBookService {
 	String addMyBookByKey(String licenseKey,BsWebUser user);
 	
 	/**
+	 * @param 
+	 * @return
+	 */
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	String addMyBook(int bookId,BsWebUser user);
+	
+	/**
 	 * 我的电子书   查看详细页
 	 * @param myBookId 我的电子书ID
 	 * @return

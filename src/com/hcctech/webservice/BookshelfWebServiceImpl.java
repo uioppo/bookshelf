@@ -15,6 +15,7 @@ import com.hcctech.bookshelf.dao.BsWebUserDao;
 import com.hcctech.bookshelf.pojo.BsLog;
 import com.hcctech.bookshelf.pojo.BsWebUser;
 import com.hcctech.bookshelf.services.MyBookDownLoadFlexService;
+import com.hcctech.bookshelf.services.MyBookService;
 import com.hcctech.bookshelf.services.UserLoginService;
 import com.hcctech.bookshelf.util.AESUtils;
 import com.hcctech.bookshelf.util.Base64Utils;
@@ -26,6 +27,8 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService {
 
 	private MyBookDownLoadFlexService myBookDownLoadFlexService;
 
+	private MyBookService myBookService;
+	
 	private BsLogDao bsLogDao;
 
 	private BsWebUserDao bsWebUserDao;
@@ -152,6 +155,25 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService {
 			return null;
 		}
 	}
+	
+	public int addMyBook(String username,int bookId, String md5) {
+		try {
+			if (!validateUrl(md5, username, String.valueOf(bookId))) {
+				return -2;
+			}
+			Integer userId = getWebUserId(username);
+			
+			if(user!=null && userId!=null && userId>0) {
+				String ret = myBookService.addMyBook(bookId, user);
+				return Integer.valueOf(ret);
+			}else {
+				return -4;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 
 	public List<String> getDownLoadInfo(String username, int bookId,
 			String cpuIdStr, String deviceName, String md5) {
@@ -214,9 +236,9 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService {
 
 	private Integer getWebUserId(String username) {
 		String hql = "FROM BsWebUser user where user.wuEmail = ?";
-		BsWebUser bsWebUser = bsWebUserDao.findUniqueByHql(hql, username);
-		if (bsWebUser != null) {
-			return bsWebUser.getWuId();
+		user = bsWebUserDao.findUniqueByHql(hql, username);
+		if (user != null) {
+			return user.getWuId();
 		}
 		return 0;
 	}
@@ -338,6 +360,14 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService {
 
 	public void setBsWebUserDao(BsWebUserDao bsWebUserDao) {
 		this.bsWebUserDao = bsWebUserDao;
+	}
+
+	public MyBookService getMyBookService() {
+		return myBookService;
+	}
+
+	public void setMyBookService(MyBookService myBookService) {
+		this.myBookService = myBookService;
 	}
 
 }
