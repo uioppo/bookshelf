@@ -40,7 +40,9 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService {
 			return new String[] { "-1", "非法请求" };
 		}
 		BsWebUser bsWebUser = userLoginService.login(username, password);
-		insertBsLog(bsWebUser.getWuId(), username, "登录", "login", "login");
+		if(bsWebUser!=null) {
+		    insertBsLog(bsWebUser.getWuId(), username, "登录", "login", "login");
+		}
 		if (bsWebUser == null) {
 			// 用户不存在
 			return new String[] { "-1", "用户名或密码错误" };
@@ -182,8 +184,11 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService {
 				return null;
 			}
 			Integer userId = getWebUserId(username);
-			insertBsLog(userId, username, "下载电子书", "downloadinfo",
-					"getDownLoadInfo");
+			if(userId!=null && userId>0) {
+			    insertBsLog(userId, username, "下载电子书", "downloadinfo",
+	                    "getDownLoadInfo");
+	        }
+			
 			Map<String, String> map = myBookDownLoadFlexService
 					.getDownloadEbookInfo(bookId, deviceName);// .downloadEbook(cpuIdStr,
 																// user,
