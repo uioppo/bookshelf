@@ -21,10 +21,11 @@ function loadYEBookList(){
 				        {title:'名称',field:'bookName',width:200,sortable:true,align:'center'}
 					]],
 					columns:[[
+					            {title:'id',field:'id',width:80,align:'right',resizable:true},
 					            {title:'大小',field:'bookSize',width:100,align:'right',
-					            	formatter:function(value,rec){
-					            		return rec.bookSize + "M";
-					            	}},
+						            	formatter:function(value,rec){
+						            		return rec.bookSize + "M";
+						            	}},
 						        {title:'版本(年)',field:'edition',width:100,align:'center',
 					            		formatter:function(value,rec){
 					            			if(rec.edition != null) {

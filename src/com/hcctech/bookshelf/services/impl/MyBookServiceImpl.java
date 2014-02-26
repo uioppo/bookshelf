@@ -179,13 +179,9 @@ public class MyBookServiceImpl implements MyBookService{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public String addMyBook(int bookId, BsWebUser user) {
-		BsEbook ebook = ebookDao.get(bookId);
-		if(ebook!=null) return "-3";
-		String hql = "from BsProducts bp where bp.bookCode=?";
-		List<BsProducts> productsList =bsProductsDao.findByHql(hql, ebook.getBookCode());
-		if(productsList==null || productsList.size()<=0) return "-3";
-		BsProducts product = productsList.get(0);
+	public String addMyBook(int productId, BsWebUser user) {
+		BsProducts product =bsProductsDao.get(productId);
+		if(product==null) return "-3";
 		Timestamp t=new Timestamp(new Date().getTime());
 		BsMybook bsMybook1=new BsMybook();
 		bsMybook1.setAddTime(t);
