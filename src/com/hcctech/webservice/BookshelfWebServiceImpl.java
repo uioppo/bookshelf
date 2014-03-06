@@ -230,6 +230,7 @@ public class BookshelfWebServiceImpl implements IBookshelfWebService {
 			arr.add(buffer.toString());
 			arr.add(secretStr);
 			arr.add(testxx);
+			arr.add(map.get("bookcode"));
 			// System.out.println("download return = "+arr);
 			return arr;
 

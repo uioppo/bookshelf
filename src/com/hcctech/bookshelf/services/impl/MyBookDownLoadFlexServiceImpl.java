@@ -95,7 +95,7 @@ public class MyBookDownLoadFlexServiceImpl implements MyBookDownLoadFlexService{
 			int myBookId) {
 		int flag = 0;
 		if(myBookId<=0||cpuIdStr==null||"".equals(StringUtils.trim(cpuIdStr))||user==null)
-			return flag;
+			return 0;
 		final String hql1 = "from BsUserDrm b where b.bsMybook.mybookId=? and b.bsWebUser.wuId=? and b.cpuId=?";
 		BsUserDrm bsUserDrm=bsUserDrmDao.findUniqueByHql(hql1, myBookId,user.getWuId(),cpuIdStr);
 		if(bsUserDrm!=null){
@@ -108,7 +108,17 @@ public class MyBookDownLoadFlexServiceImpl implements MyBookDownLoadFlexService{
 				d = true;
 			else if(bsMybook.getDeadline().getTime() > new Date().getTime())
 				d = true;
+			if(bsMybook.getDownNumbers()<=0 )
+			{
+				//表示数量用完
+				return 3;
+			}
+			if(!d) {
+				//表示过期
+				return 4;
+			}
 			if(bsMybook.getDownNumbers()>0 && d){
+				//表示正常
 				flag = 1;
 			}
 		}
@@ -189,6 +199,7 @@ public class MyBookDownLoadFlexServiceImpl implements MyBookDownLoadFlexService{
 				bsUserDrm1.setBsWebUser(user);
 				bsUserDrm1.setCpuId(cpuIdStr);
 				bsUserDrm1.setOperateTime(new Timestamp(System.currentTimeMillis()));
+				bsMyBookDao.save(bsMybook);
 				bsMyBookDao.save(bsUserDrm1);
 			}
 		}

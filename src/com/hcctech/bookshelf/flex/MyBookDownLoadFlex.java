@@ -29,12 +29,13 @@ public class MyBookDownLoadFlex{
     
     public int downLoadValidate(int myBookId, String cpuIdStr)
     {
+    	
         int flag = 0;
         try{
             FlexSession session = FlexContext.getFlexSession();
             BsWebUser user = (BsWebUser) session.getAttribute("user");
             if(user == null || user.getWuId() == null){
-                return 0;
+                return -2;
             }
             flag = myBookDownLoadFlexService.downLoadValidate(cpuIdStr, user, myBookId);
         }
