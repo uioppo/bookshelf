@@ -152,7 +152,7 @@ public class MyBookDownLoadFlexServiceImpl implements MyBookDownLoadFlexService{
 			flag.put("path", DomainUtil.getFileDomain()+bookPath+"?sign="+sign);
 			flag.put("key", bookkey);
 			flag.put("sign", sign);
-			flag.put("bookcode", bookCode);
+			flag.put("bookcode", ebook.getBookCode());
 			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 //			if(bsMybook.getDeadline()!=null)
 //				flag.put("deadline", dateFormat.format(bsMybook.getDeadline()));
