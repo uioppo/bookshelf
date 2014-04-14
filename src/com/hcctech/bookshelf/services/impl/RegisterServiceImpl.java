@@ -12,6 +12,7 @@ import com.hcctech.bookshelf.dao.BsWebUserDao;
 import com.hcctech.bookshelf.pojo.BsUserInfo;
 import com.hcctech.bookshelf.pojo.BsWebUser;
 import com.hcctech.bookshelf.services.RegisterService;
+import com.hcctech.bookshelf.util.PEPHttpClient;
 import com.hcctech.bookshelf.util.DomainUtil;
 import com.hcctech.bookshelf.util.Md5;
 import com.hcctech.bookshelf.util.ThirdVelocityEmailUtil;
@@ -162,6 +163,8 @@ public class RegisterServiceImpl implements RegisterService{
 		if(bsWebUser1!=null){
 			return flag;
 		}else{
+		    //如果本地用户不重复，去注册人教平台，如果成功就记录数据库，如果失败则返回错误
+//		    PEPHttpClient 
 			flag=1;
 			String token=Md5.getMD5Str(String.valueOf(Math.random()));
 			bsWebUser.setWuUserName(bsWebUser.getWuEmail());
