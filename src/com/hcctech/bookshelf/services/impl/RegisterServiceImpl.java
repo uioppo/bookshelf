@@ -35,6 +35,7 @@ public class RegisterServiceImpl implements RegisterService{
 			final String hql="from BsWebUser where wuEmail =?";
 			BsWebUser bsWebUser1=bsWebUserDao.findUniqueByHql(hql, bsWebUser.getWuEmail());
 			if(bsWebUser1!=null){
+			    
 				bsWebUser1.setWuPassword(Md5.getMD5Str(bsWebUser.getWuPassword()));
 				bsWebUserDao.update(bsWebUser1);
 			}
@@ -164,7 +165,10 @@ public class RegisterServiceImpl implements RegisterService{
 			return flag;
 		}else{
 		    //如果本地用户不重复，去注册人教平台，如果成功就记录数据库，如果失败则返回错误
-//		    PEPHttpClient 
+//		    String ret = PEPHttpClient.getInstance().registerToPep(bsWebUser);
+//		    if(!ret.equals("0")) {
+//		        return flag;
+//		    }
 			flag=1;
 			String token=Md5.getMD5Str(String.valueOf(Math.random()));
 			bsWebUser.setWuUserName(bsWebUser.getWuEmail());
@@ -203,6 +207,11 @@ public class RegisterServiceImpl implements RegisterService{
 		if(bsWebUser1!=null){
 			return 502;
 		}else{
+		  //如果本地用户不重复，去注册人教平台，如果成功就记录数据库，如果失败则返回错误
+            String ret = PEPHttpClient.getInstance().registerToPep(bsWebUser);
+            if(!ret.equals("0")) {
+                return flag;
+            }
 			flag=1;
 //			String token=Md5.getMD5Str(String.valueOf(Math.random()));
 			bsWebUser.setWuUserName(bsWebUser.getWuEmail());

@@ -70,7 +70,7 @@ public class PEPHttpClient {
         System.out.println(StringEscapeUtils.unescapeJava(str.toString()));
     }
 	
-	public boolean registerToPep(BsWebUser bsWebUser) {
+	public String registerToPep(BsWebUser bsWebUser) {
 	    Map parameters = new HashMap();
 	    
 	    parameters.put("authKey", AUTHKEY);
@@ -85,11 +85,78 @@ public class PEPHttpClient {
 	    }
 	    
 	    TempRet ret = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-	    if(!ret.getErrno().equals("0")) {
-	        return false;
+	    if(ret.getErrno().equals("1001")) {//成功
+	        return "0";
 	    }
-	    return true;
+	    return ret.getErrmsg();
 	}
+	
+	public boolean login(String uname,String email,String passwd) {
+        Map parameters = new HashMap();
+        
+        parameters.put("authKey", AUTHKEY);
+        parameters.put("pepact", "chkUserPasswd");
+        parameters.put("email", email);
+        parameters.put("uname", uname);
+        parameters.put("passwd",passwd);
+        TempRet ret = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
+        if(ret.getErrno().equals("1320")) {//成功
+            return true;
+        }
+        return false;
+    }
+	
+	public boolean update(int userId,String nickName,String realName ,String mobilephone) {
+        Map parameters = new HashMap();
+        
+        parameters.put("authKey", AUTHKEY);
+        parameters.put("pepact", "update");
+        parameters.put("userId", userId);
+        if(nickName!=null && !nickName.equals(""))
+        parameters.put("nickName", nickName);
+        if(realName!=null && !realName.equals(""))
+        parameters.put("realName", realName);
+        if(mobilephone!=null && !mobilephone.equals(""))
+        parameters.put("mobilephone",mobilephone);
+        TempRet ret = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
+        if(ret.getErrno().equals("1101")) {//成功
+            return true;
+        }
+        return false;
+    }
+	
+	public boolean updateEmail(int userId,String email) {
+        Map parameters = new HashMap();
+        
+        parameters.put("authKey", AUTHKEY);
+        parameters.put("pepact", "updateEmail");
+        parameters.put("userId", userId);
+        if(email==null || email.equals(""))
+            return false;
+        parameters.put("email", email);
+        TempRet ret = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
+        if(ret.getErrno().equals("1101")) {//成功
+            return true;
+        }
+        return false;
+    }
+	
+	public boolean updatePwd(int userId,String passwd,String passwdNew) {
+        Map parameters = new HashMap();
+        
+        parameters.put("authKey", AUTHKEY);
+        parameters.put("pepact", "updatePasswd");
+        parameters.put("userId", userId);
+        if(passwd==null || passwd.equals("") || passwdNew==null || passwdNew.equals(""))
+            return false;
+        parameters.put("passwd", passwd);
+        parameters.put("passwdNew", passwdNew);
+        TempRet ret = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
+        if(ret.getErrno().equals("1101")) {//成功
+            return true;
+        }
+        return false;
+    }
 	/**
 	 * 调用 API
 	 * 0.成功 1.执行方法失败 2.协议错误 3.网络错误
