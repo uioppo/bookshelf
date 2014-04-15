@@ -66,8 +66,13 @@ public class PEPHttpClient {
 	
 	public static void main(String[] args)
     {
-        TempRet str = PEPHttpClient.getInstance().post(DomainUtil.getPepPlatformUrl(),"{\"authKey\":\"821f03288846297c2cf43c34766a38f7\",\"pepact\":\"reg\",\"uname\":\"test_yangxf\",\"email\":\"test_yangxf@pep.com.cn\",\"passwd\":\"123,45678\"}");
-        System.out.println(StringEscapeUtils.unescapeJava(str.toString()));
+//        TempRet str = PEPHttpClient.getInstance().post(DomainUtil.getPepPlatformUrl(),"{\"authKey\":\"821f03288846297c2cf43c34766a38f7\",\"pepact\":\"reg\",\"uname\":\"test_yangxf\",\"email\":\"test_yangxf@pep.com.cn\",\"passwd\":\"123,45678\"}");
+	    BsWebUser user = new BsWebUser();
+	    user.setWuEmail("test_yangxf@pep.com.cn");
+	    user.setWuPassword("1,23445kdkd");
+	    user.setWuUserName("test_yangxf");
+	    
+        System.out.println(StringEscapeUtils.unescapeJava(PEPHttpClient.getInstance().registerToPep(user)));
     }
 	
 	public String registerToPep(BsWebUser bsWebUser) {
@@ -84,11 +89,12 @@ public class PEPHttpClient {
 	        parameters.put("mobilephone", bsWebUser.getBsUserInfo().getMobile());
 	    }
 	    
-	    TempRet ret = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-	    if(ret.getErrno().equals("1001")) {//成功
+	    String body = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
+        JSONObject obj2=(JSONObject)JSONValue.parse(body);
+        if(obj2.get("errno").equals("1001")) {//成功
 	        return "0";
 	    }
-	    return ret.getErrmsg();
+	    return obj2.get("errmsg").toString();
 	}
 	
 	public boolean login(String uname,String email,String passwd) {
@@ -99,8 +105,9 @@ public class PEPHttpClient {
         parameters.put("email", email);
         parameters.put("uname", uname);
         parameters.put("passwd",passwd);
-        TempRet ret = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        if(ret.getErrno().equals("1320")) {//成功
+        String body = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
+        JSONObject obj2=(JSONObject)JSONValue.parse(body);
+        if(obj2.get("errno").equals("1320")) {//成功
             return true;
         }
         return false;
@@ -118,8 +125,9 @@ public class PEPHttpClient {
         parameters.put("realName", realName);
         if(mobilephone!=null && !mobilephone.equals(""))
         parameters.put("mobilephone",mobilephone);
-        TempRet ret = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        if(ret.getErrno().equals("1101")) {//成功
+        String body = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
+        JSONObject obj2=(JSONObject)JSONValue.parse(body);
+        if(obj2.get("errno").equals("1101")) {//成功
             return true;
         }
         return false;
@@ -134,8 +142,9 @@ public class PEPHttpClient {
         if(email==null || email.equals(""))
             return false;
         parameters.put("email", email);
-        TempRet ret = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        if(ret.getErrno().equals("1101")) {//成功
+        String body = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
+        JSONObject obj2=(JSONObject)JSONValue.parse(body);
+        if(obj2.get("errno").equals("1101")) {//成功
             return true;
         }
         return false;
@@ -151,8 +160,9 @@ public class PEPHttpClient {
             return false;
         parameters.put("passwd", passwd);
         parameters.put("passwdNew", passwdNew);
-        TempRet ret = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        if(ret.getErrno().equals("1101")) {//成功
+        String body = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
+        JSONObject obj2=(JSONObject)JSONValue.parse(body);
+        if(obj2.get("errno").equals("1101")) {//成功
             return true;
         }
         return false;
@@ -163,7 +173,7 @@ public class PEPHttpClient {
 	 * @param parameters
 	 * @return
 	 */
-	private TempRet post(String url ,String parameters) {
+	private String post(String url ,String parameters) {
 	    HttpPost method = new HttpPost(url);
 		String body = null;
 		logger.info("parameters:" + parameters);
@@ -202,8 +212,9 @@ public class PEPHttpClient {
 			}
 
 		}
-		JSONObject obj2=(JSONObject)JSONValue.parse(body);
-		return new TempRet(obj2.get("errno").toString(),obj2.get("errmsg").toString());
+//		JSONObject obj2=(JSONObject)JSONValue.parse(body);
+//		return new TempRet(obj2.get("errno").toString(),obj2.get("errmsg").toString());
+		return body;
 	}
 	
 	class TempRet{
