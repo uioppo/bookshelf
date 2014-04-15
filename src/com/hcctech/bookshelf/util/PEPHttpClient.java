@@ -1,6 +1,8 @@
 package com.hcctech.bookshelf.util;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -21,7 +23,9 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import com.hcctech.bookshelf.pojo.BsUserInfo;
 import com.hcctech.bookshelf.pojo.BsWebUser;
+import com.hcctech.bookshelf.services.RegisterService;
 
 public class PEPHttpClient {
 
@@ -89,15 +93,14 @@ public class PEPHttpClient {
 	        parameters.put("mobilephone", bsWebUser.getBsUserInfo().getMobile());
 	    }
 	    
-	    String body = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        JSONObject obj2=(JSONObject)JSONValue.parse(body);
+	    JSONObject obj2 = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
         if(obj2.get("errno").equals("1001")) {//成功
 	        return "0";
 	    }
 	    return obj2.get("errmsg").toString();
 	}
 	
-	public boolean login(String uname,String email,String passwd) {
+	public int chkUserPasswd(String uname,String email,String passwd) {
         Map parameters = new HashMap();
         
         parameters.put("authKey", AUTHKEY);
@@ -105,63 +108,68 @@ public class PEPHttpClient {
         parameters.put("email", email);
         parameters.put("uname", uname);
         parameters.put("passwd",passwd);
-        String body = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        JSONObject obj2=(JSONObject)JSONValue.parse(body);
+        JSONObject obj2 =  post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
         if(obj2.get("errno").equals("1320")) {//成功
-            return true;
+            return Integer.valueOf(obj2.get("userId").toString());
         }
-        return false;
+        return -1;
     }
 	
-	public boolean update(int userId,String nickName,String realName ,String mobilephone) {
+	public void createUser(int pepUserId,RegisterService registerService) {
+	    //得到人教社用户信息
+        Map parameters = new HashMap();
+        parameters.put("authKey", AUTHKEY);
+        parameters.put("pepact", "info");
+        parameters.put("userId", pepUserId);
+        JSONObject obj2 =  post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
+        if(obj2.get("errno").equals("1701")) {//成功
+            //保存到数据库
+            BsWebUser bsWebUser = new BsWebUser();
+            bsWebUser.setWuRegTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+            bsWebUser.setLastLogin(bsWebUser.getWuRegTime() );
+            bsWebUser.setWuActivestatus(Integer.valueOf(obj2.get("email_activity").toString()));
+            bsWebUser.setWuUserName(obj2.get("uname").toString());
+            bsWebUser.setWuEmail(obj2.get("email").toString());
+            BsUserInfo info = new BsUserInfo();
+            info.setNickName(obj2.get("nickName").toString());
+            info.setRealName(obj2.get("realName").toString());
+            info.setMobile(obj2.get("mobilephone").toString());
+            bsWebUser.setBsUserInfo(info);
+            registerService.registerWebUser(bsWebUser);
+        }
+    }
+	
+	
+	public boolean update(String email,String nickName,String realName ,String mobilephone) {
         Map parameters = new HashMap();
         
         parameters.put("authKey", AUTHKEY);
-        parameters.put("pepact", "update");
-        parameters.put("userId", userId);
+        parameters.put("pepact", "updateByEmail");
+        parameters.put("email", email);
         if(nickName!=null && !nickName.equals(""))
         parameters.put("nickName", nickName);
         if(realName!=null && !realName.equals(""))
         parameters.put("realName", realName);
         if(mobilephone!=null && !mobilephone.equals(""))
         parameters.put("mobilephone",mobilephone);
-        String body = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        JSONObject obj2=(JSONObject)JSONValue.parse(body);
+        JSONObject obj2 = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
         if(obj2.get("errno").equals("1101")) {//成功
             return true;
         }
         return false;
     }
 	
-	public boolean updateEmail(int userId,String email) {
+	public boolean updatePwd(String email,String passwd,String passwdNew) {
         Map parameters = new HashMap();
         
         parameters.put("authKey", AUTHKEY);
-        parameters.put("pepact", "updateEmail");
-        parameters.put("userId", userId);
-        if(email==null || email.equals(""))
-            return false;
+        parameters.put("pepact", "updatePasswdByEmail");
         parameters.put("email", email);
-        String body = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        JSONObject obj2=(JSONObject)JSONValue.parse(body);
-        if(obj2.get("errno").equals("1101")) {//成功
-            return true;
-        }
-        return false;
-    }
-	
-	public boolean updatePwd(int userId,String passwd,String passwdNew) {
-        Map parameters = new HashMap();
-        
-        parameters.put("authKey", AUTHKEY);
-        parameters.put("pepact", "updatePasswd");
-        parameters.put("userId", userId);
         if(passwd==null || passwd.equals("") || passwdNew==null || passwdNew.equals(""))
             return false;
         parameters.put("passwd", passwd);
         parameters.put("passwdNew", passwdNew);
-        String body = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        JSONObject obj2=(JSONObject)JSONValue.parse(body);
+        JSONObject obj2 = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
         if(obj2.get("errno").equals("1101")) {//成功
             return true;
         }
@@ -173,7 +181,7 @@ public class PEPHttpClient {
 	 * @param parameters
 	 * @return
 	 */
-	private String post(String url ,String parameters) {
+	private JSONObject post(String url ,String parameters) {
 	    HttpPost method = new HttpPost(url);
 		String body = null;
 		logger.info("parameters:" + parameters);
@@ -214,7 +222,8 @@ public class PEPHttpClient {
 		}
 //		JSONObject obj2=(JSONObject)JSONValue.parse(body);
 //		return new TempRet(obj2.get("errno").toString(),obj2.get("errmsg").toString());
-		return body;
+//		return body;
+		return (JSONObject)JSONValue.parse(body);
 	}
 	
 	class TempRet{

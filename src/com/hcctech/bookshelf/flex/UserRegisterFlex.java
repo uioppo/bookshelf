@@ -7,6 +7,7 @@ import com.hcctech.bookshelf.pojo.BsWebUser;
 import com.hcctech.bookshelf.services.RegisterService;
 import com.hcctech.bookshelf.services.WebUserService;
 import com.hcctech.bookshelf.util.Md5;
+import com.hcctech.bookshelf.util.PEPHttpClient;
 
 import flex.messaging.FlexContext;
 import flex.messaging.FlexSession;
@@ -53,6 +54,10 @@ public class UserRegisterFlex {
 			bsWebUser.setWuId(userId);
 			bsWebUser = webUserService.loadWebUserById(bsWebUser);
 			if(StringUtils.isNotBlank(nickName)) {
+			    //如果人教社更新不成功直接则返回
+			    if(!PEPHttpClient.getInstance().update(bsWebUser.getWuEmail(), nickName, null, null)) {
+			        return "-1";
+			    }
 				bsWebUser.getBsUserInfo().setNickName(nickName);
 				webUserService.updateWebUser(bsWebUser);
 			}
@@ -65,6 +70,10 @@ public class UserRegisterFlex {
 					System.out.println("+++++密码不正确++++++");
 					return "500";
 				}
+				//如果人教社更新不成功直接则返回
+                if(!PEPHttpClient.getInstance().updatePwd(bsWebUser.getWuEmail(), pwd, oldPwd)) {
+                    return "-1";
+                }
 				bsWebUser.setWuPassword(pwd);
 				registerService.updatePassword(bsWebUser);
 			}

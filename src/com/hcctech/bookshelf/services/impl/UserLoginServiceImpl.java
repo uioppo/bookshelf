@@ -51,7 +51,16 @@ public class UserLoginServiceImpl implements UserLoginService{
 		if(values[0]==null || values[1]==null){
 			return null;
 		}
-		boolean istrue = PEPHttpClient.getInstance().login(values[0].toString(), null, values[1].toString());
+		//去人教社判断用户名密码是否正确，如果不正确直接返回
+		int pepUserId = -1;
+		if(values[0].toString().indexOf("@")!=-1) {
+		    pepUserId = PEPHttpClient.getInstance().chkUserPasswd(null, values[0].toString(), values[1].toString());
+		}else {
+		    pepUserId = PEPHttpClient.getInstance().chkUserPasswd( values[0].toString(),null, values[1].toString());
+		}
+		if(pepUserId==-1) {
+		    return null;
+		}
 		values[1] = Md5.getMD5Str(values[1].toString());
 		String hql = "FROM BsWebUser user where user.wuEmail = ? and user.wuPassword = ?";		
 		System.out.println(hql);
@@ -73,8 +82,8 @@ public class UserLoginServiceImpl implements UserLoginService{
 				bsWebUserDao.update(bsWebUser);
 			}
 		}else {//当数据库里没有人教社有的时候保存一下
-		    if(istrue) {//说明人教社平台有此用户
-//		        PEPHttpClient.getInstance().
+		    if(pepUserId>0) {//说明人教社平台有此用户
+		        PEPHttpClient.getInstance().createUser(pepUserId, registerService);
 //		        registerService.registerWebUser(bsWebUser);
 	        }
 			return null;
