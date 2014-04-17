@@ -115,8 +115,9 @@ public class PEPHttpClient {
         return -1;
     }
 	
-	public void createUser(int pepUserId,RegisterService registerService) {
+	public BsWebUser createUser(int pepUserId,RegisterService registerService) {
 	    //得到人教社用户信息
+	    BsWebUser bsWebUser  = null;
         Map parameters = new HashMap();
         parameters.put("authKey", AUTHKEY);
         parameters.put("pepact", "info");
@@ -124,7 +125,7 @@ public class PEPHttpClient {
         JSONObject obj2 =  post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
         if(obj2.get("errno").equals("1701")) {//成功
             //保存到数据库
-            BsWebUser bsWebUser = new BsWebUser();
+            bsWebUser = new BsWebUser();
             bsWebUser.setWuRegTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
             bsWebUser.setLastLogin(bsWebUser.getWuRegTime() );
             bsWebUser.setWuActivestatus(Integer.valueOf(obj2.get("email_activity").toString()));
@@ -137,6 +138,7 @@ public class PEPHttpClient {
             bsWebUser.setBsUserInfo(info);
             registerService.registerWebUser(bsWebUser);
         }
+        return bsWebUser;
     }
 	
 	
@@ -223,6 +225,7 @@ public class PEPHttpClient {
 //		JSONObject obj2=(JSONObject)JSONValue.parse(body);
 //		return new TempRet(obj2.get("errno").toString(),obj2.get("errmsg").toString());
 //		return body;
+		System.out.println(parameters+"|"+StringEscapeUtils.unescapeJava(body));
 		return (JSONObject)JSONValue.parse(body);
 	}
 	

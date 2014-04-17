@@ -82,11 +82,12 @@ public class UserLoginServiceImpl implements UserLoginService{
 				bsWebUserDao.update(bsWebUser);
 			}
 		}else {//当数据库里没有人教社有的时候保存一下
+		    if(pepUserId == -1) {
+		        return null;
+		    }
 		    if(pepUserId>0) {//说明人教社平台有此用户
-		        PEPHttpClient.getInstance().createUser(pepUserId, registerService);
-//		        registerService.registerWebUser(bsWebUser);
+		        bsWebUser = PEPHttpClient.getInstance().createUser(pepUserId, registerService);
 	        }
-			return null;
 		}
 		bsWebUser.setBsLicenseKeies(null);
 		bsWebUser.setBsMybooks(null);
