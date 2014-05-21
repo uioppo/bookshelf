@@ -2,16 +2,18 @@ package com.hcctech.bookshelf.services.impl;
 
 import java.sql.Timestamp;
 import java.util.Date;
-
 import com.hcctech.bookshelf.dao.BsWebUserDao;
 import com.hcctech.bookshelf.pojo.BsUserInfo;
 import com.hcctech.bookshelf.pojo.BsWebUser;
+import com.hcctech.bookshelf.services.RegisterService;
 import com.hcctech.bookshelf.services.UserLoginService;
 import com.hcctech.bookshelf.util.Md5;
+import com.hcctech.bookshelf.util.PEPHttpClient;
 
 public class UserLoginServiceImpl implements UserLoginService{
 	
 	private BsWebUserDao bsWebUserDao ;
+	private RegisterService registerService;
 	
 	/**
 	 * 登录
@@ -49,6 +51,16 @@ public class UserLoginServiceImpl implements UserLoginService{
 		if(values[0]==null || values[1]==null){
 			return null;
 		}
+		//去人教社判断用户名密码是否正确，如果不正确直接返回
+		int pepUserId = -1;
+		if(values[0].toString().indexOf("@")!=-1) {
+		    pepUserId = PEPHttpClient.getInstance().chkUserPasswd(null, values[0].toString(), values[1].toString());
+		}else {
+		    pepUserId = PEPHttpClient.getInstance().chkUserPasswd( values[0].toString(),null, values[1].toString());
+		}
+		if(pepUserId==-1) {
+		    return null;
+		}
 		values[1] = Md5.getMD5Str(values[1].toString());
 		String hql = "FROM BsWebUser user where user.wuEmail = ? and user.wuPassword = ?";		
 		System.out.println(hql);
@@ -69,8 +81,13 @@ public class UserLoginServiceImpl implements UserLoginService{
 				bsWebUser.setLastLogin(lastLogin);
 				bsWebUserDao.update(bsWebUser);
 			}
-		}else {
-			return null;
+		}else {//当数据库里没有人教社有的时候保存一下
+		    if(pepUserId == -1) {
+		        return null;
+		    }
+		    if(pepUserId>0) {//说明人教社平台有此用户
+		        bsWebUser = PEPHttpClient.getInstance().createUser(pepUserId, registerService);
+	        }
 		}
 		bsWebUser.setBsLicenseKeies(null);
 		bsWebUser.setBsMybooks(null);
@@ -105,6 +122,24 @@ public class UserLoginServiceImpl implements UserLoginService{
 	public void setBsWebUserDao(BsWebUserDao bsWebUserDao) {
 		this.bsWebUserDao = bsWebUserDao;
 	}
+
+    /**
+     * 获取 registerService
+     * 
+     */
+    public RegisterService getRegisterService()
+    {
+        return registerService;
+    }
+
+    /**
+     * 设置 registerService
+     * 
+     */
+    public void setRegisterService(RegisterService registerService)
+    {
+        this.registerService = registerService;
+    }
 
 	
 	
