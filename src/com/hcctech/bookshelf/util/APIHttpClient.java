@@ -48,6 +48,12 @@ public class APIHttpClient {
 
 		}
 	}
+	
+	public static void main(String[] args) {
+		APIHttpClient client = new APIHttpClient("https://124.193.104.12/passport.php");
+		String str = client.post("{\"pepact\":\"reg\",\"uname\":\"test\",\"email\":\"test_yangxf@pep.com.cn\",\"passwd\":\"12345678\"}");
+		System.out.println(str);
+	}
 
 	/**
 	 * 调用 API
@@ -73,7 +79,7 @@ public class APIHttpClient {
 				logger.info("statusCode:" + statusCode);
 				logger.info("调用API 花费时间(单位：毫秒)：" + (endTime - startTime));
 				if (statusCode != HttpStatus.SC_OK) {
-					logger.error("Method failed:" + response.getStatusLine());
+//					logger.error("Method failed:" + response.getStatusLine());
 					status = 1;
 				}
 
@@ -83,6 +89,7 @@ public class APIHttpClient {
 			} catch (IOException e) {
 				// 发生网络异常
 				logger.error("exception occurred!\n" + ExceptionUtils.getFullStackTrace(e));
+//				e.printStackTrace();
 				// 网络错误
 				status = 3;
 			} finally {
