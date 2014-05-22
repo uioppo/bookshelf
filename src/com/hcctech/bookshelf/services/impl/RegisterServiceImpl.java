@@ -174,7 +174,8 @@ public class RegisterServiceImpl implements RegisterService{
 			bsWebUser.setWuUserName(bsWebUser.getWuEmail());
 			bsWebUser.setWuPassword(Md5.getMD5Str(bsWebUser.getWuPassword()));
 			bsWebUser.setWuToken(token);
-			bsWebUser.setWuActivestatus(0);
+			if(bsWebUser.getWuActivestatus() != 1)
+			    bsWebUser.setWuActivestatus(0);
 			bsWebUser.setWuRegTime(new Timestamp(System.currentTimeMillis()));
 			BsUserInfo bsUserInfo = new BsUserInfo();
 			bsWebUserDao.save(bsUserInfo);

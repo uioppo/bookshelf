@@ -71,12 +71,13 @@ public class PEPHttpClient {
 	public static void main(String[] args)
     {
 //        TempRet str = PEPHttpClient.getInstance().post(DomainUtil.getPepPlatformUrl(),"{\"authKey\":\"821f03288846297c2cf43c34766a38f7\",\"pepact\":\"reg\",\"uname\":\"test_yangxf\",\"email\":\"test_yangxf@pep.com.cn\",\"passwd\":\"123,45678\"}");
-	    BsWebUser user = new BsWebUser();
-	    user.setWuEmail("test_yangxf@pep.com.cn");
-	    user.setWuPassword("1,23445kdkd");
-	    user.setWuUserName("test_yangxf");
-	    
-        System.out.println(StringEscapeUtils.unescapeJava(PEPHttpClient.getInstance().registerToPep(user)));
+//	    BsWebUser user = new BsWebUser();
+//	    user.setWuEmail("zhaiyb@pep.com.cn");
+//	    user.setWuPassword("qwe123fgh");
+//	    user.setWuUserName("test_yangxf");
+//	    
+//        System.out.println(StringEscapeUtils.unescapeJava(PEPHttpClient.getInstance().registerToPep(user)));
+	    System.out.println(StringEscapeUtils.unescapeJava(String.valueOf(PEPHttpClient.getInstance().chkUserPasswd(null, "zhaiyb@pep.com.cn", "qwe123fgh"))));
     }
 	
 	public String registerToPep(BsWebUser bsWebUser) {
@@ -94,7 +95,7 @@ public class PEPHttpClient {
 	    }
 	    
 	    JSONObject obj2 = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        if(obj2.get("errno").equals("1001")) {//成功
+        if(obj2.get("errno").toString().equals("1001")) {//成功
 	        return "0";
 	    }
 	    return obj2.get("errmsg").toString();
@@ -109,13 +110,13 @@ public class PEPHttpClient {
         parameters.put("uname", uname);
         parameters.put("passwd",passwd);
         JSONObject obj2 =  post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        if(obj2.get("errno").equals("1320")) {//成功
+        if(obj2.get("errno").toString().equals("1320")) {//成功
             return Integer.valueOf(obj2.get("userId").toString());
         }
         return -1;
     }
 	
-	public BsWebUser createUser(int pepUserId,RegisterService registerService) {
+	public BsWebUser createUser(int pepUserId,String pwd,RegisterService registerService) {
 	    //得到人教社用户信息
 	    BsWebUser bsWebUser  = null;
         Map parameters = new HashMap();
@@ -123,9 +124,10 @@ public class PEPHttpClient {
         parameters.put("pepact", "info");
         parameters.put("userId", pepUserId);
         JSONObject obj2 =  post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        if(obj2.get("errno").equals("1701")) {//成功
+        if(obj2.get("errno").toString().equals("1701")) {//成功
             //保存到数据库
             bsWebUser = new BsWebUser();
+            bsWebUser.setWuPassword(pwd);
             bsWebUser.setWuRegTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
             bsWebUser.setLastLogin(bsWebUser.getWuRegTime() );
             bsWebUser.setWuActivestatus(Integer.valueOf(obj2.get("email_activity").toString()));
@@ -136,6 +138,7 @@ public class PEPHttpClient {
             info.setRealName(obj2.get("realName").toString());
             info.setMobile(obj2.get("mobilephone").toString());
             bsWebUser.setBsUserInfo(info);
+            bsWebUser.setWuActivestatus(1) ;
             registerService.registerWebUser(bsWebUser);
         }
         return bsWebUser;
@@ -155,7 +158,7 @@ public class PEPHttpClient {
         if(mobilephone!=null && !mobilephone.equals(""))
         parameters.put("mobilephone",mobilephone);
         JSONObject obj2 = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        if(obj2.get("errno").equals("1101")) {//成功
+        if(obj2.get("errno").toString().equals("1101")) {//成功
             return true;
         }
         return false;
@@ -172,7 +175,7 @@ public class PEPHttpClient {
         parameters.put("passwd", passwd);
         parameters.put("passwdNew", passwdNew);
         JSONObject obj2 = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
-        if(obj2.get("errno").equals("1101")) {//成功
+        if(obj2.get("errno").toString().equals("1101")) {//成功
             return true;
         }
         return false;

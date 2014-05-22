@@ -12,6 +12,7 @@
 		class="com.hcctech.bookshelf.services.impl.UserLoginServiceImpl"
 		scope="singleton">
 		<property name="bsWebUserDao" ref="bsWebUserDao"></property>
+		<property name="registerService" ref="registerService"></property>
 	</bean>
 	<bean name="registerService"
 		class="com.hcctech.bookshelf.services.impl.RegisterServiceImpl" scope="singleton">

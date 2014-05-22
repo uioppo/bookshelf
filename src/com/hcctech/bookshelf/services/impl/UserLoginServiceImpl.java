@@ -86,7 +86,7 @@ public class UserLoginServiceImpl implements UserLoginService{
 		        return null;
 		    }
 		    if(pepUserId>0) {//说明人教社平台有此用户
-		        bsWebUser = PEPHttpClient.getInstance().createUser(pepUserId, registerService);
+		        bsWebUser = PEPHttpClient.getInstance().createUser(pepUserId,values[1].toString(), registerService);
 	        }
 		}
 		bsWebUser.setBsLicenseKeies(null);
