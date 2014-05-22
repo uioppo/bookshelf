@@ -177,7 +177,8 @@ public class RegisterServiceImpl implements RegisterService{
 			if(bsWebUser.getWuActivestatus() != 1)
 			    bsWebUser.setWuActivestatus(0);
 			bsWebUser.setWuRegTime(new Timestamp(System.currentTimeMillis()));
-			BsUserInfo bsUserInfo = new BsUserInfo();
+			BsUserInfo bsUserInfo = bsWebUser.getBsUserInfo();
+			if(bsUserInfo==null) bsUserInfo = new BsUserInfo();
 			bsWebUserDao.save(bsUserInfo);
 			bsWebUser.setBsUserInfo(bsUserInfo);
 			bsWebUserDao.save(bsWebUser);
