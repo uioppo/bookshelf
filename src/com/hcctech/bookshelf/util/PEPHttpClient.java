@@ -189,7 +189,7 @@ public class PEPHttpClient {
 	private JSONObject post(String url ,String parameters) {
 	    HttpPost method = new HttpPost(url);
 		String body = null;
-		logger.info("parameters:" + parameters);
+//		logger.info("parameters:" + parameters);
 		int status = 0;
 		if (method != null && parameters != null && !"".equals(parameters.trim())) {
 			try {

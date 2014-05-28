@@ -16,6 +16,8 @@ import com.hcctech.bookshelf.util.PEPHttpClient;
 import com.hcctech.bookshelf.util.DomainUtil;
 import com.hcctech.bookshelf.util.Md5;
 import com.hcctech.bookshelf.util.ThirdVelocityEmailUtil;
+import flex.messaging.FlexContext;
+import flex.messaging.FlexSession;
 
 /**
  * @author apple
@@ -154,7 +156,16 @@ public class RegisterServiceImpl implements RegisterService{
 	 * @see com.hcctech.bookshelf.services.RegisterService#registerWebUser(com.hcctech.bookshelf.pojo.BsWebUser)
 	 */
 	public int registerWebUser(BsWebUser bsWebUser) {
-		HttpServletRequest request = ServletActionContext.getRequest();
+	    
+		HttpServletRequest request = null;
+		try {
+		        request = ServletActionContext.getRequest();
+		}catch(Exception e){
+		    //e.printStackTrace();
+		}
+		if(request==null) {
+		    request = FlexContext.getHttpRequest();
+		}
 		int flag=0;
 		if(bsWebUser==null||bsWebUser.getWuEmail()==null||"".equals(bsWebUser.getWuEmail())){
 			return flag;

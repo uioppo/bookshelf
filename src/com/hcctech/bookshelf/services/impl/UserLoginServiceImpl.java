@@ -61,10 +61,10 @@ public class UserLoginServiceImpl implements UserLoginService{
 		if(pepUserId==-1) {
 		    return null;
 		}
-		values[1] = Md5.getMD5Str(values[1].toString());
+//		values[1] = Md5.getMD5Str(values[1].toString());
 		String hql = "FROM BsWebUser user where user.wuEmail = ? and user.wuPassword = ?";		
 		System.out.println(hql);
-		BsWebUser bsWebUser= bsWebUserDao.findUniqueByHql(hql, values);
+		BsWebUser bsWebUser= bsWebUserDao.findUniqueByHql(hql, values[0],Md5.getMD5Str(values[1].toString()));
 		System.out.println("obj="+bsWebUser);
 		if(bsWebUser != null) {
 			if(bsWebUser.getWuActivestatus() == 3) {		//如果锁定
