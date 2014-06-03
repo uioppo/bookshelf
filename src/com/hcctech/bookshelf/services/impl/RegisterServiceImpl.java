@@ -223,6 +223,9 @@ public class RegisterServiceImpl implements RegisterService{
 		  //如果本地用户不重复，去注册人教平台，如果成功就记录数据库，如果失败则返回错误
             String ret = PEPHttpClient.getInstance().registerToPep(bsWebUser);
             if(!ret.equals("0")) {
+                if(ret.equals("502")) {
+                    return 502;
+                }
                 return flag;
             }
 			flag=1;

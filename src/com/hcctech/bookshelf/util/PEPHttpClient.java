@@ -97,8 +97,11 @@ public class PEPHttpClient {
 	    JSONObject obj2 = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
         if(obj2.get("errno").toString().equals("1001")) {//成功
 	        return "0";
+	    }else if(obj2.get("errno").toString().equals("1002") || obj2.get("errno").toString().equals("1003")){
+	        return "502";
 	    }
-	    return obj2.get("errmsg").toString();
+        System.out.println(obj2.get("errmsg").toString());
+	    return obj2.get("errno").toString();
 	}
 	
 	public int chkUserPasswd(String uname,String email,String passwd) {
@@ -164,16 +167,16 @@ public class PEPHttpClient {
         return false;
     }
 	
-	public boolean updatePwd(String email,String passwd,String passwdNew) {
+	public boolean updatePwd(String email,String passwd,String oldPwd) {
         Map parameters = new HashMap();
         
         parameters.put("authKey", AUTHKEY);
         parameters.put("pepact", "updatePasswdByEmail");
         parameters.put("email", email);
-        if(passwd==null || passwd.equals("") || passwdNew==null || passwdNew.equals(""))
+        if(passwd==null || passwd.equals("") || oldPwd==null || oldPwd.equals(""))
             return false;
-        parameters.put("passwd", passwd);
-        parameters.put("passwdNew", passwdNew);
+        parameters.put("passwd",oldPwd );
+        parameters.put("passwdNew",passwd );
         JSONObject obj2 = post(DomainUtil.getPepPlatformUrl(),JSONValue.toJSONString(parameters));
         if(obj2.get("errno").toString().equals("1101")) {//成功
             return true;
